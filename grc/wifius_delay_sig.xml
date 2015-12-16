@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<block>
+  <name>Delay Signal</name>
+  <key>wifius_delay_sig</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <make>wifius.delay_sig($vlen)</make>
+
+  <param>
+    <name>Vec Length</name>
+    <key>vlen</key>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>Delay</name>
+    <type>int</type>
+  </sink>
+
+  <sink>
+    <name>Signal</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </source>
+
+</block>
