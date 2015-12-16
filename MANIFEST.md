@@ -1,16 +1,16 @@
 title: The WIFIUS OOT Module
-brief: Short description of gr-wifius
-tags: # Tags are arbitrary, but look at CGRAN what other authors are using
+brief: DoA USRP Testbed
+tags:
   - sdr
+  - doa
+  - usrp
 author:
-  - Author Name <authors@email.address>
+  - Author Name traviscollins@wpi.edu
 copyright_owner:
-  - Copyright Owner 1
+  - Travis F. Collins
 license:
-#repo: # Put the URL of the repository here, or leave blank for default
-#website: <module_website> # If you have a separate project website, put it here
-#icon: <icon_url> # Put a URL to a square image here that will be used as an icon on CGRAN
+#repo: https://github.com/WiLab/gr-wifius
+#website: http://www.wireless.wpi.edu
+#icon: https://avatars0.githubusercontent.com/u/5692359?v=3&s=200
 ---
-A longer, multi-line description of gr-wifius.
-You may use some *basic* Markdown here.
-If left empty, it will try to find a README file instead.
+DoA testbed for USRP devices, to be used for localization
