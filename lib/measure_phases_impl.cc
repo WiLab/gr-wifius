@@ -199,14 +199,9 @@ namespace gr {
 
         int numInputs = input_items.size(); // # Inputs
         int nitems = noutput_items*d_vlen; // # Samples
-        int frameSize = d_vlen;
-
+        int frameSize = d_vlen; // Vector size
 
         int *NewOffsets;
-        float *OffsetTally1 = new float[2*d_SamplesPerPeriodInt-1];
-        float *OffsetTally2 = new float[2*d_SamplesPerPeriodInt-1];
-        std::fill( OffsetTally1, OffsetTally1 + 2*d_SamplesPerPeriodInt-1, 0 );
-        std::fill( OffsetTally2, OffsetTally2 + 2*d_SamplesPerPeriodInt-1, 0 );
 
         // Cycle Through each frame
         int start = 0;
