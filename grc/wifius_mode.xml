@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<block>
+  <name>mode</name>
+  <key>wifius_mode</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <make>wifius.mode($minValue,$maxValue,$memSize,$enableLocking)</make>
+
+  <param>
+    <name>Min Value</name>
+    <key>minValue</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Max Value</name>
+    <key>maxValue</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Memory Size</name>
+    <key>memSize</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Allow Locking</name>
+    <key>enableLocking</key>
+    <type>bool</type>
+    <option>
+      <name>Enabled</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>Disabled</name>
+      <key>False</key>
+    </option>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>int</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>int</type>
+  </source>
+</block>

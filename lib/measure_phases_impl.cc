@@ -30,6 +30,8 @@
 
 #define PI 3.14159265359
 
+//typedef std::vector< boost::tuple<int, int> > TupVec
+
 namespace gr {
   namespace wifius {
 
@@ -45,24 +47,25 @@ namespace gr {
      */
     measure_phases_impl::measure_phases_impl(float SampleRate, float CalibrationToneFrequency, int UpdatePeriod, size_t vlen)
       : sync_block("measure_phases",
-              gr::io_signature::make(3, 3, sizeof(float)*vlen),
-              gr::io_signature::make(3, 3, sizeof(float)*vlen)),
-	d_vlen(vlen),
-	d_SampleRate(SampleRate),
-  d_ToneFreq(CalibrationToneFrequency),
-  d_HaveBeenDelayed(false),
-  d_lastUpdate(0)
-  {
-    // Samples needed to capture peaks
-    d_SamplesPerPeriod = d_SampleRate/d_ToneFreq;
-    d_SamplesPerRadian = 2*PI/d_SamplesPerPeriod;
-    d_SamplesNeeded = ceil((int) d_SamplesPerPeriod);
+              gr::io_signature::make(2, -1, sizeof(float)*vlen),
+              gr::io_signature::make(2, -1, sizeof(int)*vlen)),
+	  d_vlen(vlen),
+	  d_SampleRate(SampleRate),
+    d_ToneFreq(CalibrationToneFrequency),
+    d_HaveBeenDelayed(false),
+    d_lastUpdate(0),
+    d_UpdatePeriod(UpdatePeriod)
+    {
+      // Samples needed to capture peaks
+      d_SamplesPerPeriod = d_SampleRate/d_ToneFreq;
+      d_SamplesPerRadian = 2*PI/d_SamplesPerPeriod;
+      d_SamplesPerPeriodInt = (int) d_SamplesPerPeriod;
+      d_SamplesInTwoPeriods = ceil((int) d_SamplesPerPeriod*2);
 
-    d_Delays = new int[3];
+      d_Delays = new int[3];
+      d_Delays[0]=0;d_Delays[1]=0;d_Delays[2]=0;
 
-    d_UpdatePeriod = UpdatePeriod;
-
-  }
+    }
 
     /*
      * Our virtual destructor.
@@ -71,6 +74,9 @@ namespace gr {
     {
     }
 
+    /*
+     * Support Functions
+     */
     int
     measure_phases_impl::GetPeak(float *signal, int &start, int &signalLength)
     {
@@ -85,23 +91,36 @@ namespace gr {
       return largestIndex;
     }
 
-    float
-    measure_phases_impl::GetPhaseDiff(int &distance)
+    TupVec
+    measure_phases_impl::GetAllPeaks(gr_vector_const_void_star &input_items, int &numInputs, int &start)
     {
-      // Fix > 2pi offset
-      distance = distance % d_SamplesNeeded;
+      // Each signal will have two peaks, since we are looking at two periods
+      TupVec peakIndexes;
+      int p1,p2;
 
-      float differenceInRadians = ((float) distance) * d_SamplesPerRadian;
+      int onePeriod = ceil(d_SamplesInTwoPeriods/2);
+      int startPeriodTwo = start + onePeriod;
 
-      // Unrwap //FIXME
-      // if (distance < 0)
-      //   differenceInRadians = differenceInRadians+2*PI;
+      // Get others
+      for (int input=0; input< numInputs; input++)
+      {
+        // Get first peak of signal
+        p1 = GetPeak( (float *)input_items[input], start, onePeriod);
 
-      return differenceInRadians;
+        // Get second peak of signal
+        p2 = GetPeak( (float *)input_items[input], startPeriodTwo, onePeriod);
+
+        // Save to vector
+        peakIndexes.push_back(boost::make_tuple(p1,p2));
+
+      }
+
+      return peakIndexes;
+
     }
 
     int*
-    measure_phases_impl::DetermineCasualOffsets(int *positions, int &numInputs)
+    measure_phases_impl::DetermineCasualOffsets(TupVec positions, int &numInputs)
     {
       // Delay signals
       // Since the system is casual and we use the first input as a reference,
@@ -109,38 +128,68 @@ namespace gr {
       // delaying the reference signal
 
       int *NewOffsets = new int[numInputs];
+      int p1,p2;
 
-      // // Find most delayed signal
-      // int mostDelayedInput = 0;
-      // for (int i=0; i<numInputs; i++)
-      // {
-      //   if (positions[i]>positions[mostDelayedInput])
-      //     mostDelayedInput = i;
-      // }
-      // // Adjust offsets to sync them relative to the most delayed signal
-      // for (int i=0; i<numInputs; i++)
-      // {
-      //   if (i==mostDelayedInput)
-      //   {
-      //     NewOffsets[i] = 0;
-      //   }
-      //   else
-      //   {
-      //     NewOffsets[i] = positions[mostDelayedInput] - positions[i];
-      //   }
-      // }
+      // Get first peak only for reference
+      int ref = boost::get<0>(positions[0]); NewOffsets[0] = 0;
 
-      // Assume input 0 if fixed or the reference
-      NewOffsets[0] = 0;
-      for (int i=1; i<numInputs; i++)
+      // Assuming input 0 is the reference
+      for (int input=1; input<numInputs; input++)
       {
-        NewOffsets[i] = positions[0] - positions[i];
+        // Determine closer peak
+        p1 = boost::get<0>(positions[input]);
+        p2 = boost::get<1>(positions[input]);
+
+        // Set offset based on closer peak
+        if (abs(ref-p1)<abs(ref-p2))
+        { // p1 closer
+          NewOffsets[input] = (ref-p1)%d_SamplesPerPeriodInt;
+        }
+        else
+        { // p2 closer
+          NewOffsets[input] = (ref-p2)%d_SamplesPerPeriodInt;
+        }
+
       }
 
       return NewOffsets;
 
     }
 
+    int*
+    measure_phases_impl::UpdateDelays(gr_vector_const_void_star &input_items, int &numInputs, int &start)
+    {
+
+      TupVec peakPositions;// 2 peaks per input
+      int *NewOffsets;
+
+      // Update delays to make them casual
+      if (!d_HaveBeenDelayed)
+      {
+        // Get all peak locations for all inputs
+        peakPositions = GetAllPeaks( input_items, numInputs, start );
+
+        // Update delays to make them casual
+        NewOffsets = DetermineCasualOffsets(peakPositions, numInputs);
+
+        d_Delays = new int[numInputs];
+        d_Delays = NewOffsets; // Update history
+        d_HaveBeenDelayed = true && (d_UpdatePeriod>0);
+      }
+      else
+      {
+        // Reset Update Period
+        if (d_lastUpdate>d_UpdatePeriod)
+        {
+          d_lastUpdate = 0;
+          d_HaveBeenDelayed = false;
+        }
+        else// Increment counter
+          d_lastUpdate++;
+
+      }
+      return d_Delays;
+    }
 
     int
     measure_phases_impl::work (int noutput_items,
@@ -152,8 +201,12 @@ namespace gr {
         int nitems = noutput_items*d_vlen; // # Samples
         int frameSize = d_vlen;
 
-        int peakPositions[input_items.size()];
+
         int *NewOffsets;
+        float *OffsetTally1 = new float[2*d_SamplesPerPeriodInt-1];
+        float *OffsetTally2 = new float[2*d_SamplesPerPeriodInt-1];
+        std::fill( OffsetTally1, OffsetTally1 + 2*d_SamplesPerPeriodInt-1, 0 );
+        std::fill( OffsetTally2, OffsetTally2 + 2*d_SamplesPerPeriodInt-1, 0 );
 
         // Cycle Through each frame
         int start = 0;
@@ -162,47 +215,20 @@ namespace gr {
           // Offset vector by frame
           start = vec*(d_vlen);
 
-          // Get others
-          for (int input=0; input< numInputs; input++)
-          {
-            // Get peak position of signal
-            peakPositions[input] = GetPeak( (float *)input_items[input], start, frameSize);
+          // Measure new offsets and adjust accordingly
+          NewOffsets = UpdateDelays(input_items, numInputs, start);
 
-            // Make sure we are only looking at a period worth of data
-            if (peakPositions[input]>d_SamplesNeeded)
-              peakPositions[input] = peakPositions[input] % d_SamplesNeeded;
-
-          }
-
-          // Update delays to make them casual
-          if (!d_HaveBeenDelayed)
-          {
-            NewOffsets = DetermineCasualOffsets(peakPositions, numInputs);
-            d_Delays = NewOffsets;
-            d_HaveBeenDelayed = true &&(d_UpdatePeriod>0);
-          }
-          else
-          {
-            if (d_lastUpdate>d_UpdatePeriod)
-            {
-              d_lastUpdate = 0;
-              d_HaveBeenDelayed = false;
-            }
-            else
-              d_lastUpdate++;
-
-            NewOffsets = d_Delays;
-          }
           // Send to outputs
           for (int input=0; input< numInputs; input++)
           {
             // Use same offset for all samples of frame
-            float *out = (float *) output_items[input];
+            int *out = (int *) output_items[input];
             for (int sample=0; sample < d_vlen; sample++)
-              out[start+sample] = (float) NewOffsets[input];
+              out[start+sample] = NewOffsets[input];
           }
 
         }// Next frame
+
 
         // Tell runtime system how many output items we produced.
         return noutput_items;

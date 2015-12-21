@@ -26,6 +26,9 @@
 namespace gr {
   namespace wifius {
 
+    // Type redefinitions
+    typedef std::vector< boost::tuple<int, int> > TupVec;
+
     class measure_phases_impl : public measure_phases
     {
      private:
@@ -33,18 +36,20 @@ namespace gr {
       float d_SampleRate;
       float d_ToneFreq;
       float d_SamplesPerRadian;
-      int d_SamplesNeeded;
+      int d_SamplesInTwoPeriods;
       float d_SamplesPerPeriod;
       int *d_Delays;
       bool d_HaveBeenDelayed;
       int d_lastUpdate;
       int d_UpdatePeriod;
+      int d_SamplesPerPeriodInt;
 
      public:
       // Additional prototypes
       int GetPeak(float *signal, int &start, int &signalLength);
-      float GetPhaseDiff(int &distance);
-      int* DetermineCasualOffsets(int *positions, int &numInputs);
+      TupVec GetAllPeaks(gr_vector_const_void_star &input_items, int &numInputs, int &start);
+      int* DetermineCasualOffsets(TupVec positions, int &numInputs);
+      int* UpdateDelays(gr_vector_const_void_star &input_items, int &numInputs, int &start);
 
       // Typical Declarations for GR blocks
       measure_phases_impl(float SampleRate, float CalibrationToneFrequency, int UpdatePeriod, size_t vlen);

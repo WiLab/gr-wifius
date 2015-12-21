@@ -75,7 +75,7 @@ namespace gr {
         set_history(d+1);
         declare_sample_delay(history()-1);
         d_delta += dly() - old;
-        //std::cout<<"New d_delta: "<<d_delta<<std::endl;
+        std::cout<<"New d_delta: "<<d_delta<<std::endl;
       }
     }
 
@@ -86,9 +86,13 @@ namespace gr {
                        gr_vector_void_star &output_items)
     {
       // Update d_delta
-      int* NewDelay = (int*) input_items[0];
-      int d = NewDelay[0]; // Take first delay only... for now
+      int* NewDelays = (int*) input_items[0];
+      int d = NewDelays[0]; // Take first delay only... for now
       set_dly(d);
+
+      // Please note that the delay is in size vlen*sizeof(input)
+      // Therefore if the input is a vector, the output is delayed
+      // in vector multiples
 
       const char *iptr;
       char *optr;

@@ -20,5 +20,6 @@
 install(FILES
     wifius_measure_phases.xml
     wifius_phase_offset.xml
-    wifius_delay_sig.xml DESTINATION share/gnuradio/grc/blocks
+    wifius_delay_sig.xml
+    wifius_mode.xml DESTINATION share/gnuradio/grc/blocks
 )

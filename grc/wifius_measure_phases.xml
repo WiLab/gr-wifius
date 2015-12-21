@@ -6,10 +6,10 @@
   <import>import wifius</import>
   <make>wifius.measure_phases($SampleRate, $CalibrationToneFrequency, $UpdatePeriod, $vlen)</make>
   <!-- Make one 'param' node for every Parameter you want settable from the GUI.
-       Sub-nodes:
-       * name
-       * key (makes the value accessible as $keyname, e.g. in the make node)
-       * type -->
+  Sub-nodes:
+  * name
+  * key (makes the value accessible as $keyname, e.g. in the make node)
+  * type -->
   <param>
     <name>Sample Rate</name>
     <key>SampleRate</key>
@@ -30,37 +30,26 @@
     <key>vlen</key>
     <type>int</type>
   </param>
+  <param>
+    <name>Num Ports</name>
+    <key>num_ports</key>
+    <value>1</value>
+    <type>int</type>
+  </param>
 
+  <check>$num_ports &gt; 1</check>
+  <check>$vlen &gt; 0</check>
   <sink>
-    <name>in1</name>
+    <name>in</name>
     <type>float</type>
     <vlen>$vlen</vlen>
+    <nports>$num_ports</nports>
   </sink>
-  <sink>
-    <name>in2</name>
-    <type>float</type>
-    <vlen>$vlen</vlen>
-  </sink>
-  <sink>
-    <name>in3</name>
-    <type>float</type>
-    <vlen>$vlen</vlen>
-  </sink>
-
   <source>
-    <name>out1</name>
-    <type>float</type>
+    <name>out</name>
+    <type>int</type>
     <vlen>$vlen</vlen>
-  </source>
-  <source>
-    <name>out2</name>
-    <type>float</type>
-    <vlen>$vlen</vlen>
-  </source>
-  <source>
-    <name>out3</name>
-    <type>float</type>
-    <vlen>$vlen</vlen>
+    <nports>$num_ports</nports>
   </source>
 
 </block>

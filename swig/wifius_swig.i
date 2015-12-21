@@ -11,6 +11,7 @@
 #include "wifius/measure_phases.h"
 #include "wifius/phase_offset.h"
 #include "wifius/delay_sig.h"
+#include "wifius/mode.h"
 %}
 
 
@@ -20,3 +21,5 @@ GR_SWIG_BLOCK_MAGIC2(wifius, measure_phases);
 GR_SWIG_BLOCK_MAGIC2(wifius, phase_offset);
 %include "wifius/delay_sig.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, delay_sig);
+%include "wifius/mode.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, mode);

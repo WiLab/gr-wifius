@@ -19,11 +19,10 @@
  */
 
 
-#ifndef INCLUDED_WIFIUS_MEASURE_PHASES_H
-#define INCLUDED_WIFIUS_MEASURE_PHASES_H
+#ifndef INCLUDED_WIFIUS_MODE_H
+#define INCLUDED_WIFIUS_MODE_H
 
 #include <wifius/api.h>
-//#include <gnuradio/block.h>
 #include <gnuradio/sync_block.h>
 
 namespace gr {
@@ -34,25 +33,23 @@ namespace gr {
      * \ingroup wifius
      *
      */
-    //class WIFIUS_API measure_phases : virtual public gr::block
-    class WIFIUS_API measure_phases : virtual public sync_block
+    class WIFIUS_API mode : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<measure_phases> sptr;
+      typedef boost::shared_ptr<mode> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of wifius::measure_phases.
+       * \brief Return a shared_ptr to a new instance of wifius::mode.
        *
-       * To avoid accidental use of raw pointers, wifius::measure_phases's
+       * To avoid accidental use of raw pointers, wifius::mode's
        * constructor is in a private implementation
-       * class. wifius::measure_phases::make is the public interface for
+       * class. wifius::mode::make is the public interface for
        * creating new instances.
        */
-      static sptr make(float SampleRate, float CalibrationToneFrequency, int UpdatePeriod, size_t vlen);
+      static sptr make(int minValue, int maxValue, int memSize, bool enableLocking);
     };
 
   } // namespace wifius
 } // namespace gr
 
-
-#endif /* INCLUDED_WIFIUS_MEASURE_PHASES_H */
+#endif /* INCLUDED_WIFIUS_MODE_H */

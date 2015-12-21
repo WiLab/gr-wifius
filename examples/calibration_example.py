@@ -4,7 +4,7 @@
 # Title: Calibration Example
 # Author: Travis Collins
 # Description: WiFiUS Project
-# Generated: Wed Dec 16 16:41:06 2015
+# Generated: Mon Dec 21 14:47:43 2015
 ##################################################
 
 if __name__ == '__main__':
@@ -65,9 +65,9 @@ class calibration_example(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.samp_rate = samp_rate = 1024000*2
-        self.gain_rx = gain_rx = 20
+        self.gain_rx = gain_rx = 10
         self.center_freq = center_freq = 2.4e9
-        self.cal_freq = cal_freq = 100
+        self.cal_freq = cal_freq = 1000
 
         ##################################################
         # Blocks
@@ -201,9 +201,10 @@ class calibration_example(gr.top_block, Qt.QWidget):
             input_var=0,
             samp_rate=samp_rate,
             skip=1024000*10,
-            updatePeriod=10000,
+            updatePeriod=1000,
         )
-        self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_float*1)
+        self.blocks_null_sink_0_0 = blocks.null_sink(gr.sizeof_float*1)
+        self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_int*1)
         self.blocks_complex_to_real_0_0_0 = blocks.complex_to_real(1)
         self.blocks_complex_to_real_0_0 = blocks.complex_to_real(1)
         self.blocks_complex_to_real_0 = blocks.complex_to_real(1)
@@ -219,6 +220,9 @@ class calibration_example(gr.top_block, Qt.QWidget):
         self.connect((self.measure_phases_0, 3), (self.blocks_null_sink_0, 0))    
         self.connect((self.measure_phases_0, 4), (self.blocks_null_sink_0, 1))    
         self.connect((self.measure_phases_0, 5), (self.blocks_null_sink_0, 2))    
+        self.connect((self.measure_phases_0, 0), (self.blocks_null_sink_0_0, 0))    
+        self.connect((self.measure_phases_0, 1), (self.blocks_null_sink_0_0, 1))    
+        self.connect((self.measure_phases_0, 2), (self.blocks_null_sink_0_0, 2))    
         self.connect((self.measure_phases_0, 0), (self.qtgui_time_sink_x_0_0, 0))    
         self.connect((self.measure_phases_0, 1), (self.qtgui_time_sink_x_0_0, 1))    
         self.connect((self.measure_phases_0, 2), (self.qtgui_time_sink_x_0_0, 2))    

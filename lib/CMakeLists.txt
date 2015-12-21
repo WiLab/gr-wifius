@@ -29,6 +29,7 @@ list(APPEND wifius_sources
     measure_phases_impl.cc
     phase_offset_impl.cc
     delay_sig_impl.cc
+    mode_impl.cc
 )
 
 set(wifius_sources "${wifius_sources}" PARENT_SCOPE)

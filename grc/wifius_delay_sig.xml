@@ -15,6 +15,7 @@
   <sink>
     <name>Delay</name>
     <type>int</type>
+    <vlen>$vlen</vlen>
   </sink>
 
   <sink>
