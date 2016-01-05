@@ -24,13 +24,12 @@ include(GrPlatform) #define LIB_SUFFIX
 
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
-
 list(APPEND wifius_sources
     measure_phases_impl.cc
     phase_offset_impl.cc
     delay_sig_impl.cc
     mode_impl.cc
-)
+    correct_input_impl.cc )
 
 set(wifius_sources "${wifius_sources}" PARENT_SCOPE)
 if(NOT wifius_sources)

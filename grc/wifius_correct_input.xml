@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<block>
+  <name>correct_input</name>
+  <key>wifius_correct_input</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <import>import pmt</import>
+  <make>wifius.correct_input($vlen)</make>
+
+  <callback>set_delay($msg)</callback>
+
+  <param>
+    <name>Vec Length</name>
+    <key>vlen</key>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>set_delay</name>
+    <type>message</type>
+  </sink>
+
+  <sink>
+    <name>Signal</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <vlen>$vlen</vlen>
+  </source>
+
+</block>

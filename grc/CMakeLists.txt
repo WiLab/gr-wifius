@@ -16,10 +16,10 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 install(FILES
     wifius_measure_phases.xml
     wifius_phase_offset.xml
     wifius_delay_sig.xml
-    wifius_mode.xml DESTINATION share/gnuradio/grc/blocks
+    wifius_mode.xml
+    wifius_correct_input.xml DESTINATION share/gnuradio/grc/blocks
 )

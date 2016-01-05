@@ -25,5 +25,6 @@ install(FILES
     measure_phases.h
     phase_offset.h
     delay_sig.h
-    mode.h DESTINATION include/wifius
+    mode.h
+    correct_input.h DESTINATION include/wifius
 )
