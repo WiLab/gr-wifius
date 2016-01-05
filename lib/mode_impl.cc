@@ -80,7 +80,7 @@ namespace gr {
       if (sum==array[mostCommonIndex])
       {
         d_MeasureLock = true;
-        std::cout<<"Locked Estimate\n";
+        //std::cout<<"Locked Estimate\n";
       }
 
       return mostCommonIndex;
@@ -103,8 +103,6 @@ namespace gr {
         // First d_memSize-1 samples are from the past
         for (int i=0; i<noutput_items; i++)
         {
-          if ((!d_MeasureLock) || (!d_enableLocking))
-          {
             // Make input 0->N, by biasing by minimum value
             arrayAbleIndex = in[i+d_memSize] - myMin;
             // if ((arrayAbleIndex<0)||(arrayAbleIndex>d_max-myMin))
@@ -114,18 +112,21 @@ namespace gr {
             d_array[arrayAbleIndex] = d_array[arrayAbleIndex] + 1;
 
             // Find most common index
-            mostCommonIndex = FindMode(d_array, arraySize);
-            mostCommonIndex = mostCommonIndex + myMin; // Unbias
-            d_SavedIndex = mostCommonIndex; // Save as current best value
+            if ((!d_MeasureLock) || (!d_enableLocking))
+            {
+              mostCommonIndex = FindMode(d_array, arraySize);//Intensive call
+              mostCommonIndex = mostCommonIndex + myMin; // Unbias
+              d_SavedIndex = mostCommonIndex; // Save as current best value
+
+	    }
+            else
+              mostCommonIndex = d_SavedIndex;
 
             // Remove oldest sample from tally
             indexToBeRemoved = in[i] - myMin;
             if (d_array[indexToBeRemoved]>0)// startup case
               d_array[indexToBeRemoved] = d_array[indexToBeRemoved] - 1;
 
-          }
-          else
-            mostCommonIndex = d_SavedIndex;
 
           // Output mode
           out[i] = mostCommonIndex;

@@ -4,7 +4,7 @@
 # Title: Calibration Example
 # Author: Travis Collins
 # Description: WiFiUS Project
-# Generated: Tue Jan  5 15:08:34 2016
+# Generated: Tue Jan  5 15:50:39 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -37,7 +37,7 @@ import sip
 import time
 
 
-class calibration_example(gr.top_block, Qt.QWidget):
+class calibration_example_gui(gr.top_block, Qt.QWidget):
 
     def __init__(self):
         gr.top_block.__init__(self, "Calibration Example")
@@ -59,7 +59,7 @@ class calibration_example(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "calibration_example")
+        self.settings = Qt.QSettings("GNU Radio", "calibration_example_gui")
         self.restoreGeometry(self.settings.value("geometry").toByteArray())
 
         ##################################################
@@ -271,7 +271,6 @@ class calibration_example(gr.top_block, Qt.QWidget):
             cal_tone_freq=cal_freq,
             samp_rate=samp_rate,
         )
-        self.blocks_null_sink_0 = blocks.null_sink(gr.sizeof_int*1)
         self.blocks_complex_to_real_0_2 = blocks.complex_to_real(1)
         self.blocks_complex_to_real_0_1 = blocks.complex_to_real(1)
         self.blocks_complex_to_real_0_0_2 = blocks.complex_to_real(1)
@@ -305,9 +304,6 @@ class calibration_example(gr.top_block, Qt.QWidget):
         self.connect((self.measure_phases_0, 2), (self.blocks_complex_to_real_0_0_0_0, 0))    
         self.connect((self.measure_phases_0, 1), (self.blocks_complex_to_real_0_0_1, 0))    
         self.connect((self.measure_phases_0, 0), (self.blocks_complex_to_real_0_1, 0))    
-        self.connect((self.measure_phases_0, 3), (self.blocks_null_sink_0, 0))    
-        self.connect((self.measure_phases_0, 4), (self.blocks_null_sink_0, 1))    
-        self.connect((self.measure_phases_0, 5), (self.blocks_null_sink_0, 2))    
         self.connect((self.uhd_usrp_source_0_0, 2), (self.blocks_complex_to_real_0_0_0_1, 0))    
         self.connect((self.uhd_usrp_source_0_0, 1), (self.blocks_complex_to_real_0_0_2, 0))    
         self.connect((self.uhd_usrp_source_0_0, 0), (self.blocks_complex_to_real_0_2, 0))    
@@ -316,7 +312,7 @@ class calibration_example(gr.top_block, Qt.QWidget):
         self.connect((self.uhd_usrp_source_0_0, 2), (self.correct_gains_hier_0, 2))    
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "calibration_example")
+        self.settings = Qt.QSettings("GNU Radio", "calibration_example_gui")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
@@ -370,7 +366,7 @@ if __name__ == '__main__':
     if StrictVersion(Qt.qVersion()) >= StrictVersion("4.5.0"):
         Qt.QApplication.setGraphicsSystem(gr.prefs().get_string('qtgui','style','raster'))
     qapp = Qt.QApplication(sys.argv)
-    tb = calibration_example()
+    tb = calibration_example_gui()
     tb.start()
     tb.show()
 

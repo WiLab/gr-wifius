@@ -94,6 +94,8 @@ namespace gr {
     TupVec
     measure_phases_impl::GetAllPeaks(gr_vector_const_void_star &input_items, int &numInputs, int &start)
     {
+      // This function determines the peaks of all input signals
+
       // Each signal will have two peaks, since we are looking at two periods
       TupVec peakIndexes;
       int p1,p2;
