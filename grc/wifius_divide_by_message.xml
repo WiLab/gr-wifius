@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<block>
+  <name>Divide By Message</name>
+  <key>wifius_divide_by_message</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <import>import pmt</import>
+  <make>wifius.divide_by_message()</make>
+
+  <callback>set_divisor($msg)</callback>
+
+  <sink>
+    <name>set_divisor</name>
+    <type>message</type>
+  </sink>
+
+  <sink>
+    <name>Signal</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+</block>

@@ -27,5 +27,6 @@ install(FILES
     delay_sig.h
     mode.h
     correct_input.h
-    int_to_message.h DESTINATION include/wifius
+    int_to_message.h
+    divide_by_message.h DESTINATION include/wifius
 )

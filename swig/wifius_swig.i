@@ -14,6 +14,7 @@
 #include "wifius/mode.h"
 #include "wifius/correct_input.h"
 #include "wifius/int_to_message.h"
+#include "wifius/divide_by_message.h"
 %}
 
 
@@ -31,3 +32,5 @@ GR_SWIG_BLOCK_MAGIC2(wifius, correct_input);
 
 %include "wifius/int_to_message.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, int_to_message);
+%include "wifius/divide_by_message.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, divide_by_message);
