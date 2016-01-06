@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<block>
+  <name>Int To Message</name>
+  <key>wifius_int_to_message</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <import>import pmt</import>
+  <make>wifius.int_to_message()</make>
+
+  <sink>
+    <name>In</name>
+    <type>int</type>
+  </sink>
+
+  <source>
+    <name>message</name>
+    <type>message</type>
+  </source>
+
+</block>

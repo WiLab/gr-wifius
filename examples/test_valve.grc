@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <?grc format='1' created='3.7.8'?>
 <flow_graph>
-  <timestamp>Tue Jan  5 16:29:14 2016</timestamp>
+  <timestamp>Wed Jan  6 10:36:17 2016</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -97,6 +97,105 @@
     </param>
   </block>
   <block>
+    <key>variable_qtgui_chooser</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(640, 98)</value>
+    </param>
+    <param>
+      <key>gui_hint</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>variable_qtgui_chooser_0</value>
+    </param>
+    <param>
+      <key>label0</key>
+      <value></value>
+    </param>
+    <param>
+      <key>label1</key>
+      <value></value>
+    </param>
+    <param>
+      <key>label2</key>
+      <value></value>
+    </param>
+    <param>
+      <key>label3</key>
+      <value></value>
+    </param>
+    <param>
+      <key>label4</key>
+      <value></value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>Valve</value>
+    </param>
+    <param>
+      <key>labels</key>
+      <value>[]</value>
+    </param>
+    <param>
+      <key>num_opts</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>option0</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>option1</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>option2</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>option3</key>
+      <value>3</value>
+    </param>
+    <param>
+      <key>option4</key>
+      <value>4</value>
+    </param>
+    <param>
+      <key>options</key>
+      <value>[0, 1, 2]</value>
+    </param>
+    <param>
+      <key>orient</key>
+      <value>Qt.QVBoxLayout</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
+    </param>
+    <param>
+      <key>widget</key>
+      <value>combo_box</value>
+    </param>
+  </block>
+  <block>
     <key>variable_qtgui_range</key>
     <param>
       <key>comment</key>
@@ -112,7 +211,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1072, 290)</value>
+      <value>(392, 58)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -128,7 +227,7 @@
     </param>
     <param>
       <key>label</key>
-      <value></value>
+      <value>Delay</value>
     </param>
     <param>
       <key>min_len</key>
@@ -152,11 +251,58 @@
     </param>
     <param>
       <key>rangeType</key>
-      <value>float</value>
+      <value>int</value>
     </param>
     <param>
       <key>widget</key>
       <value>counter_slider</value>
+    </param>
+  </block>
+  <block>
+    <key>analog_const_source_x</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>const</key>
+      <value>variable_qtgui_range_0</value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(152, 266)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>analog_const_source_x_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
     </param>
   </block>
   <block>
@@ -187,7 +333,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(352, 242)</value>
+      <value>(264, 378)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -223,7 +369,7 @@
     </param>
   </block>
   <block>
-    <key>blocks_message_strobe_random</key>
+    <key>blks2_valve</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -237,16 +383,12 @@
       <value></value>
     </param>
     <param>
-      <key>dist</key>
-      <value>blocks.STROBE_POISSON</value>
-    </param>
-    <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>True</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(488, 106)</value>
+      <value>(360, 266)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -254,27 +396,58 @@
     </param>
     <param>
       <key>id</key>
-      <value>blocks_message_strobe_random_0</value>
+      <value>blks2_valve_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
       <value>0</value>
     </param>
     <param>
-      <key>mean</key>
-      <value>1000</value>
-    </param>
-    <param>
-      <key>msg</key>
-      <value>pmt.from_double(variable_qtgui_range_0)</value>
-    </param>
-    <param>
       <key>minoutbuf</key>
       <value>0</value>
     </param>
     <param>
-      <key>std</key>
-      <value>1000</value>
+      <key>open</key>
+      <value>variable_qtgui_chooser_0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_message_debug</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1136, 217)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_message_debug_0</value>
     </param>
   </block>
   <block>
@@ -297,7 +470,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(544, 274)</value>
+      <value>(512, 418)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -333,7 +506,7 @@
     </param>
   </block>
   <block>
-    <key>foo_periodic_msg_source</key>
+    <key>blocks_throttle</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -347,16 +520,12 @@
       <value></value>
     </param>
     <param>
-      <key>debug</key>
-      <value>False</value>
-    </param>
-    <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>True</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(920, 104)</value>
+      <value>(488, 266)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -364,31 +533,31 @@
     </param>
     <param>
       <key>id</key>
-      <value>foo_periodic_msg_source_0</value>
+      <value>blocks_throttle_0_0</value>
+    </param>
+    <param>
+      <key>ignoretag</key>
+      <value>True</value>
     </param>
     <param>
       <key>maxoutbuf</key>
       <value>0</value>
     </param>
     <param>
-      <key>msg</key>
-      <value>pmt.from_double(100)</value>
-    </param>
-    <param>
       <key>minoutbuf</key>
       <value>0</value>
     </param>
     <param>
-      <key>num</key>
-      <value>-1</value>
+      <key>samples_per_second</key>
+      <value>samp_rate</value>
     </param>
     <param>
-      <key>interval</key>
-      <value>1000</value>
+      <key>type</key>
+      <value>int</value>
     </param>
     <param>
-      <key>quit</key>
-      <value>True</value>
+      <key>vlen</key>
+      <value>1</value>
     </param>
   </block>
   <block>
@@ -423,7 +592,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(792, 370)</value>
+      <value>(1072, 458)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -751,6 +920,45 @@
     </param>
   </block>
   <block>
+    <key>test_int_to_message_hier</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(888, 217)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>test_int_to_message_hier_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
     <key>wifius_correct_input</key>
     <param>
       <key>alias</key>
@@ -770,7 +978,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(760, 225)</value>
+      <value>(896, 353)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -793,6 +1001,51 @@
       <value>1</value>
     </param>
   </block>
+  <block>
+    <key>wifius_int_to_message</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(656, 273)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_int_to_message_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+  </block>
+  <connection>
+    <source_block_id>analog_const_source_x_0</source_block_id>
+    <sink_block_id>blks2_valve_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
   <connection>
     <source_block_id>analog_sig_source_x_0</source_block_id>
     <sink_block_id>blocks_throttle_0</sink_block_id>
@@ -800,10 +1053,10 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_message_strobe_random_0</source_block_id>
-    <sink_block_id>wifius_correct_input_0</sink_block_id>
-    <source_key>strobe</source_key>
-    <sink_key>set_delay</sink_key>
+    <source_block_id>blks2_valve_0</source_block_id>
+    <sink_block_id>blocks_throttle_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_throttle_0</source_block_id>
@@ -818,9 +1071,45 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>blocks_throttle_0_0</source_block_id>
+    <sink_block_id>test_int_to_message_hier_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_throttle_0_0</source_block_id>
+    <sink_block_id>test_int_to_message_hier_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_throttle_0_0</source_block_id>
+    <sink_block_id>wifius_int_to_message_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>test_int_to_message_hier_0</source_block_id>
+    <sink_block_id>blocks_message_debug_0</sink_block_id>
+    <source_key>out1</source_key>
+    <sink_key>print</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>test_int_to_message_hier_0</source_block_id>
+    <sink_block_id>wifius_correct_input_0</sink_block_id>
+    <source_key>out2</source_key>
+    <sink_key>set_delay</sink_key>
+  </connection>
+  <connection>
     <source_block_id>wifius_correct_input_0</source_block_id>
     <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>wifius_int_to_message_0</source_block_id>
+    <sink_block_id>wifius_correct_input_0</sink_block_id>
+    <source_key>message</source_key>
+    <sink_key>set_delay</sink_key>
   </connection>
 </flow_graph>

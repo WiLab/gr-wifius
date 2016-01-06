@@ -13,6 +13,7 @@
 #include "wifius/delay_sig.h"
 #include "wifius/mode.h"
 #include "wifius/correct_input.h"
+#include "wifius/int_to_message.h"
 %}
 
 
@@ -27,3 +28,6 @@ GR_SWIG_BLOCK_MAGIC2(wifius, mode);
 
 %include "wifius/correct_input.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, correct_input);
+
+%include "wifius/int_to_message.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, int_to_message);

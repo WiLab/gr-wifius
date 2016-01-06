@@ -46,3 +46,4 @@ GR_ADD_TEST(qa_phase_offset ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_
 GR_ADD_TEST(qa_delay_sig ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_delay_sig.py)
 GR_ADD_TEST(qa_mode ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_mode.py)
 GR_ADD_TEST(qa_correct_input ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_correct_input.py)
+GR_ADD_TEST(qa_int_to_message ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_int_to_message.py)

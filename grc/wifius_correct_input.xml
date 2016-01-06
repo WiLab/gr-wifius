@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>correct_input</name>
+  <name>Correct Input</name>
   <key>wifius_correct_input</key>
   <category>wifius</category>
   <import>import wifius</import>

@@ -21,5 +21,6 @@ install(FILES
     wifius_phase_offset.xml
     wifius_delay_sig.xml
     wifius_mode.xml
-    wifius_correct_input.xml DESTINATION share/gnuradio/grc/blocks
+    wifius_correct_input.xml
+    wifius_int_to_message.xml DESTINATION share/gnuradio/grc/blocks
 )

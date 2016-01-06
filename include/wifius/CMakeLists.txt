@@ -26,5 +26,6 @@ install(FILES
     phase_offset.h
     delay_sig.h
     mode.h
-    correct_input.h DESTINATION include/wifius
+    correct_input.h
+    int_to_message.h DESTINATION include/wifius
 )

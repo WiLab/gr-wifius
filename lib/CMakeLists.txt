@@ -29,7 +29,8 @@ list(APPEND wifius_sources
     phase_offset_impl.cc
     delay_sig_impl.cc
     mode_impl.cc
-    correct_input_impl.cc )
+    correct_input_impl.cc
+    int_to_message_impl.cc )
 
 set(wifius_sources "${wifius_sources}" PARENT_SCOPE)
 if(NOT wifius_sources)
