@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<block>
+  <name>find_scale_factor</name>
+  <key>wifius_find_scale_factor</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <import>import pmt</import>
+  <make>wifius.find_scale_factor($samp_rate,$cal_tone_freq)</make>
+
+  <param>
+    <name>Calibration Tone Frequency</name>
+    <key>cal_tone_freq</key>
+    <type>float</type>
+  </param>
+  <param>
+    <name>Sample Rate</name>
+    <key>samp_rate</key>
+    <type>float</type>
+  </param>
+
+  <sink>
+    <name>In</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>message</name>
+    <type>message</type>
+  </source>
+
+</block>

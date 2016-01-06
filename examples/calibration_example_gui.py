@@ -4,7 +4,7 @@
 # Title: Calibration Example
 # Author: Travis Collins
 # Description: WiFiUS Project
-# Generated: Wed Jan  6 11:53:38 2016
+# Generated: Wed Jan  6 17:21:17 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -33,12 +33,9 @@ from gnuradio import uhd
 from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
 from grc_gnuradio import blks2 as grc_blks2
-from measure_phases import measure_phases  # grc-generated hier_block
 from optparse import OptionParser
-import pmt
 import sip
 import time
-import wifius
 
 
 class calibration_example_gui(gr.top_block, Qt.QWidget):
@@ -100,6 +97,23 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self._variable_qtgui_chooser_0_0_button_group.buttonClicked[int].connect(
         	lambda i: self.set_variable_qtgui_chooser_0_0(self._variable_qtgui_chooser_0_0_options[i]))
         self.top_layout.addWidget(self._variable_qtgui_chooser_0_0_group_box)
+        self.tab = Qt.QTabWidget()
+        self.tab_widget_0 = Qt.QWidget()
+        self.tab_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_0)
+        self.tab_grid_layout_0 = Qt.QGridLayout()
+        self.tab_layout_0.addLayout(self.tab_grid_layout_0)
+        self.tab.addTab(self.tab_widget_0, "Input")
+        self.tab_widget_1 = Qt.QWidget()
+        self.tab_layout_1 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_1)
+        self.tab_grid_layout_1 = Qt.QGridLayout()
+        self.tab_layout_1.addLayout(self.tab_grid_layout_1)
+        self.tab.addTab(self.tab_widget_1, "Post Gain Correct")
+        self.tab_widget_2 = Qt.QWidget()
+        self.tab_layout_2 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_2)
+        self.tab_grid_layout_2 = Qt.QGridLayout()
+        self.tab_layout_2.addLayout(self.tab_grid_layout_2)
+        self.tab.addTab(self.tab_widget_2, "Post Phase Correct")
+        self.top_layout.addWidget(self.tab)
         self._variable_qtgui_chooser_0_options = (0, 1, )
         self._variable_qtgui_chooser_0_labels = ("Enable", "Disable", )
         self._variable_qtgui_chooser_0_group_box = Qt.QGroupBox("Synchronize (Do Not Renable)")
@@ -121,26 +135,6 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self._variable_qtgui_chooser_0_button_group.buttonClicked[int].connect(
         	lambda i: self.set_variable_qtgui_chooser_0(self._variable_qtgui_chooser_0_options[i]))
         self.top_layout.addWidget(self._variable_qtgui_chooser_0_group_box)
-        self.tab = Qt.QTabWidget()
-        self.tab_widget_0 = Qt.QWidget()
-        self.tab_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_0)
-        self.tab_grid_layout_0 = Qt.QGridLayout()
-        self.tab_layout_0.addLayout(self.tab_grid_layout_0)
-        self.tab.addTab(self.tab_widget_0, "Input")
-        self.tab_widget_1 = Qt.QWidget()
-        self.tab_layout_1 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_1)
-        self.tab_grid_layout_1 = Qt.QGridLayout()
-        self.tab_layout_1.addLayout(self.tab_grid_layout_1)
-        self.tab.addTab(self.tab_widget_1, "Post Gain Correct")
-        self.tab_widget_2 = Qt.QWidget()
-        self.tab_layout_2 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_2)
-        self.tab_grid_layout_2 = Qt.QGridLayout()
-        self.tab_layout_2.addLayout(self.tab_grid_layout_2)
-        self.tab.addTab(self.tab_widget_2, "Post Phase Correct")
-        self.top_layout.addWidget(self.tab)
-        self.wifius_correct_input_0_1 = wifius.correct_input(1)
-        self.wifius_correct_input_0_0 = wifius.correct_input(1)
-        self.wifius_correct_input_0 = wifius.correct_input(1)
         self.uhd_usrp_source_0_0 = uhd.usrp_source(
         	",".join(("addr0=192.168.30.2,addr1=192.168.70.2,addr2=192.168.20.2", "")),
         	uhd.stream_args(
@@ -219,52 +213,6 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         
         self._qtgui_time_sink_x_0_1_win = sip.wrapinstance(self.qtgui_time_sink_x_0_1.pyqwidget(), Qt.QWidget)
         self.tab_layout_0.addWidget(self._qtgui_time_sink_x_0_1_win)
-        self.qtgui_time_sink_x_0_0 = qtgui.time_sink_f(
-        	100, #size
-        	samp_rate, #samp_rate
-        	"Output Synced", #name
-        	3 #number of inputs
-        )
-        self.qtgui_time_sink_x_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0.set_y_axis(-1, 1)
-        
-        self.qtgui_time_sink_x_0_0.set_y_label("Amplitude", "")
-        
-        self.qtgui_time_sink_x_0_0.enable_tags(-1, True)
-        self.qtgui_time_sink_x_0_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0.enable_autoscale(True)
-        self.qtgui_time_sink_x_0_0.enable_grid(False)
-        self.qtgui_time_sink_x_0_0.enable_control_panel(True)
-        
-        if not True:
-          self.qtgui_time_sink_x_0_0.disable_legend()
-        
-        labels = ["", "", "", "", "",
-                  "", "", "", "", ""]
-        widths = [1, 1, 1, 1, 1,
-                  1, 1, 1, 1, 1]
-        colors = ["blue", "red", "green", "black", "cyan",
-                  "magenta", "yellow", "dark red", "dark green", "blue"]
-        styles = [1, 1, 1, 1, 1,
-                  1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-                   -1, -1, -1, -1, -1]
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-                  1.0, 1.0, 1.0, 1.0, 1.0]
-        
-        for i in xrange(3):
-            if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0_0.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_time_sink_x_0_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_0.set_line_alpha(i, alphas[i])
-        
-        self._qtgui_time_sink_x_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0.pyqwidget(), Qt.QWidget)
-        self.tab_layout_2.addWidget(self._qtgui_time_sink_x_0_0_win)
         self.qtgui_time_sink_x_0 = qtgui.time_sink_f(
         	100, #size
         	samp_rate, #samp_rate
@@ -311,24 +259,13 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         
         self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.pyqwidget(), Qt.QWidget)
         self.tab_layout_1.addWidget(self._qtgui_time_sink_x_0_win)
-        self.measure_phases_0 = measure_phases(
-            cal_tone_freq=cal_freq,
-            memSize=1024,
-            samp_rate=samp_rate,
-            skip=1024000*10,
-            stopEstimating=variable_qtgui_chooser_0,
-            updatePeriod=1000,
-        )
         self.correct_gains_hier_0 = correct_gains_hier(
             cal_tone_freq=cal_freq,
-            samp_rate=samp_rate,
+            samp_rate_0=samp_rate,
         )
         self.blocks_complex_to_real_0_2 = blocks.complex_to_real(1)
-        self.blocks_complex_to_real_0_1 = blocks.complex_to_real(1)
         self.blocks_complex_to_real_0_0_2 = blocks.complex_to_real(1)
-        self.blocks_complex_to_real_0_0_1 = blocks.complex_to_real(1)
         self.blocks_complex_to_real_0_0_0_1 = blocks.complex_to_real(1)
-        self.blocks_complex_to_real_0_0_0_0 = blocks.complex_to_real(1)
         self.blocks_complex_to_real_0_0_0 = blocks.complex_to_real(1)
         self.blocks_complex_to_real_0_0 = blocks.complex_to_real(1)
         self.blocks_complex_to_real_0 = blocks.complex_to_real(1)
@@ -338,38 +275,23 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.msg_connect((self.measure_phases_0, 'message0'), (self.wifius_correct_input_0, 'set_delay'))    
-        self.msg_connect((self.measure_phases_0, 'message2'), (self.wifius_correct_input_0_0, 'set_delay'))    
-        self.msg_connect((self.measure_phases_0, 'message1'), (self.wifius_correct_input_0_1, 'set_delay'))    
         self.connect((self.analog_sig_source_x_0, 0), (self.blks2_valve_0, 0))    
         self.connect((self.blks2_valve_0, 0), (self.uhd_usrp_sink_0_0, 0))    
         self.connect((self.blocks_complex_to_real_0, 0), (self.qtgui_time_sink_x_0, 0))    
         self.connect((self.blocks_complex_to_real_0_0, 0), (self.qtgui_time_sink_x_0, 1))    
         self.connect((self.blocks_complex_to_real_0_0_0, 0), (self.qtgui_time_sink_x_0, 2))    
-        self.connect((self.blocks_complex_to_real_0_0_0_0, 0), (self.qtgui_time_sink_x_0_0, 2))    
         self.connect((self.blocks_complex_to_real_0_0_0_1, 0), (self.qtgui_time_sink_x_0_1, 2))    
-        self.connect((self.blocks_complex_to_real_0_0_1, 0), (self.qtgui_time_sink_x_0_0, 1))    
         self.connect((self.blocks_complex_to_real_0_0_2, 0), (self.qtgui_time_sink_x_0_1, 1))    
-        self.connect((self.blocks_complex_to_real_0_1, 0), (self.qtgui_time_sink_x_0_0, 0))    
         self.connect((self.blocks_complex_to_real_0_2, 0), (self.qtgui_time_sink_x_0_1, 0))    
         self.connect((self.correct_gains_hier_0, 0), (self.blocks_complex_to_real_0, 0))    
         self.connect((self.correct_gains_hier_0, 1), (self.blocks_complex_to_real_0_0, 0))    
         self.connect((self.correct_gains_hier_0, 2), (self.blocks_complex_to_real_0_0_0, 0))    
-        self.connect((self.correct_gains_hier_0, 0), (self.measure_phases_0, 0))    
-        self.connect((self.correct_gains_hier_0, 1), (self.measure_phases_0, 1))    
-        self.connect((self.correct_gains_hier_0, 2), (self.measure_phases_0, 2))    
         self.connect((self.uhd_usrp_source_0_0, 2), (self.blocks_complex_to_real_0_0_0_1, 0))    
         self.connect((self.uhd_usrp_source_0_0, 1), (self.blocks_complex_to_real_0_0_2, 0))    
         self.connect((self.uhd_usrp_source_0_0, 0), (self.blocks_complex_to_real_0_2, 0))    
         self.connect((self.uhd_usrp_source_0_0, 0), (self.correct_gains_hier_0, 0))    
         self.connect((self.uhd_usrp_source_0_0, 1), (self.correct_gains_hier_0, 1))    
         self.connect((self.uhd_usrp_source_0_0, 2), (self.correct_gains_hier_0, 2))    
-        self.connect((self.uhd_usrp_source_0_0, 0), (self.wifius_correct_input_0, 0))    
-        self.connect((self.uhd_usrp_source_0_0, 2), (self.wifius_correct_input_0_0, 0))    
-        self.connect((self.uhd_usrp_source_0_0, 1), (self.wifius_correct_input_0_1, 0))    
-        self.connect((self.wifius_correct_input_0, 0), (self.blocks_complex_to_real_0_1, 0))    
-        self.connect((self.wifius_correct_input_0_0, 0), (self.blocks_complex_to_real_0_0_0_0, 0))    
-        self.connect((self.wifius_correct_input_0_1, 0), (self.blocks_complex_to_real_0_0_1, 0))    
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "calibration_example_gui")
@@ -390,7 +312,6 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
     def set_variable_qtgui_chooser_0(self, variable_qtgui_chooser_0):
         self.variable_qtgui_chooser_0 = variable_qtgui_chooser_0
         self._variable_qtgui_chooser_0_callback(self.variable_qtgui_chooser_0)
-        self.measure_phases_0.set_stopEstimating(self.variable_qtgui_chooser_0)
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -398,10 +319,8 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate)
-        self.correct_gains_hier_0.set_samp_rate(self.samp_rate)
-        self.measure_phases_0.set_samp_rate(self.samp_rate)
+        self.correct_gains_hier_0.set_samp_rate_0(self.samp_rate)
         self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
-        self.qtgui_time_sink_x_0_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_1.set_samp_rate(self.samp_rate)
         self.uhd_usrp_sink_0_0.set_samp_rate(self.samp_rate)
         self.uhd_usrp_source_0_0.set_samp_rate(self.samp_rate)
@@ -432,7 +351,6 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.cal_freq = cal_freq
         self.analog_sig_source_x_0.set_frequency(self.cal_freq)
         self.correct_gains_hier_0.set_cal_tone_freq(self.cal_freq)
-        self.measure_phases_0.set_cal_tone_freq(self.cal_freq)
 
 
 if __name__ == '__main__':

@@ -28,5 +28,6 @@ install(FILES
     mode.h
     correct_input.h
     int_to_message.h
-    divide_by_message.h DESTINATION include/wifius
+    divide_by_message.h
+    find_scale_factor.h DESTINATION include/wifius
 )

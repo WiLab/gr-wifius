@@ -18,34 +18,38 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_WIFIUS_DIVIDE_BY_MESSAGE_IMPL_H
-#define INCLUDED_WIFIUS_DIVIDE_BY_MESSAGE_IMPL_H
 
-#include <wifius/divide_by_message.h>
+#ifndef INCLUDED_WIFIUS_FIND_SCALE_FACTOR_H
+#define INCLUDED_WIFIUS_FIND_SCALE_FACTOR_H
+
+#include <wifius/api.h>
+#include <gnuradio/sync_block.h>
 
 namespace gr {
   namespace wifius {
 
-    class divide_by_message_impl : public divide_by_message
+    /*!
+     * \brief <+description of block+>
+     * \ingroup wifius
+     *
+     */
+    class WIFIUS_API find_scale_factor : virtual public gr::sync_block
     {
-     private:
-       gr_complex d_msgDivisor; // Updated each time a message is received
-       gr_complex d_currentDivisor; // Updated at start of each work call
-
      public:
-      divide_by_message_impl();
-      ~divide_by_message_impl();
+      typedef boost::shared_ptr<find_scale_factor> sptr;
 
-      // Custom functions
-      void set_divisor(pmt::pmt_t msg){d_msgDivisor = pmt::to_complex(msg);std::cout<<"New divisor\n";}
-
-      // Where all the action really happens
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
+      /*!
+       * \brief Return a shared_ptr to a new instance of wifius::find_scale_factor.
+       *
+       * To avoid accidental use of raw pointers, wifius::find_scale_factor's
+       * constructor is in a private implementation
+       * class. wifius::find_scale_factor::make is the public interface for
+       * creating new instances.
+       */
+      static sptr make(float samp_rate, float cal_tone_freq);
     };
 
   } // namespace wifius
 } // namespace gr
 
-#endif /* INCLUDED_WIFIUS_DIVIDE_BY_MESSAGE_IMPL_H */
+#endif /* INCLUDED_WIFIUS_FIND_SCALE_FACTOR_H */

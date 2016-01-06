@@ -15,6 +15,7 @@
 #include "wifius/correct_input.h"
 #include "wifius/int_to_message.h"
 #include "wifius/divide_by_message.h"
+#include "wifius/find_scale_factor.h"
 %}
 
 
@@ -34,3 +35,6 @@ GR_SWIG_BLOCK_MAGIC2(wifius, correct_input);
 GR_SWIG_BLOCK_MAGIC2(wifius, int_to_message);
 %include "wifius/divide_by_message.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, divide_by_message);
+
+%include "wifius/find_scale_factor.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, find_scale_factor);

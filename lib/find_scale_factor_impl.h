@@ -18,26 +18,24 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_WIFIUS_DIVIDE_BY_MESSAGE_IMPL_H
-#define INCLUDED_WIFIUS_DIVIDE_BY_MESSAGE_IMPL_H
+#ifndef INCLUDED_WIFIUS_FIND_SCALE_FACTOR_IMPL_H
+#define INCLUDED_WIFIUS_FIND_SCALE_FACTOR_IMPL_H
 
-#include <wifius/divide_by_message.h>
+#include <wifius/find_scale_factor.h>
 
 namespace gr {
   namespace wifius {
 
-    class divide_by_message_impl : public divide_by_message
+    class find_scale_factor_impl : public find_scale_factor
     {
      private:
-       gr_complex d_msgDivisor; // Updated each time a message is received
-       gr_complex d_currentDivisor; // Updated at start of each work call
+      int d_samplesPerPeriod;
 
      public:
-      divide_by_message_impl();
-      ~divide_by_message_impl();
+      find_scale_factor_impl(float samp_rate, float cal_tone_freq);
+      ~find_scale_factor_impl();
 
-      // Custom functions
-      void set_divisor(pmt::pmt_t msg){d_msgDivisor = pmt::to_complex(msg);std::cout<<"New divisor\n";}
+      int GetArgMax(float *input, int start, int signalLength);
 
       // Where all the action really happens
       int work(int noutput_items,
@@ -48,4 +46,4 @@ namespace gr {
   } // namespace wifius
 } // namespace gr
 
-#endif /* INCLUDED_WIFIUS_DIVIDE_BY_MESSAGE_IMPL_H */
+#endif /* INCLUDED_WIFIUS_FIND_SCALE_FACTOR_IMPL_H */

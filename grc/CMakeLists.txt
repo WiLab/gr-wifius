@@ -23,5 +23,6 @@ install(FILES
     wifius_mode.xml
     wifius_correct_input.xml
     wifius_int_to_message.xml
-    wifius_divide_by_message.xml DESTINATION share/gnuradio/grc/blocks
+    wifius_divide_by_message.xml
+    wifius_find_scale_factor.xml DESTINATION share/gnuradio/grc/blocks
 )

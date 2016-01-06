@@ -31,7 +31,8 @@ list(APPEND wifius_sources
     mode_impl.cc
     correct_input_impl.cc
     int_to_message_impl.cc
-    divide_by_message_impl.cc )
+    divide_by_message_impl.cc
+    find_scale_factor_impl.cc )
 
 set(wifius_sources "${wifius_sources}" PARENT_SCOPE)
 if(NOT wifius_sources)

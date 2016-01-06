@@ -42,7 +42,8 @@ namespace gr {
       : gr::sync_block("divide_by_message",
               gr::io_signature::make(1, 1, sizeof(gr_complex)),
               gr::io_signature::make(1, 1, sizeof(gr_complex))),
-    d_currentDivisor(0)
+    d_currentDivisor(1),
+    d_msgDivisor(1)
     {
       // Setup Input port
       message_port_register_in(pmt::mp("set_divisor"));
@@ -66,12 +67,15 @@ namespace gr {
         gr_complex *out = (gr_complex *) output_items[0];
 
         // Update divisor from newest message
-        d_currentDivisor = d_msgDivisor;
+        if (abs(d_msgDivisor)>0.00001)
+          d_currentDivisor = gr_complex(1,0)/d_msgDivisor;
+        else
+          d_currentDivisor = 1;
 
         // Divide
         for (int i=0; i<noutput_items; i++)
         {
-          out[i] = in[i] / d_currentDivisor;
+          out[i] = in[i] * d_currentDivisor;
         }
 
         // Tell runtime system how many output items we produced.
