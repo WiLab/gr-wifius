@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<block>
+  <name>Blocker</name>
+  <key>wifius_blocker</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <import>import pmt</import>
+  <make>wifius.blocker()</make>
+
+  <callback>enable_stop($msg)</callback>
+
+  <param>
+		<name>Num Ports</name>
+		<key>num_ports</key>
+		<value>1</value>
+		<type>int</type>
+	</param>
+  <check>$num_ports &gt; 0</check>
+  
+  <sink>
+    <name>enable_stop</name>
+    <type>message</type>
+  </sink>
+
+  <sink>
+    <name>Signal</name>
+    <type>complex</type>
+    <nports>$num_ports</nports>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <nports>$num_ports</nports>
+  </source>
+
+</block>

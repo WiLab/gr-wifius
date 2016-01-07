@@ -88,7 +88,7 @@ namespace gr {
         int samplesUsed = 0;
         int maxIndex = 0;
 
-        // Determine max value
+        // Determine max values and send out as messages
         while(samplesUsed<(noutput_items-d_samplesPerPeriod))
         {
           // Get index of max value
@@ -101,7 +101,7 @@ namespace gr {
           message_port_pub(pmt::mp("message"), msg);
 
           // Increment counter
-          samplesUsed =+ d_samplesPerPeriod;
+          samplesUsed += d_samplesPerPeriod;
         }
 
         // Clean up

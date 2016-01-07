@@ -29,5 +29,6 @@ install(FILES
     correct_input.h
     int_to_message.h
     divide_by_message.h
-    find_scale_factor.h DESTINATION include/wifius
+    find_scale_factor.h
+    blocker.h DESTINATION include/wifius
 )

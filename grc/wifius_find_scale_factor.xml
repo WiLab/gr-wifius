@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>find_scale_factor</name>
+  <name>Find Scale Factor</name>
   <key>wifius_find_scale_factor</key>
   <category>wifius</category>
   <import>import wifius</import>

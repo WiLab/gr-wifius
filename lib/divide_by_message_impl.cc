@@ -67,7 +67,7 @@ namespace gr {
         gr_complex *out = (gr_complex *) output_items[0];
 
         // Update divisor from newest message
-        if (abs(d_msgDivisor)>0.00001)
+        if (abs(d_msgDivisor)>0.00001)//make sure it is not zero
           d_currentDivisor = gr_complex(1,0)/d_msgDivisor;
         else
           d_currentDivisor = 1;

@@ -18,34 +18,39 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_WIFIUS_DIVIDE_BY_MESSAGE_IMPL_H
-#define INCLUDED_WIFIUS_DIVIDE_BY_MESSAGE_IMPL_H
+#ifndef INCLUDED_WIFIUS_BLOCKER_IMPL_H
+#define INCLUDED_WIFIUS_BLOCKER_IMPL_H
 
-#include <wifius/divide_by_message.h>
+#include <wifius/blocker.h>
 
 namespace gr {
   namespace wifius {
 
-    class divide_by_message_impl : public divide_by_message
+    class blocker_impl : public blocker
     {
      private:
-       gr_complex d_msgDivisor; // Updated each time a message is received
-       gr_complex d_currentDivisor; // Updated at start of each work call
+      bool d_stop;
 
      public:
-      divide_by_message_impl();
-      ~divide_by_message_impl();
-
-      // Custom functions
-      void set_divisor(pmt::pmt_t msg){d_msgDivisor = pmt::to_complex(msg);}
+      blocker_impl();
+      ~blocker_impl();
 
       // Where all the action really happens
-      int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
+      void forecast (int noutput_items, gr_vector_int &ninput_items_required);
+      void enable_stop(pmt::pmt_t msg)
+        {
+          d_stop = false;
+          if(pmt::to_double(msg)>0)
+            d_stop = true;
+        }
+
+      int general_work(int noutput_items,
+		       gr_vector_int &ninput_items,
+		       gr_vector_const_void_star &input_items,
+		       gr_vector_void_star &output_items);
     };
 
   } // namespace wifius
 } // namespace gr
 
-#endif /* INCLUDED_WIFIUS_DIVIDE_BY_MESSAGE_IMPL_H */
+#endif /* INCLUDED_WIFIUS_BLOCKER_IMPL_H */

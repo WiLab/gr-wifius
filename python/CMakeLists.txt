@@ -49,3 +49,4 @@ GR_ADD_TEST(qa_correct_input ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa
 GR_ADD_TEST(qa_int_to_message ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_int_to_message.py)
 GR_ADD_TEST(qa_divide_by_message ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_divide_by_message.py)
 GR_ADD_TEST(qa_find_scale_factor ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_find_scale_factor.py)
+GR_ADD_TEST(qa_blocker ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_blocker.py)

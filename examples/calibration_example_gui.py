@@ -4,7 +4,7 @@
 # Title: Calibration Example
 # Author: Travis Collins
 # Description: WiFiUS Project
-# Generated: Wed Jan  6 17:21:17 2016
+# Generated: Thu Jan  7 17:07:17 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -28,13 +28,14 @@ from gnuradio import analog
 from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import gr
-from gnuradio import qtgui
 from gnuradio import uhd
 from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
 from grc_gnuradio import blks2 as grc_blks2
+from measure_phases import measure_phases  # grc-generated hier_block
 from optparse import OptionParser
-import sip
+from save_data_hier import save_data_hier  # grc-generated hier_block
+import pmt
 import time
 
 
@@ -66,8 +67,9 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
+        self.variable_qtgui_chooser_0_1_1 = variable_qtgui_chooser_0_1_1 = 1
+        self.variable_qtgui_chooser_0_1_0 = variable_qtgui_chooser_0_1_0 = 0
         self.variable_qtgui_chooser_0_0 = variable_qtgui_chooser_0_0 = 0
-        self.variable_qtgui_chooser_0 = variable_qtgui_chooser_0 = 0
         self.samp_rate = samp_rate = 1024000*2
         self.gain_rx = gain_rx = 0
         self.center_freq = center_freq = 2.4e9
@@ -76,6 +78,48 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
+        self._variable_qtgui_chooser_0_1_1_options = (1, 0, )
+        self._variable_qtgui_chooser_0_1_1_labels = ("Not Started", "Start Save", )
+        self._variable_qtgui_chooser_0_1_1_group_box = Qt.QGroupBox("Trigger Data Save")
+        self._variable_qtgui_chooser_0_1_1_box = Qt.QHBoxLayout()
+        class variable_chooser_button_group(Qt.QButtonGroup):
+            def __init__(self, parent=None):
+                Qt.QButtonGroup.__init__(self, parent)
+            @pyqtSlot(int)
+            def updateButtonChecked(self, button_id):
+                self.button(button_id).setChecked(True)
+        self._variable_qtgui_chooser_0_1_1_button_group = variable_chooser_button_group()
+        self._variable_qtgui_chooser_0_1_1_group_box.setLayout(self._variable_qtgui_chooser_0_1_1_box)
+        for i, label in enumerate(self._variable_qtgui_chooser_0_1_1_labels):
+        	radio_button = Qt.QRadioButton(label)
+        	self._variable_qtgui_chooser_0_1_1_box.addWidget(radio_button)
+        	self._variable_qtgui_chooser_0_1_1_button_group.addButton(radio_button, i)
+        self._variable_qtgui_chooser_0_1_1_callback = lambda i: Qt.QMetaObject.invokeMethod(self._variable_qtgui_chooser_0_1_1_button_group, "updateButtonChecked", Qt.Q_ARG("int", self._variable_qtgui_chooser_0_1_1_options.index(i)))
+        self._variable_qtgui_chooser_0_1_1_callback(self.variable_qtgui_chooser_0_1_1)
+        self._variable_qtgui_chooser_0_1_1_button_group.buttonClicked[int].connect(
+        	lambda i: self.set_variable_qtgui_chooser_0_1_1(self._variable_qtgui_chooser_0_1_1_options[i]))
+        self.top_layout.addWidget(self._variable_qtgui_chooser_0_1_1_group_box)
+        self._variable_qtgui_chooser_0_1_0_options = (1, 0, )
+        self._variable_qtgui_chooser_0_1_0_labels = ("Stop", "Running", )
+        self._variable_qtgui_chooser_0_1_0_group_box = Qt.QGroupBox("Sync System")
+        self._variable_qtgui_chooser_0_1_0_box = Qt.QHBoxLayout()
+        class variable_chooser_button_group(Qt.QButtonGroup):
+            def __init__(self, parent=None):
+                Qt.QButtonGroup.__init__(self, parent)
+            @pyqtSlot(int)
+            def updateButtonChecked(self, button_id):
+                self.button(button_id).setChecked(True)
+        self._variable_qtgui_chooser_0_1_0_button_group = variable_chooser_button_group()
+        self._variable_qtgui_chooser_0_1_0_group_box.setLayout(self._variable_qtgui_chooser_0_1_0_box)
+        for i, label in enumerate(self._variable_qtgui_chooser_0_1_0_labels):
+        	radio_button = Qt.QRadioButton(label)
+        	self._variable_qtgui_chooser_0_1_0_box.addWidget(radio_button)
+        	self._variable_qtgui_chooser_0_1_0_button_group.addButton(radio_button, i)
+        self._variable_qtgui_chooser_0_1_0_callback = lambda i: Qt.QMetaObject.invokeMethod(self._variable_qtgui_chooser_0_1_0_button_group, "updateButtonChecked", Qt.Q_ARG("int", self._variable_qtgui_chooser_0_1_0_options.index(i)))
+        self._variable_qtgui_chooser_0_1_0_callback(self.variable_qtgui_chooser_0_1_0)
+        self._variable_qtgui_chooser_0_1_0_button_group.buttonClicked[int].connect(
+        	lambda i: self.set_variable_qtgui_chooser_0_1_0(self._variable_qtgui_chooser_0_1_0_options[i]))
+        self.top_layout.addWidget(self._variable_qtgui_chooser_0_1_0_group_box)
         self._variable_qtgui_chooser_0_0_options = (0, 1, )
         self._variable_qtgui_chooser_0_0_labels = ("Enable", "Disable", )
         self._variable_qtgui_chooser_0_0_group_box = Qt.QGroupBox("Source Enable")
@@ -97,44 +141,6 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self._variable_qtgui_chooser_0_0_button_group.buttonClicked[int].connect(
         	lambda i: self.set_variable_qtgui_chooser_0_0(self._variable_qtgui_chooser_0_0_options[i]))
         self.top_layout.addWidget(self._variable_qtgui_chooser_0_0_group_box)
-        self.tab = Qt.QTabWidget()
-        self.tab_widget_0 = Qt.QWidget()
-        self.tab_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_0)
-        self.tab_grid_layout_0 = Qt.QGridLayout()
-        self.tab_layout_0.addLayout(self.tab_grid_layout_0)
-        self.tab.addTab(self.tab_widget_0, "Input")
-        self.tab_widget_1 = Qt.QWidget()
-        self.tab_layout_1 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_1)
-        self.tab_grid_layout_1 = Qt.QGridLayout()
-        self.tab_layout_1.addLayout(self.tab_grid_layout_1)
-        self.tab.addTab(self.tab_widget_1, "Post Gain Correct")
-        self.tab_widget_2 = Qt.QWidget()
-        self.tab_layout_2 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_2)
-        self.tab_grid_layout_2 = Qt.QGridLayout()
-        self.tab_layout_2.addLayout(self.tab_grid_layout_2)
-        self.tab.addTab(self.tab_widget_2, "Post Phase Correct")
-        self.top_layout.addWidget(self.tab)
-        self._variable_qtgui_chooser_0_options = (0, 1, )
-        self._variable_qtgui_chooser_0_labels = ("Enable", "Disable", )
-        self._variable_qtgui_chooser_0_group_box = Qt.QGroupBox("Synchronize (Do Not Renable)")
-        self._variable_qtgui_chooser_0_box = Qt.QVBoxLayout()
-        class variable_chooser_button_group(Qt.QButtonGroup):
-            def __init__(self, parent=None):
-                Qt.QButtonGroup.__init__(self, parent)
-            @pyqtSlot(int)
-            def updateButtonChecked(self, button_id):
-                self.button(button_id).setChecked(True)
-        self._variable_qtgui_chooser_0_button_group = variable_chooser_button_group()
-        self._variable_qtgui_chooser_0_group_box.setLayout(self._variable_qtgui_chooser_0_box)
-        for i, label in enumerate(self._variable_qtgui_chooser_0_labels):
-        	radio_button = Qt.QRadioButton(label)
-        	self._variable_qtgui_chooser_0_box.addWidget(radio_button)
-        	self._variable_qtgui_chooser_0_button_group.addButton(radio_button, i)
-        self._variable_qtgui_chooser_0_callback = lambda i: Qt.QMetaObject.invokeMethod(self._variable_qtgui_chooser_0_button_group, "updateButtonChecked", Qt.Q_ARG("int", self._variable_qtgui_chooser_0_options.index(i)))
-        self._variable_qtgui_chooser_0_callback(self.variable_qtgui_chooser_0)
-        self._variable_qtgui_chooser_0_button_group.buttonClicked[int].connect(
-        	lambda i: self.set_variable_qtgui_chooser_0(self._variable_qtgui_chooser_0_options[i]))
-        self.top_layout.addWidget(self._variable_qtgui_chooser_0_group_box)
         self.uhd_usrp_source_0_0 = uhd.usrp_source(
         	",".join(("addr0=192.168.30.2,addr1=192.168.70.2,addr2=192.168.20.2", "")),
         	uhd.stream_args(
@@ -167,128 +173,58 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.uhd_usrp_sink_0_0.set_samp_rate(samp_rate)
         self.uhd_usrp_sink_0_0.set_center_freq(center_freq, 0)
         self.uhd_usrp_sink_0_0.set_gain(10, 0)
-        self.qtgui_time_sink_x_0_1 = qtgui.time_sink_f(
-        	100, #size
-        	samp_rate, #samp_rate
-        	"Input", #name
-        	3 #number of inputs
+        self.tab = Qt.QTabWidget()
+        self.tab_widget_0 = Qt.QWidget()
+        self.tab_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_0)
+        self.tab_grid_layout_0 = Qt.QGridLayout()
+        self.tab_layout_0.addLayout(self.tab_grid_layout_0)
+        self.tab.addTab(self.tab_widget_0, "Input")
+        self.tab_widget_1 = Qt.QWidget()
+        self.tab_layout_1 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_1)
+        self.tab_grid_layout_1 = Qt.QGridLayout()
+        self.tab_layout_1.addLayout(self.tab_grid_layout_1)
+        self.tab.addTab(self.tab_widget_1, "Post Gain Correct")
+        self.tab_widget_2 = Qt.QWidget()
+        self.tab_layout_2 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_2)
+        self.tab_grid_layout_2 = Qt.QGridLayout()
+        self.tab_layout_2.addLayout(self.tab_grid_layout_2)
+        self.tab.addTab(self.tab_widget_2, "Post Phase Correct")
+        self.top_layout.addWidget(self.tab)
+        self.save_data_hier_0 = save_data_hier(
+            samples=10000000,
+            skips=10000,
         )
-        self.qtgui_time_sink_x_0_1.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_1.set_y_axis(-1, 1)
-        
-        self.qtgui_time_sink_x_0_1.set_y_label("Amplitude", "")
-        
-        self.qtgui_time_sink_x_0_1.enable_tags(-1, True)
-        self.qtgui_time_sink_x_0_1.set_trigger_mode(qtgui.TRIG_MODE_AUTO, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_1.enable_autoscale(True)
-        self.qtgui_time_sink_x_0_1.enable_grid(False)
-        self.qtgui_time_sink_x_0_1.enable_control_panel(True)
-        
-        if not True:
-          self.qtgui_time_sink_x_0_1.disable_legend()
-        
-        labels = ["", "", "", "", "",
-                  "", "", "", "", ""]
-        widths = [1, 1, 1, 1, 1,
-                  1, 1, 1, 1, 1]
-        colors = ["blue", "red", "green", "black", "cyan",
-                  "magenta", "yellow", "dark red", "dark green", "blue"]
-        styles = [1, 1, 1, 1, 1,
-                  1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-                   -1, -1, -1, -1, -1]
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-                  1.0, 1.0, 1.0, 1.0, 1.0]
-        
-        for i in xrange(3):
-            if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0_1.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_time_sink_x_0_1.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_1.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_1.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_1.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_1.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_1.set_line_alpha(i, alphas[i])
-        
-        self._qtgui_time_sink_x_0_1_win = sip.wrapinstance(self.qtgui_time_sink_x_0_1.pyqwidget(), Qt.QWidget)
-        self.tab_layout_0.addWidget(self._qtgui_time_sink_x_0_1_win)
-        self.qtgui_time_sink_x_0 = qtgui.time_sink_f(
-        	100, #size
-        	samp_rate, #samp_rate
-        	"Post Gain Correct", #name
-        	3 #number of inputs
+        self.measure_phases_0 = measure_phases(
+            cal_tone_freq=cal_freq,
+            memSize=1024,
+            samp_rate=samp_rate,
+            skip=1024000*10,
+            stopEstimating=1,
+            updatePeriod=1000,
         )
-        self.qtgui_time_sink_x_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0.set_y_axis(-1, 1)
-        
-        self.qtgui_time_sink_x_0.set_y_label("Amplitude", "")
-        
-        self.qtgui_time_sink_x_0.enable_tags(-1, True)
-        self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0.enable_autoscale(True)
-        self.qtgui_time_sink_x_0.enable_grid(False)
-        self.qtgui_time_sink_x_0.enable_control_panel(True)
-        
-        if not True:
-          self.qtgui_time_sink_x_0.disable_legend()
-        
-        labels = ["", "", "", "", "",
-                  "", "", "", "", ""]
-        widths = [1, 1, 1, 1, 1,
-                  1, 1, 1, 1, 1]
-        colors = ["blue", "red", "green", "black", "cyan",
-                  "magenta", "yellow", "dark red", "dark green", "blue"]
-        styles = [1, 1, 1, 1, 1,
-                  1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-                   -1, -1, -1, -1, -1]
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-                  1.0, 1.0, 1.0, 1.0, 1.0]
-        
-        for i in xrange(3):
-            if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_time_sink_x_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0.set_line_alpha(i, alphas[i])
-        
-        self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.pyqwidget(), Qt.QWidget)
-        self.tab_layout_1.addWidget(self._qtgui_time_sink_x_0_win)
         self.correct_gains_hier_0 = correct_gains_hier(
             cal_tone_freq=cal_freq,
             samp_rate_0=samp_rate,
         )
-        self.blocks_complex_to_real_0_2 = blocks.complex_to_real(1)
-        self.blocks_complex_to_real_0_0_2 = blocks.complex_to_real(1)
-        self.blocks_complex_to_real_0_0_0_1 = blocks.complex_to_real(1)
-        self.blocks_complex_to_real_0_0_0 = blocks.complex_to_real(1)
-        self.blocks_complex_to_real_0_0 = blocks.complex_to_real(1)
-        self.blocks_complex_to_real_0 = blocks.complex_to_real(1)
+        self.blocks_message_strobe_0_0 = blocks.message_strobe(pmt.from_double(variable_qtgui_chooser_0_1_1), 1000)
+        self.blocks_message_strobe_0 = blocks.message_strobe(pmt.from_double(variable_qtgui_chooser_0_1_0), 1000)
         self.blks2_valve_0 = grc_blks2.valve(item_size=gr.sizeof_gr_complex*1, open=bool(variable_qtgui_chooser_0_0))
         self.analog_sig_source_x_0 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, cal_freq, 1, 0)
 
         ##################################################
         # Connections
         ##################################################
+        self.msg_connect((self.blocks_message_strobe_0, 'strobe'), (self.correct_gains_hier_0, 'Trigger'))    
+        self.msg_connect((self.blocks_message_strobe_0, 'strobe'), (self.measure_phases_0, 'Trigger'))    
+        self.msg_connect((self.blocks_message_strobe_0_0, 'strobe'), (self.save_data_hier_0, 'Trigger'))    
         self.connect((self.analog_sig_source_x_0, 0), (self.blks2_valve_0, 0))    
         self.connect((self.blks2_valve_0, 0), (self.uhd_usrp_sink_0_0, 0))    
-        self.connect((self.blocks_complex_to_real_0, 0), (self.qtgui_time_sink_x_0, 0))    
-        self.connect((self.blocks_complex_to_real_0_0, 0), (self.qtgui_time_sink_x_0, 1))    
-        self.connect((self.blocks_complex_to_real_0_0_0, 0), (self.qtgui_time_sink_x_0, 2))    
-        self.connect((self.blocks_complex_to_real_0_0_0_1, 0), (self.qtgui_time_sink_x_0_1, 2))    
-        self.connect((self.blocks_complex_to_real_0_0_2, 0), (self.qtgui_time_sink_x_0_1, 1))    
-        self.connect((self.blocks_complex_to_real_0_2, 0), (self.qtgui_time_sink_x_0_1, 0))    
-        self.connect((self.correct_gains_hier_0, 0), (self.blocks_complex_to_real_0, 0))    
-        self.connect((self.correct_gains_hier_0, 1), (self.blocks_complex_to_real_0_0, 0))    
-        self.connect((self.correct_gains_hier_0, 2), (self.blocks_complex_to_real_0_0_0, 0))    
-        self.connect((self.uhd_usrp_source_0_0, 2), (self.blocks_complex_to_real_0_0_0_1, 0))    
-        self.connect((self.uhd_usrp_source_0_0, 1), (self.blocks_complex_to_real_0_0_2, 0))    
-        self.connect((self.uhd_usrp_source_0_0, 0), (self.blocks_complex_to_real_0_2, 0))    
+        self.connect((self.correct_gains_hier_0, 0), (self.measure_phases_0, 0))    
+        self.connect((self.correct_gains_hier_0, 1), (self.measure_phases_0, 1))    
+        self.connect((self.correct_gains_hier_0, 2), (self.measure_phases_0, 2))    
+        self.connect((self.measure_phases_0, 0), (self.save_data_hier_0, 0))    
+        self.connect((self.measure_phases_0, 1), (self.save_data_hier_0, 1))    
+        self.connect((self.measure_phases_0, 2), (self.save_data_hier_0, 2))    
         self.connect((self.uhd_usrp_source_0_0, 0), (self.correct_gains_hier_0, 0))    
         self.connect((self.uhd_usrp_source_0_0, 1), (self.correct_gains_hier_0, 1))    
         self.connect((self.uhd_usrp_source_0_0, 2), (self.correct_gains_hier_0, 2))    
@@ -298,6 +234,22 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
+    def get_variable_qtgui_chooser_0_1_1(self):
+        return self.variable_qtgui_chooser_0_1_1
+
+    def set_variable_qtgui_chooser_0_1_1(self, variable_qtgui_chooser_0_1_1):
+        self.variable_qtgui_chooser_0_1_1 = variable_qtgui_chooser_0_1_1
+        self._variable_qtgui_chooser_0_1_1_callback(self.variable_qtgui_chooser_0_1_1)
+        self.blocks_message_strobe_0_0.set_msg(pmt.from_double(self.variable_qtgui_chooser_0_1_1))
+
+    def get_variable_qtgui_chooser_0_1_0(self):
+        return self.variable_qtgui_chooser_0_1_0
+
+    def set_variable_qtgui_chooser_0_1_0(self, variable_qtgui_chooser_0_1_0):
+        self.variable_qtgui_chooser_0_1_0 = variable_qtgui_chooser_0_1_0
+        self._variable_qtgui_chooser_0_1_0_callback(self.variable_qtgui_chooser_0_1_0)
+        self.blocks_message_strobe_0.set_msg(pmt.from_double(self.variable_qtgui_chooser_0_1_0))
+
     def get_variable_qtgui_chooser_0_0(self):
         return self.variable_qtgui_chooser_0_0
 
@@ -306,13 +258,6 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self._variable_qtgui_chooser_0_0_callback(self.variable_qtgui_chooser_0_0)
         self.blks2_valve_0.set_open(bool(self.variable_qtgui_chooser_0_0))
 
-    def get_variable_qtgui_chooser_0(self):
-        return self.variable_qtgui_chooser_0
-
-    def set_variable_qtgui_chooser_0(self, variable_qtgui_chooser_0):
-        self.variable_qtgui_chooser_0 = variable_qtgui_chooser_0
-        self._variable_qtgui_chooser_0_callback(self.variable_qtgui_chooser_0)
-
     def get_samp_rate(self):
         return self.samp_rate
 
@@ -320,8 +265,7 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.samp_rate = samp_rate
         self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate)
         self.correct_gains_hier_0.set_samp_rate_0(self.samp_rate)
-        self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
-        self.qtgui_time_sink_x_0_1.set_samp_rate(self.samp_rate)
+        self.measure_phases_0.set_samp_rate(self.samp_rate)
         self.uhd_usrp_sink_0_0.set_samp_rate(self.samp_rate)
         self.uhd_usrp_source_0_0.set_samp_rate(self.samp_rate)
 
@@ -351,6 +295,7 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.cal_freq = cal_freq
         self.analog_sig_source_x_0.set_frequency(self.cal_freq)
         self.correct_gains_hier_0.set_cal_tone_freq(self.cal_freq)
+        self.measure_phases_0.set_cal_tone_freq(self.cal_freq)
 
 
 if __name__ == '__main__':
