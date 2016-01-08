@@ -786,6 +786,49 @@
     </param>
     <param>
       <key>_coordinate</key>
+      <value>(1032, 66)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>mUpdatePeriod</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>Mode Update Period</value>
+    </param>
+    <param>
+      <key>short_id</key>
+      <value></value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>intx</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>1000</value>
+    </param>
+  </block>
+  <block>
+    <key>parameter</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
       <value>(872, 66)</value>
     </param>
     <param>
@@ -825,7 +868,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(824, 715)</value>
+      <value>(648, 657)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -850,135 +893,6 @@
     <param>
       <key>optional</key>
       <value>False</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_sink</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(880, 513)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>pad_sink_0_0_0</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>message</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>message0</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_sink</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(880, 562)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>pad_sink_0_0_0_0</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>message</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>message1</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-  </block>
-  <block>
-    <key>pad_sink</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(880, 610)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>pad_sink_0_0_0_1</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>message</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>message2</value>
-    </param>
-    <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>True</value>
     </param>
     <param>
       <key>vlen</key>
@@ -1169,49 +1083,6 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1032, 66)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>stopEstimating</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Disable</value>
-    </param>
-    <param>
-      <key>short_id</key>
-      <value></value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>intx</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>1</value>
-    </param>
-  </block>
-  <block>
-    <key>parameter</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
@@ -1306,7 +1177,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(608, 649)</value>
+      <value>(424, 609)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1349,7 +1220,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(608, 777)</value>
+      <value>(424, 737)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1392,7 +1263,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(608, 713)</value>
+      <value>(424, 673)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1435,7 +1306,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(608, 529)</value>
+      <value>(688, 441)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1474,7 +1345,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(608, 593)</value>
+      <value>(688, 505)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1513,7 +1384,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(608, 561)</value>
+      <value>(688, 473)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1645,6 +1516,10 @@
       <key>minValue</key>
       <value>-vec_size</value>
     </param>
+    <param>
+      <key>updatePeriod</key>
+      <value>mUpdatePeriod</value>
+    </param>
   </block>
   <block>
     <key>wifius_mode</key>
@@ -1700,6 +1575,10 @@
       <key>minValue</key>
       <value>-vec_size</value>
     </param>
+    <param>
+      <key>updatePeriod</key>
+      <value>mUpdatePeriod</value>
+    </param>
   </block>
   <block>
     <key>wifius_mode</key>
@@ -1754,6 +1633,10 @@
     <param>
       <key>minValue</key>
       <value>-vec_size</value>
+    </param>
+    <param>
+      <key>updatePeriod</key>
+      <value>mUpdatePeriod</value>
     </param>
   </block>
   <connection>
@@ -1908,33 +1791,15 @@
   </connection>
   <connection>
     <source_block_id>wifius_int_to_message_0</source_block_id>
-    <sink_block_id>pad_sink_0_0_0</sink_block_id>
-    <source_key>message</source_key>
-    <sink_key>in</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>wifius_int_to_message_0</source_block_id>
     <sink_block_id>wifius_correct_input_0</sink_block_id>
     <source_key>message</source_key>
     <sink_key>set_delay</sink_key>
   </connection>
   <connection>
     <source_block_id>wifius_int_to_message_0_0</source_block_id>
-    <sink_block_id>pad_sink_0_0_0_1</sink_block_id>
-    <source_key>message</source_key>
-    <sink_key>in</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>wifius_int_to_message_0_0</source_block_id>
     <sink_block_id>wifius_correct_input_0_0</sink_block_id>
     <source_key>message</source_key>
     <sink_key>set_delay</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>wifius_int_to_message_0_1</source_block_id>
-    <sink_block_id>pad_sink_0_0_0_0</sink_block_id>
-    <source_key>message</source_key>
-    <sink_key>in</sink_key>
   </connection>
   <connection>
     <source_block_id>wifius_int_to_message_0_1</source_block_id>

@@ -46,7 +46,8 @@ namespace gr {
        * class. wifius::mode::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int minValue, int maxValue, int memSize, bool enableLocking);
+      static sptr make(int minValue, int maxValue, int memSize,
+        bool enableLocking, int updatePeriod);
     };
 
   } // namespace wifius

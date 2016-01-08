@@ -4,7 +4,7 @@
   <key>wifius_mode</key>
   <category>wifius</category>
   <import>import wifius</import>
-  <make>wifius.mode($minValue,$maxValue,$memSize,$enableLocking)</make>
+  <make>wifius.mode($minValue,$maxValue,$memSize,$enableLocking,$updatePeriod)</make>
 
   <param>
     <name>Min Value</name>
@@ -33,6 +33,11 @@
       <name>Disabled</name>
       <key>False</key>
     </option>
+  </param>
+  <param>
+    <name>Update Period</name>
+    <key>updatePeriod</key>
+    <type>int</type>
   </param>
 
   <sink>

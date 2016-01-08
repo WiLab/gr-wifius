@@ -189,7 +189,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -288,7 +288,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -490,7 +490,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(952, 19)</value>
+      <value>(912, 179)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -1392,7 +1392,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(480, 297)</value>
+      <value>(592, 249)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1435,7 +1435,7 @@
     </param>
     <param>
       <key>stopEstimating</key>
-      <value>variable_qtgui_chooser_0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1475,7 +1475,7 @@
     </param>
     <param>
       <key>updatePeriod</key>
-      <value>10</value>
+      <value>1</value>
     </param>
   </block>
   <block>
@@ -2670,135 +2670,6 @@
       <value>3</value>
     </param>
   </block>
-  <block>
-    <key>wifius_correct_input</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(928, 169)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>wifius_correct_input_0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-  </block>
-  <block>
-    <key>wifius_correct_input</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(928, 297)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>wifius_correct_input_0_0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-  </block>
-  <block>
-    <key>wifius_correct_input</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(928, 233)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>wifius_correct_input_0_1</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-  </block>
   <connection>
     <source_block_id>analog_sig_source_x_0</source_block_id>
     <sink_block_id>blocks_throttle_0</sink_block_id>
@@ -2945,12 +2816,6 @@
   </connection>
   <connection>
     <source_block_id>correct_gains_hier_0</source_block_id>
-    <sink_block_id>wifius_correct_input_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>correct_gains_hier_0</source_block_id>
     <sink_block_id>blocks_complex_to_real_0_0_2_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>0</sink_key>
@@ -2960,12 +2825,6 @@
     <sink_block_id>measure_phases_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>correct_gains_hier_0</source_block_id>
-    <sink_block_id>wifius_correct_input_0_1</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>correct_gains_hier_0</source_block_id>
@@ -2980,45 +2839,21 @@
     <sink_key>2</sink_key>
   </connection>
   <connection>
-    <source_block_id>correct_gains_hier_0</source_block_id>
-    <sink_block_id>wifius_correct_input_0_0</sink_block_id>
-    <source_key>2</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>measure_phases_0</source_block_id>
-    <sink_block_id>wifius_correct_input_0</sink_block_id>
-    <source_key>message0</source_key>
-    <sink_key>set_delay</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>measure_phases_0</source_block_id>
-    <sink_block_id>wifius_correct_input_0_1</sink_block_id>
-    <source_key>message1</source_key>
-    <sink_key>set_delay</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>measure_phases_0</source_block_id>
-    <sink_block_id>wifius_correct_input_0_0</sink_block_id>
-    <source_key>message2</source_key>
-    <sink_key>set_delay</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>wifius_correct_input_0</source_block_id>
     <sink_block_id>blocks_complex_to_real_0_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>wifius_correct_input_0_0</source_block_id>
-    <sink_block_id>blocks_complex_to_real_0_0_0_0</sink_block_id>
-    <source_key>0</source_key>
+    <source_block_id>measure_phases_0</source_block_id>
+    <sink_block_id>blocks_complex_to_real_0_0_1</sink_block_id>
+    <source_key>1</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>wifius_correct_input_0_1</source_block_id>
-    <sink_block_id>blocks_complex_to_real_0_0_1</sink_block_id>
-    <source_key>0</source_key>
+    <source_block_id>measure_phases_0</source_block_id>
+    <sink_block_id>blocks_complex_to_real_0_0_0_0</sink_block_id>
+    <source_key>2</source_key>
     <sink_key>0</sink_key>
   </connection>
 </flow_graph>

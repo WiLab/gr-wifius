@@ -36,9 +36,12 @@ namespace gr {
        bool d_MeasureLock;
        int d_SavedIndex;
        bool d_enableLocking;
+       int d_samplesSinceLastSearch;
+       int d_updatePeriod;
 
      public:
-      mode_impl(int minValue, int maxValue, int memSize, bool enableLocking);
+      mode_impl(int minValue, int maxValue, int memSize,
+        bool enableLocking, int updatePeriod);
       ~mode_impl();
 
       int FindMode(int *array, int &arraySize);

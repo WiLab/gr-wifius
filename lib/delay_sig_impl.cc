@@ -75,7 +75,7 @@ namespace gr {
         set_history(d+1);
         declare_sample_delay(history()-1);
         d_delta += dly() - old;
-        std::cout<<"New d_delta: "<<d_delta<<std::endl;
+        //std::cout<<"New d_delta: "<<d_delta<<std::endl;
       }
     }
 

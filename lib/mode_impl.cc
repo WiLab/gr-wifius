@@ -31,16 +31,16 @@ namespace gr {
   namespace wifius {
 
     mode::sptr
-    mode::make(int minValue, int maxValue, int memSize, bool enableLocking)
+    mode::make(int minValue, int maxValue, int memSize, bool enableLocking, int updatePeriod)
     {
       return gnuradio::get_initial_sptr
-        (new mode_impl(minValue, maxValue, memSize, enableLocking));
+        (new mode_impl(minValue, maxValue, memSize, enableLocking, updatePeriod));
     }
 
     /*
      * The private constructor
      */
-    mode_impl::mode_impl(int minValue, int maxValue, int memSize, bool enableLocking)
+    mode_impl::mode_impl(int minValue, int maxValue, int memSize, bool enableLocking, int updatePeriod)
       : gr::sync_block("mode",
               gr::io_signature::make(1, 1, sizeof(int)),
               gr::io_signature::make(1, 1, sizeof(int))),
@@ -48,7 +48,9 @@ namespace gr {
               d_max(maxValue),
               d_memSize(memSize),
               d_MeasureLock(false),
-              d_enableLocking(enableLocking)
+              d_enableLocking(enableLocking),
+              d_samplesSinceLastSearch(0),
+              d_updatePeriod(updatePeriod)
     {
       // Initialize tally array
       d_array = new int[maxValue-minValue+1];
@@ -103,29 +105,32 @@ namespace gr {
         // First d_memSize-1 samples are from the past
         for (int i=0; i<noutput_items; i++)
         {
-            // Make input 0->N, by biasing by minimum value
-            arrayAbleIndex = in[i+d_memSize] - myMin;
-            // if ((arrayAbleIndex<0)||(arrayAbleIndex>d_max-myMin))
-            //   throw std::runtime_error ("Input out of bounds\n");
+          // Make input 0->N, by biasing by minimum value
+          arrayAbleIndex = in[i+d_memSize] - myMin;
+          // if ((arrayAbleIndex<0)||(arrayAbleIndex>d_max-myMin))
+          //   throw std::runtime_error ("Input out of bounds\n");
 
-            // Add newest element to tally
-            d_array[arrayAbleIndex] = d_array[arrayAbleIndex] + 1;
+          // Add newest element to tally
+          d_array[arrayAbleIndex] = d_array[arrayAbleIndex] + 1;
 
-            // Find most common index
-            if ((!d_MeasureLock) || (!d_enableLocking))
-            {
-              mostCommonIndex = FindMode(d_array, arraySize);//Intensive call
-              mostCommonIndex = mostCommonIndex + myMin; // Unbias
-              d_SavedIndex = mostCommonIndex; // Save as current best value
+          // Find most common index
+          if (((!d_MeasureLock) || (!d_enableLocking)) && (d_samplesSinceLastSearch>=d_updatePeriod))
+          {
+            d_samplesSinceLastSearch = 0;
+            mostCommonIndex = FindMode(d_array, arraySize);//Intensive call
+            mostCommonIndex = mostCommonIndex + myMin; // Unbias
+            d_SavedIndex = mostCommonIndex; // Save as current best value
+          }
+          else
+          {
+            d_samplesSinceLastSearch += 1;
+            mostCommonIndex = d_SavedIndex;
+          }
 
-	    }
-            else
-              mostCommonIndex = d_SavedIndex;
-
-            // Remove oldest sample from tally
-            indexToBeRemoved = in[i] - myMin;
-            if (d_array[indexToBeRemoved]>0)// startup case
-              d_array[indexToBeRemoved] = d_array[indexToBeRemoved] - 1;
+          // Remove oldest sample from tally
+          indexToBeRemoved = in[i] - myMin;
+          if (d_array[indexToBeRemoved]>0)// startup case
+            d_array[indexToBeRemoved] = d_array[indexToBeRemoved] - 1;
 
 
           // Output mode

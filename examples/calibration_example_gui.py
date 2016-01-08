@@ -4,7 +4,7 @@
 # Title: Calibration Example
 # Author: Travis Collins
 # Description: WiFiUS Project
-# Generated: Thu Jan  7 17:07:17 2016
+# Generated: Fri Jan  8 13:27:45 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -34,6 +34,7 @@ from gnuradio.filter import firdes
 from grc_gnuradio import blks2 as grc_blks2
 from measure_phases import measure_phases  # grc-generated hier_block
 from optparse import OptionParser
+from real_time_scope_hier import real_time_scope_hier  # grc-generated hier_block
 from save_data_hier import save_data_hier  # grc-generated hier_block
 import pmt
 import time
@@ -70,7 +71,7 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.variable_qtgui_chooser_0_1_1 = variable_qtgui_chooser_0_1_1 = 1
         self.variable_qtgui_chooser_0_1_0 = variable_qtgui_chooser_0_1_0 = 0
         self.variable_qtgui_chooser_0_0 = variable_qtgui_chooser_0_0 = 0
-        self.samp_rate = samp_rate = 1024000*2
+        self.samp_rate = samp_rate = 100000000/16
         self.gain_rx = gain_rx = 0
         self.center_freq = center_freq = 2.4e9
         self.cal_freq = cal_freq = 1000
@@ -141,6 +142,23 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self._variable_qtgui_chooser_0_0_button_group.buttonClicked[int].connect(
         	lambda i: self.set_variable_qtgui_chooser_0_0(self._variable_qtgui_chooser_0_0_options[i]))
         self.top_layout.addWidget(self._variable_qtgui_chooser_0_0_group_box)
+        self.tab = Qt.QTabWidget()
+        self.tab_widget_0 = Qt.QWidget()
+        self.tab_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_0)
+        self.tab_grid_layout_0 = Qt.QGridLayout()
+        self.tab_layout_0.addLayout(self.tab_grid_layout_0)
+        self.tab.addTab(self.tab_widget_0, "Input")
+        self.tab_widget_1 = Qt.QWidget()
+        self.tab_layout_1 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_1)
+        self.tab_grid_layout_1 = Qt.QGridLayout()
+        self.tab_layout_1.addLayout(self.tab_grid_layout_1)
+        self.tab.addTab(self.tab_widget_1, "Post Gain Correct")
+        self.tab_widget_2 = Qt.QWidget()
+        self.tab_layout_2 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_2)
+        self.tab_grid_layout_2 = Qt.QGridLayout()
+        self.tab_layout_2.addLayout(self.tab_grid_layout_2)
+        self.tab.addTab(self.tab_widget_2, "Post Phase Correct")
+        self.top_layout.addWidget(self.tab)
         self.uhd_usrp_source_0_0 = uhd.usrp_source(
         	",".join(("addr0=192.168.30.2,addr1=192.168.70.2,addr2=192.168.20.2", "")),
         	uhd.stream_args(
@@ -173,34 +191,32 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.uhd_usrp_sink_0_0.set_samp_rate(samp_rate)
         self.uhd_usrp_sink_0_0.set_center_freq(center_freq, 0)
         self.uhd_usrp_sink_0_0.set_gain(10, 0)
-        self.tab = Qt.QTabWidget()
-        self.tab_widget_0 = Qt.QWidget()
-        self.tab_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_0)
-        self.tab_grid_layout_0 = Qt.QGridLayout()
-        self.tab_layout_0.addLayout(self.tab_grid_layout_0)
-        self.tab.addTab(self.tab_widget_0, "Input")
-        self.tab_widget_1 = Qt.QWidget()
-        self.tab_layout_1 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_1)
-        self.tab_grid_layout_1 = Qt.QGridLayout()
-        self.tab_layout_1.addLayout(self.tab_grid_layout_1)
-        self.tab.addTab(self.tab_widget_1, "Post Gain Correct")
-        self.tab_widget_2 = Qt.QWidget()
-        self.tab_layout_2 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.tab_widget_2)
-        self.tab_grid_layout_2 = Qt.QGridLayout()
-        self.tab_layout_2.addLayout(self.tab_grid_layout_2)
-        self.tab.addTab(self.tab_widget_2, "Post Phase Correct")
-        self.top_layout.addWidget(self.tab)
         self.save_data_hier_0 = save_data_hier(
             samples=10000000,
             skips=10000,
         )
+        self.real_time_scope_hier_0_0_0 = real_time_scope_hier(
+            npoints=100,
+            samp_rate=samp_rate,
+        )
+        self.tab_layout_2.addWidget(self.real_time_scope_hier_0_0_0)
+        self.real_time_scope_hier_0_0 = real_time_scope_hier(
+            npoints=100,
+            samp_rate=samp_rate,
+        )
+        self.tab_layout_1.addWidget(self.real_time_scope_hier_0_0)
+        self.real_time_scope_hier_0 = real_time_scope_hier(
+            npoints=100,
+            samp_rate=samp_rate,
+        )
+        self.tab_layout_0.addWidget(self.real_time_scope_hier_0)
         self.measure_phases_0 = measure_phases(
             cal_tone_freq=cal_freq,
+            mUpdatePeriod=1024,
             memSize=1024,
             samp_rate=samp_rate,
             skip=1024000*10,
-            stopEstimating=1,
-            updatePeriod=1000,
+            updatePeriod=1,
         )
         self.correct_gains_hier_0 = correct_gains_hier(
             cal_tone_freq=cal_freq,
@@ -222,12 +238,21 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.connect((self.correct_gains_hier_0, 0), (self.measure_phases_0, 0))    
         self.connect((self.correct_gains_hier_0, 1), (self.measure_phases_0, 1))    
         self.connect((self.correct_gains_hier_0, 2), (self.measure_phases_0, 2))    
+        self.connect((self.correct_gains_hier_0, 0), (self.real_time_scope_hier_0_0, 0))    
+        self.connect((self.correct_gains_hier_0, 1), (self.real_time_scope_hier_0_0, 1))    
+        self.connect((self.correct_gains_hier_0, 2), (self.real_time_scope_hier_0_0, 2))    
+        self.connect((self.measure_phases_0, 0), (self.real_time_scope_hier_0_0_0, 0))    
+        self.connect((self.measure_phases_0, 1), (self.real_time_scope_hier_0_0_0, 1))    
+        self.connect((self.measure_phases_0, 2), (self.real_time_scope_hier_0_0_0, 2))    
         self.connect((self.measure_phases_0, 0), (self.save_data_hier_0, 0))    
         self.connect((self.measure_phases_0, 1), (self.save_data_hier_0, 1))    
         self.connect((self.measure_phases_0, 2), (self.save_data_hier_0, 2))    
         self.connect((self.uhd_usrp_source_0_0, 0), (self.correct_gains_hier_0, 0))    
         self.connect((self.uhd_usrp_source_0_0, 1), (self.correct_gains_hier_0, 1))    
         self.connect((self.uhd_usrp_source_0_0, 2), (self.correct_gains_hier_0, 2))    
+        self.connect((self.uhd_usrp_source_0_0, 0), (self.real_time_scope_hier_0, 0))    
+        self.connect((self.uhd_usrp_source_0_0, 1), (self.real_time_scope_hier_0, 1))    
+        self.connect((self.uhd_usrp_source_0_0, 2), (self.real_time_scope_hier_0, 2))    
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "calibration_example_gui")
@@ -266,6 +291,9 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate)
         self.correct_gains_hier_0.set_samp_rate_0(self.samp_rate)
         self.measure_phases_0.set_samp_rate(self.samp_rate)
+        self.real_time_scope_hier_0.set_samp_rate(self.samp_rate)
+        self.real_time_scope_hier_0_0.set_samp_rate(self.samp_rate)
+        self.real_time_scope_hier_0_0_0.set_samp_rate(self.samp_rate)
         self.uhd_usrp_sink_0_0.set_samp_rate(self.samp_rate)
         self.uhd_usrp_source_0_0.set_samp_rate(self.samp_rate)
 
@@ -301,6 +329,8 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
     (options, args) = parser.parse_args()
+    if gr.enable_realtime_scheduling() != gr.RT_OK:
+        print "Error: failed to enable realtime scheduling."
     from distutils.version import StrictVersion
     if StrictVersion(Qt.qVersion()) >= StrictVersion("4.5.0"):
         Qt.QApplication.setGraphicsSystem(gr.prefs().get_string('qtgui','style','raster'))

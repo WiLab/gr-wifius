@@ -50,7 +50,7 @@
     </param>
     <param>
       <key>realtime_scheduling</key>
-      <value></value>
+      <value>1</value>
     </param>
     <param>
       <key>run_options</key>
@@ -174,7 +174,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>1024000*2</value>
+      <value>100000000/16</value>
     </param>
   </block>
   <block>
@@ -608,7 +608,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(232, 507)</value>
+      <value>(576, 386)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -655,7 +655,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1027, 592)</value>
+      <value>(1034, 384)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -702,11 +702,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(496, 569)</value>
+      <value>(544, 217)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -748,16 +748,12 @@
       <value></value>
     </param>
     <param>
-      <key>stopEstimating</key>
-      <value>1</value>
-    </param>
-    <param>
       <key>_enabled</key>
       <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(800, 137)</value>
+      <value>(848, 217)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -784,12 +780,16 @@
       <value>1024</value>
     </param>
     <param>
+      <key>mUpdatePeriod</key>
+      <value>1024</value>
+    </param>
+    <param>
       <key>samp_rate</key>
       <value>samp_rate</value>
     </param>
     <param>
       <key>updatePeriod</key>
-      <value>1000</value>
+      <value>1</value>
     </param>
   </block>
   <block>
@@ -808,11 +808,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(560, 369)</value>
+      <value>(528, 521)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -851,11 +851,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(857, 352)</value>
+      <value>(848, 409)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -863,7 +863,7 @@
     </param>
     <param>
       <key>_rotation</key>
-      <value>90</value>
+      <value>0</value>
     </param>
     <param>
       <key>id</key>
@@ -894,11 +894,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1049, 352)</value>
+      <value>(1105, 32)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -906,7 +906,7 @@
     </param>
     <param>
       <key>_rotation</key>
-      <value>270</value>
+      <value>90</value>
     </param>
     <param>
       <key>id</key>
@@ -941,7 +941,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1121, 592)</value>
+      <value>(1121, 408)</value>
     </param>
     <param>
       <key>_rotation</key>
