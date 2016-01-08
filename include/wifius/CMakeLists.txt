@@ -30,5 +30,6 @@ install(FILES
     int_to_message.h
     divide_by_message.h
     find_scale_factor.h
-    blocker.h DESTINATION include/wifius
+    blocker.h
+    counter_signal.h DESTINATION include/wifius
 )

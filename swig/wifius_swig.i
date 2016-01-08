@@ -17,6 +17,7 @@
 #include "wifius/divide_by_message.h"
 #include "wifius/find_scale_factor.h"
 #include "wifius/blocker.h"
+#include "wifius/counter_signal.h"
 %}
 
 
@@ -41,3 +42,5 @@ GR_SWIG_BLOCK_MAGIC2(wifius, divide_by_message);
 GR_SWIG_BLOCK_MAGIC2(wifius, find_scale_factor);
 %include "wifius/blocker.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, blocker);
+%include "wifius/counter_signal.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, counter_signal);

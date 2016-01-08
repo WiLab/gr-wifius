@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<block>
+  <name>Counter Signal</name>
+  <key>wifius_counter_signal</key>
+  <category>wifius</category>
+  <import>import pmt</import>
+  <import>import wifius</import>
+  <make>wifius.counter_signal($num_samples, $msg)</make>
+
+  <param>
+    <name>Number of Samples</name>
+    <key>num_samples</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Message</name>
+    <key>msg</key>
+    <value>pmt.from_double(1)</value>
+		<type>raw</type>
+  </param>
+
+  <sink>
+    <name>In</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>message</name>
+    <type>message</type>
+  </source>
+
+</block>

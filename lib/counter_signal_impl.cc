@@ -23,59 +23,57 @@
 #endif
 
 #include <gnuradio/io_signature.h>
-#include "divide_by_message_impl.h"
+#include "counter_signal_impl.h"
 
 namespace gr {
   namespace wifius {
 
-    divide_by_message::sptr
-    divide_by_message::make()
+    counter_signal::sptr
+    counter_signal::make(int num_samples, pmt::pmt_t msg)
     {
       return gnuradio::get_initial_sptr
-        (new divide_by_message_impl());
+        (new counter_signal_impl(num_samples, msg));
     }
 
     /*
      * The private constructor
      */
-    divide_by_message_impl::divide_by_message_impl()
-      : gr::sync_block("divide_by_message",
+    counter_signal_impl::counter_signal_impl(int num_samples, pmt::pmt_t msg)
+      : gr::sync_block("counter_signal",
               gr::io_signature::make(1, 1, sizeof(gr_complex)),
-              gr::io_signature::make(1, 1, sizeof(gr_complex))),
-    d_currentDivisor(1),
-    d_msgDivisor(1)
+              gr::io_signature::make(0, 0, 0)),
+          d_messageSent(false),
+          d_samplesCounted(0),
+          d_maxSamples(num_samples),
+          d_msg(msg)
     {
-      // Setup Input port
-      message_port_register_in(pmt::mp("set_divisor"));
-      set_msg_handler(pmt::mp("set_divisor"),
-                      boost::bind(&divide_by_message_impl::set_divisor, this, _1));
+      // Setup output message port
+      message_port_register_out(pmt::mp("message"));
     }
 
     /*
      * Our virtual destructor.
      */
-    divide_by_message_impl::~divide_by_message_impl()
+    counter_signal_impl::~counter_signal_impl()
     {
     }
 
     int
-    divide_by_message_impl::work(int noutput_items,
+    counter_signal_impl::work(int noutput_items,
 			  gr_vector_const_void_star &input_items,
 			  gr_vector_void_star &output_items)
     {
         const gr_complex *in = (const gr_complex *) input_items[0];
-        gr_complex *out = (gr_complex *) output_items[0];
 
-        // Update divisor from newest message
-        if (abs(d_msgDivisor)>0.00001)//make sure it is not zero
-          d_currentDivisor = gr_complex(1,0)/gr_complex(d_msgDivisor.real(),0);
-        else
-          d_currentDivisor = 1;
-
-        // Divide
-        for (int i=0; i<noutput_items; i++)
+        if (!d_messageSent)
         {
-          out[i] = in[i] * d_currentDivisor;
+          // Count input samples
+          d_samplesCounted += noutput_items;
+          if (d_samplesCounted>=d_maxSamples)
+          {
+            message_port_pub(pmt::mp("message"), d_msg); // Send message out to port
+            d_messageSent = true;
+          }
         }
 
         // Tell runtime system how many output items we produced.
