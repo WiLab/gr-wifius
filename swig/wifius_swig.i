@@ -9,7 +9,6 @@
 
 %{
 #include "wifius/measure_phases.h"
-#include "wifius/phase_offset.h"
 #include "wifius/delay_sig.h"
 #include "wifius/mode.h"
 #include "wifius/correct_input.h"
@@ -23,8 +22,7 @@
 
 %include "wifius/measure_phases.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, measure_phases);
-%include "wifius/phase_offset.h"
-GR_SWIG_BLOCK_MAGIC2(wifius, phase_offset);
+
 %include "wifius/delay_sig.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, delay_sig);
 %include "wifius/mode.h"

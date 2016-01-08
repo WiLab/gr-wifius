@@ -23,7 +23,6 @@
 install(FILES
     api.h
     measure_phases.h
-    phase_offset.h
     delay_sig.h
     mode.h
     correct_input.h

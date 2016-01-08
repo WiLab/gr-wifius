@@ -18,7 +18,6 @@
 # Boston, MA 02110-1301, USA.
 install(FILES
     wifius_measure_phases.xml
-    wifius_phase_offset.xml
     wifius_delay_sig.xml
     wifius_mode.xml
     wifius_correct_input.xml
