@@ -24,6 +24,7 @@
 
 #include <gnuradio/io_signature.h>
 #include "divide_by_message_impl.h"
+#include <volk/volk.h>
 
 namespace gr {
   namespace wifius {
@@ -42,9 +43,14 @@ namespace gr {
       : gr::sync_block("divide_by_message",
               gr::io_signature::make(1, 1, sizeof(gr_complex)),
               gr::io_signature::make(1, 1, sizeof(gr_complex))),
-    d_currentDivisor(1),
-    d_msgDivisor(1)
+        d_currentDivisor(gr_complex(1,0)),
+        d_msgDivisor(gr_complex(1,0))
     {
+      // Set up volk alignment
+      const int alignment_multiple =
+	     volk_get_alignment() / sizeof(gr_complex);
+      set_alignment(std::max(1,alignment_multiple));
+
       // Setup Input port
       message_port_register_in(pmt::mp("set_divisor"));
       set_msg_handler(pmt::mp("set_divisor"),
@@ -65,18 +71,20 @@ namespace gr {
     {
         const gr_complex *in = (const gr_complex *) input_items[0];
         gr_complex *out = (gr_complex *) output_items[0];
+        int noi = noutput_items;
 
         // Update divisor from newest message
         if (abs(d_msgDivisor)>0.00001)//make sure it is not zero
           d_currentDivisor = gr_complex(1,0)/gr_complex(d_msgDivisor.real(),0);
         else
-          d_currentDivisor = 1;
+          d_currentDivisor = gr_complex(1,0);
 
         // Divide
-        for (int i=0; i<noutput_items; i++)
-        {
-          out[i] = in[i] * d_currentDivisor;
-        }
+        //for (int i=0; i<noutput_items; i++)
+        //{
+        //  out[i] = in[i] * d_currentDivisor;
+        //}
+        volk_32fc_s32fc_multiply_32fc(out, in, d_currentDivisor, noi);
 
         // Tell runtime system how many output items we produced.
         return noutput_items;

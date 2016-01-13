@@ -45,9 +45,12 @@ namespace gr {
               gr::io_signature::make(0, 0, 0))
     {
 
-      d_samplesPerPeriod = (int) ceil(samp_rate/cal_tone_freq);
+      //d_samplesPerPeriod = (int) ceil(samp_rate/cal_tone_freq);
+      // Convert to closest next base 2 number
+      d_samplesPerPeriod = (int) pow(2, ceil(log(samp_rate/cal_tone_freq)/log(2)));
 
-      set_history(d_samplesPerPeriod);// Need at least this many samples
+      //set_history(d_samplesPerPeriod);// Need at least this many samples
+      set_output_multiple(d_samplesPerPeriod);
 
       // Setup output message port
       message_port_register_out(pmt::mp("message"));
@@ -78,38 +81,41 @@ namespace gr {
     find_scale_factor_impl::work(int noutput_items,
 			  gr_vector_const_void_star &input_items,
 			  gr_vector_void_star &output_items)
-    {
-        const gr_complex *in = (const gr_complex *) input_items[0];
-
-        // Convert to real
-        float *in_real = new float[noutput_items];
-        volk_32fc_deinterleave_real_32f(in_real, in, noutput_items);
-
-        int samplesUsed = 0;
-        int maxIndex = 0;
-
-        // Determine max values and send out as messages
-        while(samplesUsed<(noutput_items-d_samplesPerPeriod))
         {
-          // Get index of max value
-          maxIndex = GetArgMax(in_real, samplesUsed, d_samplesPerPeriod);
+          const gr_complex *in = (const gr_complex *) input_items[0];
 
-          // Convert complex to polymorphic type for message format
-          pmt::pmt_t msg = pmt::from_complex(in[maxIndex]);
+          // Convert to real
+          float *in_real = new float[noutput_items];
+          volk_32fc_deinterleave_real_32f(in_real, in, noutput_items);
 
-          // Send message out to port
-          message_port_pub(pmt::mp("message"), msg);
+          int samplesUsed = 0;
+          int maxIndex = 0;
 
-          // Increment counter
-          samplesUsed += d_samplesPerPeriod;
+          if (noutput_items<d_samplesPerPeriod)
+            std::cout<<"Error Situation, not enough data :(\n";
+
+          // Determine max values and send out as messages
+          while(samplesUsed<=(noutput_items-d_samplesPerPeriod))
+          {
+            // Get index of max value
+            maxIndex = GetArgMax(in_real, samplesUsed, d_samplesPerPeriod);
+
+            // Convert complex to polymorphic type for message format
+            pmt::pmt_t msg = pmt::from_complex(in[maxIndex]);
+
+            // Send message out to port
+            message_port_pub(pmt::mp("message"), msg);
+
+            // Increment counter
+            samplesUsed += d_samplesPerPeriod;
+          }
+
+          // Clean up
+          delete in_real;
+
+          // Tell runtime system how many output items we produced.
+          return noutput_items;
         }
-
-        // Clean up
-        delete in_real;
-
-        // Tell runtime system how many output items we produced.
-        return noutput_items;
-    }
 
   } /* namespace wifius */
 } /* namespace gr */

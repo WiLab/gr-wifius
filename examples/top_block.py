@@ -2,7 +2,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Thu Jan  7 17:14:46 2016
+# Generated: Wed Jan 13 10:15:53 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -250,10 +250,10 @@ class top_block(gr.top_block, Qt.QWidget):
         self.tab_layout_2.addWidget(self._qtgui_time_sink_x_0_0_win)
         self.measure_phases_0 = measure_phases(
             cal_tone_freq=cal_freq,
+            mUpdatePeriod=1000,
             memSize=1024,
             samp_rate=samp_rate,
             skip=1024000*10,
-            stopEstimating=1,
             updatePeriod=1,
         )
         self.correct_gains_hier_0 = correct_gains_hier(

@@ -50,7 +50,7 @@
     </param>
     <param>
       <key>realtime_scheduling</key>
-      <value>1</value>
+      <value></value>
     </param>
     <param>
       <key>run_options</key>
@@ -93,7 +93,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>1000</value>
+      <value>1024</value>
     </param>
   </block>
   <block>
@@ -174,7 +174,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>100000000/16</value>
+      <value>100000000/64</value>
     </param>
   </block>
   <block>
@@ -604,7 +604,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -635,11 +635,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(576, 386)</value>
+      <value>(488, 411)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -686,7 +686,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1034, 384)</value>
+      <value>(1043, 384)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -784,7 +784,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(848, 217)</value>
+      <value>(872, 177)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -796,7 +796,7 @@
     </param>
     <param>
       <key>skip</key>
-      <value>1024000*10</value>
+      <value>2**24</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -820,7 +820,7 @@
     </param>
     <param>
       <key>updatePeriod</key>
-      <value>1</value>
+      <value>100</value>
     </param>
   </block>
   <block>
@@ -886,7 +886,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(848, 409)</value>
+      <value>(872, 449)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -929,7 +929,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1105, 32)</value>
+      <value>(1153, 0)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -1766,7 +1766,7 @@
     </param>
     <param>
       <key>dev_addr</key>
-      <value>"addr=192.168.10.2"</value>
+      <value>"addr=192.168.40.2"</value>
     </param>
     <param>
       <key>dev_args</key>
@@ -1778,7 +1778,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(520, 75)</value>
+      <value>(632, 50)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2756,7 +2756,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>

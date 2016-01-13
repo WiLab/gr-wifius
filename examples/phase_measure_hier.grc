@@ -77,7 +77,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -94,6 +94,33 @@
     <param>
       <key>value</key>
       <value>samp_rate/cal_tone_freq*2</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(128, 122)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>vec_size</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>int(2**( numpy.ceil(numpy.log(samp_rate/cal_tone_freq*2)/numpy.log(2))))</value>
     </param>
   </block>
   <block>
@@ -728,7 +755,7 @@
     </param>
   </block>
   <block>
-    <key>parameter</key>
+    <key>import</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -739,11 +766,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1104, 178)</value>
+      <value>(184, 10)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -751,23 +778,11 @@
     </param>
     <param>
       <key>id</key>
-      <value>enableLock</value>
+      <value>import_0</value>
     </param>
     <param>
-      <key>label</key>
-      <value>Enable Lock</value>
-    </param>
-    <param>
-      <key>short_id</key>
-      <value></value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>string</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>Enabled</value>
+      <key>import</key>
+      <value>import numpy</value>
     </param>
   </block>
   <block>
@@ -954,7 +969,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(51, 528)</value>
+      <value>(51, 536)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1134,7 +1149,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(224, 521)</value>
+      <value>(232, 457)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1142,7 +1157,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>wifius_blocker_0</value>
+      <value>wifius_blocker_0_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -1154,7 +1169,93 @@
     </param>
     <param>
       <key>num_ports</key>
-      <value>3</value>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>wifius_blocker</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(232, 521)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_blocker_0_0_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>num_ports</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>wifius_blocker</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(232, 585)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_blocker_0_0_1</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>num_ports</key>
+      <value>1</value>
     </param>
   </block>
   <block>
@@ -1659,7 +1760,7 @@
   </connection>
   <connection>
     <source_block_id>blocks_skiphead_0</source_block_id>
-    <sink_block_id>wifius_blocker_0</sink_block_id>
+    <sink_block_id>wifius_blocker_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1671,9 +1772,9 @@
   </connection>
   <connection>
     <source_block_id>blocks_skiphead_0_0</source_block_id>
-    <sink_block_id>wifius_blocker_0</sink_block_id>
+    <sink_block_id>wifius_blocker_0_0_1</sink_block_id>
     <source_key>0</source_key>
-    <sink_key>2</sink_key>
+    <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_skiphead_0_0</source_block_id>
@@ -1683,9 +1784,9 @@
   </connection>
   <connection>
     <source_block_id>blocks_skiphead_0_1</source_block_id>
-    <sink_block_id>wifius_blocker_0</sink_block_id>
+    <sink_block_id>wifius_blocker_0_0_0</sink_block_id>
     <source_key>0</source_key>
-    <sink_key>1</sink_key>
+    <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_skiphead_0_1</source_block_id>
@@ -1749,26 +1850,38 @@
   </connection>
   <connection>
     <source_block_id>pad_source_0_0</source_block_id>
-    <sink_block_id>wifius_blocker_0</sink_block_id>
+    <sink_block_id>wifius_blocker_0_0</sink_block_id>
     <source_key>out</source_key>
     <sink_key>enable_stop</sink_key>
   </connection>
   <connection>
-    <source_block_id>wifius_blocker_0</source_block_id>
+    <source_block_id>pad_source_0_0</source_block_id>
+    <sink_block_id>wifius_blocker_0_0_0</sink_block_id>
+    <source_key>out</source_key>
+    <sink_key>enable_stop</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0_0</source_block_id>
+    <sink_block_id>wifius_blocker_0_0_1</sink_block_id>
+    <source_key>out</source_key>
+    <sink_key>enable_stop</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>wifius_blocker_0_0</source_block_id>
     <sink_block_id>blocks_stream_to_vector_0_1_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>wifius_blocker_0</source_block_id>
+    <source_block_id>wifius_blocker_0_0_0</source_block_id>
     <sink_block_id>blocks_stream_to_vector_0_1</sink_block_id>
-    <source_key>1</source_key>
+    <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>wifius_blocker_0</source_block_id>
+    <source_block_id>wifius_blocker_0_0_1</source_block_id>
     <sink_block_id>blocks_stream_to_vector_0_1_1</sink_block_id>
-    <source_key>2</source_key>
+    <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
