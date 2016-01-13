@@ -5,7 +5,7 @@
   <category>wifius</category>
   <import>import pmt</import>
   <import>import wifius</import>
-  <make>wifius.counter_signal($num_samples, $msg)</make>
+  <make>wifius.counter_signal($num_samples, $msg, $printEvent)</make>
 
   <param>
     <name>Number of Samples</name>
@@ -18,6 +18,20 @@
     <value>pmt.from_double(1)</value>
 		<type>raw</type>
   </param>
+  <param>
+    <name>Print When Triggered</name>
+    <key>printEvent</key>
+    <type>bool</type>
+    <option>
+      <name>Enabled</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>Disabled</name>
+      <key>False</key>
+    </option>
+  </param>
+
 
   <sink>
     <name>In</name>

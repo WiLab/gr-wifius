@@ -46,7 +46,7 @@ namespace gr {
        * class. wifius::counter_signal::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int num_samples, pmt::pmt_t msg);
+      static sptr make(int num_samples, pmt::pmt_t msg, bool printEvent);
     };
 
   } // namespace wifius
