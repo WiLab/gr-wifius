@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<block>
+  <name>shift_and_measure</name>
+  <key>wifius_shift_and_measure</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <make>wifius.shift_and_measure($cal_tone_freq, $samp_rate, $vlen, $mu, $debug)</make>
+
+  <param>
+    <name>Vec Length</name>
+    <key>vlen</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Calibration Tone Freq</name>
+    <key>cal_tone_freq</key>
+    <type>float</type>
+  </param>
+  <param>
+    <name>Sample Rate</name>
+    <key>samp_rate</key>
+    <type>float</type>
+  </param>
+  <param>
+    <name>Step Size</name>
+    <key>mu</key>
+    <type>float</type>
+  </param>
+  <param>
+    <name>Debug</name>
+    <key>debug</key>
+    <type>bool</type>
+    <option>
+      <name>Enabled</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>Disabled</name>
+      <key>False</key>
+    </option>
+  </param>
+
+  <sink>
+    <name>Reference</name>
+    <type>float</type>
+    <vlen>$vlen</vlen>
+  </sink>
+  <sink>
+    <name>To Sync</name>
+    <type>float</type>
+    <vlen>$vlen</vlen>
+  </sink>
+
+  <source>
+    <name>Delay Est</name>
+    <type>int</type>
+  </source>
+</block>

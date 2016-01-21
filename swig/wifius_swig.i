@@ -17,6 +17,7 @@
 #include "wifius/find_scale_factor.h"
 #include "wifius/blocker.h"
 #include "wifius/counter_signal.h"
+#include "wifius/shift_and_measure.h"
 %}
 
 
@@ -42,3 +43,5 @@ GR_SWIG_BLOCK_MAGIC2(wifius, find_scale_factor);
 GR_SWIG_BLOCK_MAGIC2(wifius, blocker);
 %include "wifius/counter_signal.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, counter_signal);
+%include "wifius/shift_and_measure.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, shift_and_measure);

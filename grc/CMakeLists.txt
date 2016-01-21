@@ -25,5 +25,6 @@ install(FILES
     wifius_divide_by_message.xml
     wifius_find_scale_factor.xml
     wifius_blocker.xml
-    wifius_counter_signal.xml DESTINATION share/gnuradio/grc/blocks
+    wifius_counter_signal.xml
+    wifius_shift_and_measure.xml DESTINATION share/gnuradio/grc/blocks
 )
