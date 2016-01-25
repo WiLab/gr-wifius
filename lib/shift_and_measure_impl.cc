@@ -27,6 +27,8 @@
 
 #define dout(X,Y) {if(d_debug){std::cout<<X<<": "<<Y<<std::endl;}}
 
+#define HIST_SIZE 0
+
 namespace gr {
   namespace wifius {
 
@@ -54,8 +56,10 @@ namespace gr {
       d_differencesSL = new float[d_samplesToShift];
       d_differencesSR = new float[d_samplesToShift];
 
+      dout("MaxSampleShift",d_samplesToShift);
+
       // Need at least 3 vectors since shifts can force off buffer conditions
-      set_history(3);
+      set_output_multiple(3);
     }
 
     /*
@@ -108,10 +112,10 @@ namespace gr {
           minIndexSR = i;
       }
 
-      dout("minIndexSR",minIndexSR);
-      dout("minIndexSL",minIndexSL);
-      dout("SR[minIndexSR]",SR[minIndexSR])
-      dout("SL[minIndexSL]",SL[minIndexSL])
+      // dout("minIndexSR",minIndexSR);
+      // dout("minIndexSL",minIndexSL);
+      // dout("SR[minIndexSR]",SR[minIndexSR])
+      // dout("SL[minIndexSL]",SL[minIndexSL])
 
       // Return smallest error offset and adjust for direction
       if (SL[minIndexSL]<SR[minIndexSR])
@@ -141,12 +145,12 @@ namespace gr {
         int currentDelay;
 
         // Operate over each input vector
-        for (int items=0; items<(noutput_items+2); items++)
+        for (int items=0; items<(noutput_items+HIST_SIZE); items++)
         {
           // Delay signal according to lastest measurement
           delayedMarker = marker - (int) floor(d_lastDelay);
 
-          //Make sure we have enough data for sliding (can be a problem with first of last vectors)
+          //Make sure we have enough data for sliding (can be a problem with first and last vectors)
           if ((delayedMarker>=0)&&
              ((delayedMarker+d_samplesToShift)<(noutput_items*d_vlen)))
           {
@@ -164,14 +168,18 @@ namespace gr {
           }
           else
           {
-            dout("Skipped",noutput_items);
-            dout("marker",marker);dout("noutput_items",noutput_items);
+            // dout("Skipped",noutput_items);
+            // dout("marker",marker);dout("noutput_items",noutput_items);
           }
-          
+
+          // Check offset if over max delay
+          if (d_lastDelay>d_samplesToShift)
+            std::cout<<"WARNING: Shift past max value, offsets maybe > 90 Degrees\n";
+
           // Set out best integer of delay
           out[items] = (int) floor(d_lastDelay);
 
-          dout("d_lastDelay",d_lastDelay);
+          // dout("d_lastDelay",d_lastDelay);
 
           // Increase index
           marker += d_vlen;

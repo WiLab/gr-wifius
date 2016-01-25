@@ -7,3 +7,8 @@
 # Transmitters
 192.168.10.2
 192.168.40.2 # Sync Signal
+
+# Targets
+192.168.10.3
+ - eth9
+ - Renato's Desk

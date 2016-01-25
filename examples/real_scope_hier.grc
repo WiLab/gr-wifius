@@ -132,6 +132,49 @@
     </param>
     <param>
       <key>_coordinate</key>
+      <value>(600, 313)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_complex_to_real_0_0_0_1_0_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_complex_to_real</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
       <value>(600, 249)</value>
     </param>
     <param>
@@ -269,7 +312,7 @@
     </param>
     <param>
       <key>num_streams</key>
-      <value>3</value>
+      <value>4</value>
     </param>
     <param>
       <key>optional</key>
@@ -584,7 +627,7 @@
     </param>
     <param>
       <key>nconnections</key>
-      <value>3</value>
+      <value>4</value>
     </param>
     <param>
       <key>size</key>
@@ -736,6 +779,12 @@
     <sink_key>2</sink_key>
   </connection>
   <connection>
+    <source_block_id>blocks_complex_to_real_0_0_0_1_0_0</source_block_id>
+    <sink_block_id>qtgui_time_sink_x_0_1_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>3</sink_key>
+  </connection>
+  <connection>
     <source_block_id>blocks_complex_to_real_0_0_2_0</source_block_id>
     <sink_block_id>qtgui_time_sink_x_0_1_0</sink_block_id>
     <source_key>0</source_key>
@@ -763,6 +812,12 @@
     <source_block_id>pad_source_0</source_block_id>
     <sink_block_id>blocks_complex_to_real_0_0_0_1_0</sink_block_id>
     <source_key>2</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>blocks_complex_to_real_0_0_0_1_0_0</sink_block_id>
+    <source_key>3</source_key>
     <sink_key>0</sink_key>
   </connection>
 </flow_graph>

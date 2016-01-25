@@ -144,7 +144,7 @@
     </param>
     <param>
       <key>num_streams</key>
-      <value>3</value>
+      <value>4</value>
     </param>
     <param>
       <key>optional</key>
@@ -183,7 +183,7 @@
     </param>
     <param>
       <key>num_streams</key>
-      <value>3</value>
+      <value>4</value>
     </param>
     <param>
       <key>optional</key>
@@ -210,7 +210,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(104, 345)</value>
+      <value>(96, 395)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -414,6 +414,49 @@
     </param>
   </block>
   <block>
+    <key>wifius_blocker</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(336, 345)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_blocker_0_0_1_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>num_ports</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
     <key>wifius_divide_by_message</key>
     <param>
       <key>alias</key>
@@ -520,6 +563,45 @@
     <param>
       <key>id</key>
       <value>wifius_divide_by_message_0_1</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>wifius_divide_by_message</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(832, 545)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_divide_by_message_0_1_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -671,6 +753,53 @@
       <value>samp_rate_0</value>
     </param>
   </block>
+  <block>
+    <key>wifius_find_scale_factor</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>cal_tone_freq</key>
+      <value>cal_tone_freq</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(584, 451)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_find_scale_factor_0_1_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>samp_rate</key>
+      <value>samp_rate_0</value>
+    </param>
+  </block>
   <connection>
     <source_block_id>pad_source_0</source_block_id>
     <sink_block_id>wifius_blocker_0_0</sink_block_id>
@@ -708,6 +837,18 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>wifius_blocker_0_0_1_0</sink_block_id>
+    <source_key>3</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>wifius_divide_by_message_0_1_0</sink_block_id>
+    <source_key>3</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>pad_source_0_0</source_block_id>
     <sink_block_id>wifius_blocker_0_0</sink_block_id>
     <source_key>out</source_key>
@@ -722,6 +863,12 @@
   <connection>
     <source_block_id>pad_source_0_0</source_block_id>
     <sink_block_id>wifius_blocker_0_0_1</sink_block_id>
+    <source_key>out</source_key>
+    <sink_key>enable_stop</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0_0</source_block_id>
+    <sink_block_id>wifius_blocker_0_0_1_0</sink_block_id>
     <source_key>out</source_key>
     <sink_key>enable_stop</sink_key>
   </connection>
@@ -744,6 +891,12 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>wifius_blocker_0_0_1_0</source_block_id>
+    <sink_block_id>wifius_find_scale_factor_0_1_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>wifius_divide_by_message_0</source_block_id>
     <sink_block_id>pad_sink_0</sink_block_id>
     <source_key>0</source_key>
@@ -762,6 +915,12 @@
     <sink_key>2</sink_key>
   </connection>
   <connection>
+    <source_block_id>wifius_divide_by_message_0_1_0</source_block_id>
+    <sink_block_id>pad_sink_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>3</sink_key>
+  </connection>
+  <connection>
     <source_block_id>wifius_find_scale_factor_0</source_block_id>
     <sink_block_id>wifius_divide_by_message_0</sink_block_id>
     <source_key>message</source_key>
@@ -776,6 +935,12 @@
   <connection>
     <source_block_id>wifius_find_scale_factor_0_1</source_block_id>
     <sink_block_id>wifius_divide_by_message_0_1</sink_block_id>
+    <source_key>message</source_key>
+    <sink_key>set_divisor</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>wifius_find_scale_factor_0_1_0</source_block_id>
+    <sink_block_id>wifius_divide_by_message_0_1_0</sink_block_id>
     <source_key>message</source_key>
     <sink_key>set_divisor</sink_key>
   </connection>
