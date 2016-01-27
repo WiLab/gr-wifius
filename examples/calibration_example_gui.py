@@ -4,7 +4,7 @@
 # Title: Calibration Example
 # Author: Travis Collins
 # Description: WiFiUS Project
-# Generated: Mon Jan 25 09:35:11 2016
+# Generated: Tue Jan 26 21:24:44 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -82,20 +82,29 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         ##################################################
         self._variable_qtgui_chooser_0_1_0_options = (1, 0, )
         self._variable_qtgui_chooser_0_1_0_labels = ("Stop", "Running", )
-        self._variable_qtgui_chooser_0_1_0_tool_bar = Qt.QToolBar(self)
-        self._variable_qtgui_chooser_0_1_0_tool_bar.addWidget(Qt.QLabel("Sync System"+": "))
-        self._variable_qtgui_chooser_0_1_0_combo_box = Qt.QComboBox()
-        self._variable_qtgui_chooser_0_1_0_tool_bar.addWidget(self._variable_qtgui_chooser_0_1_0_combo_box)
-        for label in self._variable_qtgui_chooser_0_1_0_labels: self._variable_qtgui_chooser_0_1_0_combo_box.addItem(label)
-        self._variable_qtgui_chooser_0_1_0_callback = lambda i: Qt.QMetaObject.invokeMethod(self._variable_qtgui_chooser_0_1_0_combo_box, "setCurrentIndex", Qt.Q_ARG("int", self._variable_qtgui_chooser_0_1_0_options.index(i)))
+        self._variable_qtgui_chooser_0_1_0_group_box = Qt.QGroupBox("Sync System")
+        self._variable_qtgui_chooser_0_1_0_box = Qt.QHBoxLayout()
+        class variable_chooser_button_group(Qt.QButtonGroup):
+            def __init__(self, parent=None):
+                Qt.QButtonGroup.__init__(self, parent)
+            @pyqtSlot(int)
+            def updateButtonChecked(self, button_id):
+                self.button(button_id).setChecked(True)
+        self._variable_qtgui_chooser_0_1_0_button_group = variable_chooser_button_group()
+        self._variable_qtgui_chooser_0_1_0_group_box.setLayout(self._variable_qtgui_chooser_0_1_0_box)
+        for i, label in enumerate(self._variable_qtgui_chooser_0_1_0_labels):
+        	radio_button = Qt.QRadioButton(label)
+        	self._variable_qtgui_chooser_0_1_0_box.addWidget(radio_button)
+        	self._variable_qtgui_chooser_0_1_0_button_group.addButton(radio_button, i)
+        self._variable_qtgui_chooser_0_1_0_callback = lambda i: Qt.QMetaObject.invokeMethod(self._variable_qtgui_chooser_0_1_0_button_group, "updateButtonChecked", Qt.Q_ARG("int", self._variable_qtgui_chooser_0_1_0_options.index(i)))
         self._variable_qtgui_chooser_0_1_0_callback(self.variable_qtgui_chooser_0_1_0)
-        self._variable_qtgui_chooser_0_1_0_combo_box.currentIndexChanged.connect(
+        self._variable_qtgui_chooser_0_1_0_button_group.buttonClicked[int].connect(
         	lambda i: self.set_variable_qtgui_chooser_0_1_0(self._variable_qtgui_chooser_0_1_0_options[i]))
-        self.top_layout.addWidget(self._variable_qtgui_chooser_0_1_0_tool_bar)
+        self.top_layout.addWidget(self._variable_qtgui_chooser_0_1_0_group_box)
         self._variable_qtgui_chooser_0_0_0_options = (0, 1, )
         self._variable_qtgui_chooser_0_0_0_labels = ("Enable", "Disable", )
-        self._variable_qtgui_chooser_0_0_0_group_box = Qt.QGroupBox("Transmitter Enable")
-        self._variable_qtgui_chooser_0_0_0_box = Qt.QVBoxLayout()
+        self._variable_qtgui_chooser_0_0_0_group_box = Qt.QGroupBox("Distant Transmitter Enable")
+        self._variable_qtgui_chooser_0_0_0_box = Qt.QHBoxLayout()
         class variable_chooser_button_group(Qt.QButtonGroup):
             def __init__(self, parent=None):
                 Qt.QButtonGroup.__init__(self, parent)
@@ -116,7 +125,7 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self._variable_qtgui_chooser_0_0_options = (0, 1, )
         self._variable_qtgui_chooser_0_0_labels = ("Enable", "Disable", )
         self._variable_qtgui_chooser_0_0_group_box = Qt.QGroupBox("Source Enable")
-        self._variable_qtgui_chooser_0_0_box = Qt.QVBoxLayout()
+        self._variable_qtgui_chooser_0_0_box = Qt.QHBoxLayout()
         class variable_chooser_button_group(Qt.QButtonGroup):
             def __init__(self, parent=None):
                 Qt.QButtonGroup.__init__(self, parent)
@@ -226,7 +235,10 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.tab_layout_2.addWidget(self.real_time_scope_hier_0_0_0)
         self.phase_calib_hier_0 = phase_calib_hier(
             cal_freq=cal_freq,
+            gaincorrect=0,
+            mu=0.0001,
             samp_rate=samp_rate,
+            skips=2**14,
         )
         self.blocks_message_strobe_0 = blocks.message_strobe(pmt.from_double(variable_qtgui_chooser_0_1_0), 1000)
         self.blks2_valve_0_0 = grc_blks2.valve(item_size=gr.sizeof_gr_complex*1, open=bool(variable_qtgui_chooser_0_0_0))
@@ -237,7 +249,7 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.msg_connect((self.blocks_message_strobe_0, 'strobe'), (self.phase_calib_hier_0, 'in'))    
+        self.msg_connect((self.blocks_message_strobe_0, 'strobe'), (self.phase_calib_hier_0, 'Sync_Enable'))    
         self.connect((self.analog_sig_source_x_0, 0), (self.blks2_valve_0, 0))    
         self.connect((self.analog_sig_source_x_0_0, 0), (self.blks2_valve_0_0, 0))    
         self.connect((self.blks2_valve_0, 0), (self.uhd_usrp_sink_0_0, 0))    

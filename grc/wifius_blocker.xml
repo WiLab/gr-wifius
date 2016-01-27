@@ -5,10 +5,23 @@
   <category>wifius</category>
   <import>import wifius</import>
   <import>import pmt</import>
-  <make>wifius.blocker()</make>
+  <make>wifius.blocker($default_state)</make>
 
   <callback>enable_stop($msg)</callback>
 
+  <param>
+    <name>Default State</name>
+    <key>default_state</key>
+    <type>bool</type>
+    <option>
+      <name>True</name>
+      <key>True</key>
+    </option>
+    <option>
+      <name>False</name>
+      <key>False</key>
+    </option>
+  </param>
   <param>
 		<name>Num Ports</name>
 		<key>num_ports</key>
@@ -16,7 +29,7 @@
 		<type>int</type>
 	</param>
   <check>$num_ports &gt; 0</check>
-  
+
   <sink>
     <name>enable_stop</name>
     <type>message</type>

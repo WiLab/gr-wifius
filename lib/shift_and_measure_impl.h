@@ -36,12 +36,16 @@ namespace gr {
       float d_lastDelay;
       float d_mu;
       int d_samplesToShift;
+      int d_counter;
+      float d_sigPeak;
       bool d_debug;
 
      public:
       shift_and_measure_impl(float cal_tone_freq, float samp_rate, size_t vlen, float mu, bool debug);
       ~shift_and_measure_impl();
 
+      int Get_Max_Index(const float *signal, int &start);
+      int Get_Max_IndexLEFT(const float *signal, int &start);
       float* Shift_Right(const float *reference, const float *otherSignal, int &start, int &startDelay);
       float* Shift_Left(const float *reference, const float *otherSignal, int &start, int &startDelay);
       int Determine_Offset(float *SL, float *SR);

@@ -49,17 +49,22 @@ namespace gr {
 	  d_vlen(vlen),
     d_lastDelay(0),
     d_mu(mu),
+    d_counter(0),
+    d_sigPeak(0),
     d_debug(debug)
     {
-      float samplesPerPeriod = (int) ceil( (samp_rate/cal_tone_freq));
-      d_samplesToShift = (int) ceil(samplesPerPeriod*0.5);
+      float samplesPerPeriod = (int) ceil( (samp_rate/cal_tone_freq));// Exact
+      d_samplesPerPeriod = (int) ceil(samplesPerPeriod);
+      d_samplesToShift = (int) ceil(samplesPerPeriod*0.5); // reduce to only amount needed for shifting
+
+      // Memory for difference arrays
       d_differencesSL = new float[d_samplesToShift];
       d_differencesSR = new float[d_samplesToShift];
 
       dout("MaxSampleShift",d_samplesToShift);
 
       // Need at least 3 vectors since shifts can force off buffer conditions
-      set_output_multiple(3);
+      set_output_multiple(8);
     }
 
     /*
@@ -78,6 +83,9 @@ namespace gr {
         d_differencesSL[offset] = 0;
         for (int overlap=0; overlap<(maxShift-offset); overlap++)
           d_differencesSL[offset] += fabs( reference[start + overlap] - otherSignal[startDelay + offset + overlap] );
+
+        // // Normalize
+        // d_differencesSL[offset] = d_differencesSL[offset]/(maxShift-offset);
       }
 
       return d_differencesSL;
@@ -92,9 +100,36 @@ namespace gr {
         d_differencesSR[offset] = 0;
         for (int overlap=0; overlap<(maxShift-offset); overlap++)
           d_differencesSR[offset] += fabs( reference[start + offset + overlap] - otherSignal[startDelay + overlap] );
+
+        // // Normalize
+        // d_differencesSR[offset] = d_differencesSR[offset]/(maxShift-offset);
       }
 
       return d_differencesSR;
+    }
+
+    int
+    shift_and_measure_impl::Get_Max_Index(const float *signal, int &start)
+    {
+      int peakIndx = 0;
+      for (int i=0; i<d_samplesToShift; i++)
+      {
+        if ((signal[i+start])>(signal[peakIndx+start]))
+            peakIndx = i;
+      }
+      return peakIndx;
+    }
+
+    int
+    shift_and_measure_impl::Get_Max_IndexLEFT(const float *signal, int &start)
+    {
+      int peakIndx = 0;
+      for (int i=0; i>-d_samplesToShift; i--)
+      {
+        if (fabs(signal[i])>fabs(signal[peakIndx]))
+            peakIndx = i;
+      }
+      return peakIndx;
     }
 
     int
@@ -112,16 +147,15 @@ namespace gr {
           minIndexSR = i;
       }
 
-      // dout("minIndexSR",minIndexSR);
-      // dout("minIndexSL",minIndexSL);
-      // dout("SR[minIndexSR]",SR[minIndexSR])
-      // dout("SL[minIndexSL]",SL[minIndexSL])
-
       // Return smallest error offset and adjust for direction
       if (SL[minIndexSL]<SR[minIndexSR])
+      {
         return -minIndexSL;
+      }
       else
+      {
         return minIndexSR;
+      }
     }
 
     int
@@ -144,14 +178,17 @@ namespace gr {
         float *SR_Differences;
         int currentDelay;
 
+        int refPkIndx;
+        float diff;
+
         // Operate over each input vector
-        for (int items=0; items<(noutput_items+HIST_SIZE); items++)
+        for (int items=0; items<(noutput_items); items++)
         {
-          // Delay signal according to lastest measurement
+          // Delay signal according to lastest estimate
           delayedMarker = marker - (int) floor(d_lastDelay);
 
           //Make sure we have enough data for sliding (can be a problem with first and last vectors)
-          if ((delayedMarker>=0)&&
+         if ((delayedMarker>=0)&&
              ((delayedMarker+d_samplesToShift)<(noutput_items*d_vlen)))
           {
             // Determine errors between signals when left shifting input 2
@@ -164,22 +201,23 @@ namespace gr {
             currentDelay = Determine_Offset(SL_Differences, SR_Differences);
 
             // Update current best estimates
-            d_lastDelay = d_lastDelay + d_mu*(float)currentDelay;
-          }
-          else
-          {
-            // dout("Skipped",noutput_items);
-            // dout("marker",marker);dout("noutput_items",noutput_items);
-          }
+            d_lastDelay = d_lastDelay - d_mu*(float)currentDelay;
 
-          // Check offset if over max delay
-          if (d_lastDelay>d_samplesToShift)
-            std::cout<<"WARNING: Shift past max value, offsets maybe > 90 Degrees\n";
+            // Compare Peaks, make sure they are close and not in a false min
+            refPkIndx = Get_Max_Index(ref,marker);
+            // Since peaks are normalized the worst they can be is ~2, but >1.5 is bad
+            diff = fabs(ref[marker+refPkIndx] - other[marker+refPkIndx - (int)floor(d_lastDelay)]  );
+            if (( diff  > 1.5 ) && (d_lastDelay>d_samplesPerPeriod*0.05))
+              d_lastDelay = 0;//reset
+
+            // Make sure we do not shift past 360 Degrees and reset if we get close
+            if ((d_lastDelay>d_samplesPerPeriod) || (d_lastDelay<(-d_samplesPerPeriod)) )
+              d_lastDelay = 0;//reset
+
+          }
 
           // Set out best integer of delay
           out[items] = (int) floor(d_lastDelay);
-
-          // dout("d_lastDelay",d_lastDelay);
 
           // Increase index
           marker += d_vlen;

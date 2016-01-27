@@ -299,6 +299,10 @@
       <value></value>
     </param>
     <param>
+      <key>default_state</key>
+      <value>False</value>
+    </param>
+    <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
@@ -340,6 +344,10 @@
     <param>
       <key>affinity</key>
       <value></value>
+    </param>
+    <param>
+      <key>default_state</key>
+      <value>False</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -385,6 +393,10 @@
       <value></value>
     </param>
     <param>
+      <key>default_state</key>
+      <value>False</value>
+    </param>
+    <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
@@ -426,6 +438,10 @@
     <param>
       <key>affinity</key>
       <value></value>
+    </param>
+    <param>
+      <key>default_state</key>
+      <value>False</value>
     </param>
     <param>
       <key>_enabled</key>

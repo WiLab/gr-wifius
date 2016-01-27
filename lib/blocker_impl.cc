@@ -29,20 +29,20 @@ namespace gr {
   namespace wifius {
 
     blocker::sptr
-    blocker::make()
+    blocker::make(bool default_state)
     {
       return gnuradio::get_initial_sptr
-        (new blocker_impl());
+        (new blocker_impl(default_state));
     }
 
     /*
      * The private constructor
      */
-    blocker_impl::blocker_impl()
+    blocker_impl::blocker_impl(bool default_state)
       : gr::block("blocker",
               gr::io_signature::make(1, -1, sizeof(gr_complex)),
               gr::io_signature::make(1, -1, sizeof(gr_complex))),
-      d_stop(false)
+      d_stop(default_state)
     {
       // Setup Input port
       message_port_register_in(pmt::mp("enable_stop"));

@@ -32,7 +32,7 @@ namespace gr {
       bool d_stop;
 
      public:
-      blocker_impl();
+      blocker_impl(bool default_state);
       ~blocker_impl();
 
       // Where all the action really happens

@@ -346,7 +346,7 @@
     </param>
     <param>
       <key>orient</key>
-      <value>Qt.QHBoxLayout</value>
+      <value>Qt.QVBoxLayout</value>
     </param>
     <param>
       <key>type</key>
@@ -409,7 +409,7 @@
     </param>
     <param>
       <key>label</key>
-      <value>Distant Transmitter Enable</value>
+      <value>Transmitter Enable</value>
     </param>
     <param>
       <key>labels</key>
@@ -445,7 +445,7 @@
     </param>
     <param>
       <key>orient</key>
-      <value>Qt.QHBoxLayout</value>
+      <value>Qt.QVBoxLayout</value>
     </param>
     <param>
       <key>type</key>
@@ -464,7 +464,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -552,7 +552,7 @@
     </param>
     <param>
       <key>widget</key>
-      <value>radio_buttons</value>
+      <value>combo_box</value>
     </param>
   </block>
   <block>
@@ -883,6 +883,92 @@
     </param>
   </block>
   <block>
+    <key>blocks_complex_to_real</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(960, 289)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_complex_to_real_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_complex_to_real</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(960, 257)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_complex_to_real_1</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
     <key>blocks_message_strobe</key>
     <param>
       <key>alias</key>
@@ -977,107 +1063,13 @@
     </param>
   </block>
   <block>
-    <key>blocks_moving_average_xx</key>
+    <key>delay_correct_hier</key>
     <param>
       <key>alias</key>
       <value></value>
     </param>
     <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(912, 578)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>blocks_moving_average_xx_0</value>
-    </param>
-    <param>
-      <key>length</key>
-      <value>1000</value>
-    </param>
-    <param>
-      <key>max_iter</key>
-      <value>4000</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>scale</key>
-      <value>1/1000</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>float</value>
-    </param>
-  </block>
-  <block>
-    <key>doa_hier</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(1088, 385)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>doa_hier_0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-  </block>
-  <block>
-    <key>phase_calib_hier</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>cal_freq</key>
+      <key>cal_tone_freq</key>
       <value>cal_freq</value>
     </param>
     <param>
@@ -1094,7 +1086,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(536, 265)</value>
+      <value>(904, 137)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1102,7 +1094,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>phase_calib_hier_0</value>
+      <value>delay_correct_hier_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -1117,16 +1109,8 @@
       <value>samp_rate</value>
     </param>
     <param>
-      <key>skips</key>
-      <value>2**14</value>
-    </param>
-    <param>
-      <key>gaincorrect</key>
-      <value>0</value>
-    </param>
-    <param>
       <key>mu</key>
-      <value>0.0001</value>
+      <value>0.001</value>
     </param>
   </block>
   <block>
@@ -1157,11 +1141,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>True</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1136, 571)</value>
+      <value>(984, 363)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -1433,7 +1417,7 @@
     </param>
     <param>
       <key>size</key>
-      <value>32</value>
+      <value>1024</value>
     </param>
     <param>
       <key>srate</key>
@@ -1453,7 +1437,7 @@
     </param>
     <param>
       <key>tr_mode</key>
-      <value>qtgui.TRIG_MODE_FREE</value>
+      <value>qtgui.TRIG_MODE_AUTO</value>
     </param>
     <param>
       <key>tr_slope</key>
@@ -1481,97 +1465,11 @@
     </param>
     <param>
       <key>ymax</key>
-      <value>80</value>
-    </param>
-    <param>
-      <key>ymin</key>
-      <value>-80</value>
-    </param>
-  </block>
-  <block>
-    <key>real_time_scope_hier</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(528, 561)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>tab@0</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>real_time_scope_hier_0</value>
-    </param>
-    <param>
-      <key>npoints</key>
-      <value>100</value>
-    </param>
-    <param>
-      <key>samp_rate</key>
-      <value>samp_rate</value>
-    </param>
-  </block>
-  <block>
-    <key>real_time_scope_hier</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
       <value>1</value>
     </param>
     <param>
-      <key>_coordinate</key>
-      <value>(808, 249)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value>tab@2</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>real_time_scope_hier_0_0_0</value>
-    </param>
-    <param>
-      <key>npoints</key>
-      <value>1000</value>
-    </param>
-    <param>
-      <key>samp_rate</key>
-      <value>samp_rate</value>
+      <key>ymin</key>
+      <value>-1</value>
     </param>
   </block>
   <block>
@@ -3979,7 +3877,7 @@
     </param>
     <param>
       <key>dev_addr</key>
-      <value>"addr0=192.168.70.2,addr1=192.168.20.2,addr2=192.168.30.2,addr3=192.168.50.2"</value>
+      <value>"addr0=192.168.20.2,addr1=192.168.50.2"</value>
     </param>
     <param>
       <key>dev_args</key>
@@ -4107,11 +4005,11 @@
     </param>
     <param>
       <key>nchan</key>
-      <value>4</value>
+      <value>2</value>
     </param>
     <param>
       <key>num_mboards</key>
-      <value>4</value>
+      <value>2</value>
     </param>
     <param>
       <key>type</key>
@@ -4131,11 +4029,183 @@
     </param>
     <param>
       <key>sync</key>
-      <value>pc_clock</value>
+      <value>sync</value>
     </param>
     <param>
       <key>otw</key>
       <value></value>
+    </param>
+  </block>
+  <block>
+    <key>wifius_divide_by_message</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(712, 289)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_divide_by_message_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>wifius_divide_by_message</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(712, 457)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_divide_by_message_0_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>wifius_find_scale_factor</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>cal_tone_freq</key>
+      <value>cal_freq</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(536, 195)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_find_scale_factor_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>samp_rate</key>
+      <value>samp_rate</value>
+    </param>
+  </block>
+  <block>
+    <key>wifius_find_scale_factor</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>cal_tone_freq</key>
+      <value>cal_freq</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(552, 363)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>wifius_find_scale_factor_0_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>samp_rate</key>
+      <value>samp_rate</value>
     </param>
   </block>
   <connection>
@@ -4163,105 +4233,81 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>blocks_complex_to_real_0</source_block_id>
+    <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_complex_to_real_1</source_block_id>
+    <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>blocks_message_strobe_0</source_block_id>
-    <sink_block_id>phase_calib_hier_0</sink_block_id>
+    <sink_block_id>delay_correct_hier_0</sink_block_id>
     <source_key>strobe</source_key>
-    <sink_key>Sync_Enable</sink_key>
+    <sink_key>enable_sync</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_moving_average_xx_0</source_block_id>
-    <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
+    <source_block_id>delay_correct_hier_0</source_block_id>
+    <sink_block_id>blocks_complex_to_real_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>doa_hier_0</source_block_id>
-    <sink_block_id>blocks_moving_average_xx_0</sink_block_id>
+    <source_block_id>uhd_usrp_source_0_0</source_block_id>
+    <sink_block_id>wifius_divide_by_message_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>doa_hier_0</source_block_id>
-    <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>phase_calib_hier_0</source_block_id>
-    <sink_block_id>real_time_scope_hier_0_0_0</sink_block_id>
+    <source_block_id>uhd_usrp_source_0_0</source_block_id>
+    <sink_block_id>wifius_find_scale_factor_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>phase_calib_hier_0</source_block_id>
-    <sink_block_id>real_time_scope_hier_0_0_0</sink_block_id>
+    <source_block_id>uhd_usrp_source_0_0</source_block_id>
+    <sink_block_id>wifius_divide_by_message_0_0</sink_block_id>
     <source_key>1</source_key>
-    <sink_key>1</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>phase_calib_hier_0</source_block_id>
-    <sink_block_id>real_time_scope_hier_0_0_0</sink_block_id>
-    <source_key>2</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>phase_calib_hier_0</source_block_id>
-    <sink_block_id>real_time_scope_hier_0_0_0</sink_block_id>
-    <source_key>3</source_key>
-    <sink_key>3</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>uhd_usrp_source_0_0</source_block_id>
-    <sink_block_id>doa_hier_0</sink_block_id>
-    <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>uhd_usrp_source_0_0</source_block_id>
-    <sink_block_id>phase_calib_hier_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>uhd_usrp_source_0_0</source_block_id>
-    <sink_block_id>real_time_scope_hier_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>uhd_usrp_source_0_0</source_block_id>
-    <sink_block_id>phase_calib_hier_0</sink_block_id>
+    <sink_block_id>wifius_find_scale_factor_0_0</sink_block_id>
     <source_key>1</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>wifius_divide_by_message_0</source_block_id>
+    <sink_block_id>delay_correct_hier_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>wifius_divide_by_message_0_0</source_block_id>
+    <sink_block_id>blocks_complex_to_real_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>wifius_divide_by_message_0_0</source_block_id>
+    <sink_block_id>delay_correct_hier_0</sink_block_id>
+    <source_key>0</source_key>
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>uhd_usrp_source_0_0</source_block_id>
-    <sink_block_id>real_time_scope_hier_0</sink_block_id>
-    <source_key>1</source_key>
-    <sink_key>1</sink_key>
+    <source_block_id>wifius_find_scale_factor_0</source_block_id>
+    <sink_block_id>wifius_divide_by_message_0</sink_block_id>
+    <source_key>message</source_key>
+    <sink_key>set_divisor</sink_key>
   </connection>
   <connection>
-    <source_block_id>uhd_usrp_source_0_0</source_block_id>
-    <sink_block_id>phase_calib_hier_0</sink_block_id>
-    <source_key>2</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>uhd_usrp_source_0_0</source_block_id>
-    <sink_block_id>real_time_scope_hier_0</sink_block_id>
-    <source_key>2</source_key>
-    <sink_key>2</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>uhd_usrp_source_0_0</source_block_id>
-    <sink_block_id>phase_calib_hier_0</sink_block_id>
-    <source_key>3</source_key>
-    <sink_key>3</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>uhd_usrp_source_0_0</source_block_id>
-    <sink_block_id>real_time_scope_hier_0</sink_block_id>
-    <source_key>3</source_key>
-    <sink_key>3</sink_key>
+    <source_block_id>wifius_find_scale_factor_0_0</source_block_id>
+    <sink_block_id>wifius_divide_by_message_0_0</sink_block_id>
+    <source_key>message</source_key>
+    <sink_key>set_divisor</sink_key>
   </connection>
 </flow_graph>
