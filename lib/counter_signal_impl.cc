@@ -29,16 +29,16 @@ namespace gr {
   namespace wifius {
 
     counter_signal::sptr
-    counter_signal::make(int num_samples, pmt::pmt_t msg, bool printEvent)
+    counter_signal::make(int num_samples, pmt::pmt_t msg, bool printEvent, std::string Message_To_Print)
     {
       return gnuradio::get_initial_sptr
-        (new counter_signal_impl(num_samples, msg, printEvent));
+        (new counter_signal_impl(num_samples, msg, printEvent, Message_To_Print));
     }
 
     /*
      * The private constructor
      */
-    counter_signal_impl::counter_signal_impl(int num_samples, pmt::pmt_t msg, bool printEvent)
+    counter_signal_impl::counter_signal_impl(int num_samples, pmt::pmt_t msg, bool printEvent, std::string Message_To_Print)
       : gr::sync_block("counter_signal",
               gr::io_signature::make(1, 1, sizeof(gr_complex)),
               gr::io_signature::make(0, 0, 0)),
@@ -46,7 +46,8 @@ namespace gr {
           d_samplesCounted(0),
           d_maxSamples(num_samples),
           d_msg(msg),
-          d_printEvent(printEvent)
+          d_printEvent(printEvent),
+          d_Message_To_Print(Message_To_Print)
     {
       // Setup output message port
       message_port_register_out(pmt::mp("message"));
@@ -77,7 +78,7 @@ namespace gr {
             if (d_printEvent)
             {
               std::cout<<"---------------------------\n";
-              std::cout<<"Max Count Reached: Trigger Sent\n";
+              std::cout<<d_Message_To_Print<<std::endl;
               std::cout<<"---------------------------\n";
             }
           }

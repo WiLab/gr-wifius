@@ -55,4 +55,9 @@
     <name>Delay Est</name>
     <type>int</type>
   </source>
+  <source>
+    <name>Error</name>
+    <type>float</type>
+  </source>
+
 </block>

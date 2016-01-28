@@ -38,6 +38,7 @@ namespace gr {
       int d_samplesToShift;
       int d_counter;
       float d_sigPeak;
+      float d_error;
       bool d_debug;
 
      public:
@@ -45,7 +46,6 @@ namespace gr {
       ~shift_and_measure_impl();
 
       int Get_Max_Index(const float *signal, int &start);
-      int Get_Max_IndexLEFT(const float *signal, int &start);
       float* Shift_Right(const float *reference, const float *otherSignal, int &start, int &startDelay);
       float* Shift_Left(const float *reference, const float *otherSignal, int &start, int &startDelay);
       int Determine_Offset(float *SL, float *SR);

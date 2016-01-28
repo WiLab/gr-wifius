@@ -45,15 +45,19 @@ namespace gr {
     shift_and_measure_impl::shift_and_measure_impl(float cal_tone_freq, float samp_rate, size_t vlen, float mu, bool debug)
       : gr::sync_block("shift_and_measure",
               gr::io_signature::make(2, 2, vlen*sizeof(float)),
-              gr::io_signature::make(1, 1, sizeof(int))),
+              gr::io_signature::make2(2, 2, sizeof(int), sizeof(float) )),
 	  d_vlen(vlen),
     d_lastDelay(0),
     d_mu(mu),
     d_counter(0),
     d_sigPeak(0),
+    d_error(0),
     d_debug(debug)
     {
+
       float samplesPerPeriod = (int) ceil( (samp_rate/cal_tone_freq));// Exact
+      int samplesPerPeriodBase2 = pow(2, ceil(log(samplesPerPeriod)/log(2)));
+
       d_samplesPerPeriod = (int) ceil(samplesPerPeriod);
       d_samplesToShift = (int) ceil(samplesPerPeriod*0.5); // reduce to only amount needed for shifting
 
@@ -64,7 +68,7 @@ namespace gr {
       dout("MaxSampleShift",d_samplesToShift);
 
       // Need at least 3 vectors since shifts can force off buffer conditions
-      set_output_multiple(8);
+      set_output_multiple(16);
     }
 
     /*
@@ -81,7 +85,8 @@ namespace gr {
       for (int offset = 0; offset<maxShift; offset++)
       {
         d_differencesSL[offset] = 0;
-        for (int overlap=0; overlap<(maxShift-offset); overlap++)
+        //for (int overlap=0; overlap<(maxShift-offset); overlap++)
+        for (int overlap=0; overlap<(maxShift); overlap++)
           d_differencesSL[offset] += fabs( reference[start + overlap] - otherSignal[startDelay + offset + overlap] );
 
         // // Normalize
@@ -98,8 +103,10 @@ namespace gr {
       for (int offset = 0; offset<maxShift; offset++)
       {
         d_differencesSR[offset] = 0;
-        for (int overlap=0; overlap<(maxShift-offset); overlap++)
-          d_differencesSR[offset] += fabs( reference[start + offset + overlap] - otherSignal[startDelay + overlap] );
+        //for (int overlap=0; overlap<(maxShift-offset); overlap++)
+        for (int overlap=0; overlap<(maxShift); overlap++)
+          d_differencesSR[offset] += fabs( reference[start + overlap] - otherSignal[startDelay - offset + overlap] );
+          //d_differencesSR[offset] += fabs( reference[start + offset + overlap] - otherSignal[startDelay + overlap] );
 
         // // Normalize
         // d_differencesSR[offset] = d_differencesSR[offset]/(maxShift-offset);
@@ -115,18 +122,6 @@ namespace gr {
       for (int i=0; i<d_samplesToShift; i++)
       {
         if ((signal[i+start])>(signal[peakIndx+start]))
-            peakIndx = i;
-      }
-      return peakIndx;
-    }
-
-    int
-    shift_and_measure_impl::Get_Max_IndexLEFT(const float *signal, int &start)
-    {
-      int peakIndx = 0;
-      for (int i=0; i>-d_samplesToShift; i--)
-      {
-        if (fabs(signal[i])>fabs(signal[peakIndx]))
             peakIndx = i;
       }
       return peakIndx;
@@ -150,10 +145,12 @@ namespace gr {
       // Return smallest error offset and adjust for direction
       if (SL[minIndexSL]<SR[minIndexSR])
       {
+        d_error = SL[minIndexSL];
         return -minIndexSL;
       }
       else
       {
+        d_error = SR[minIndexSR];
         return minIndexSR;
       }
     }
@@ -169,6 +166,7 @@ namespace gr {
 
         // Outputs
         int *out = (int *) output_items[0];
+        float *error = (float *) output_items[1];
 
         int marker = 0;//keep track of vector processed
         int delayedMarker = 0;//shifter used in feedback
@@ -178,9 +176,6 @@ namespace gr {
         float *SR_Differences;
         int currentDelay;
 
-        int refPkIndx;
-        float diff;
-
         // Operate over each input vector
         for (int items=0; items<(noutput_items); items++)
         {
@@ -188,7 +183,7 @@ namespace gr {
           delayedMarker = marker - (int) floor(d_lastDelay);
 
           //Make sure we have enough data for sliding (can be a problem with first and last vectors)
-         if ((delayedMarker>=0)&&
+         if ((delayedMarker>=d_samplesToShift)&&
              ((delayedMarker+d_samplesToShift)<(noutput_items*d_vlen)))
           {
             // Determine errors between signals when left shifting input 2
@@ -201,23 +196,21 @@ namespace gr {
             currentDelay = Determine_Offset(SL_Differences, SR_Differences);
 
             // Update current best estimates
-            d_lastDelay = d_lastDelay - d_mu*(float)currentDelay;
-
-            // Compare Peaks, make sure they are close and not in a false min
-            refPkIndx = Get_Max_Index(ref,marker);
-            // Since peaks are normalized the worst they can be is ~2, but >1.5 is bad
-            diff = fabs(ref[marker+refPkIndx] - other[marker+refPkIndx - (int)floor(d_lastDelay)]  );
-            if (( diff  > 1.5 ) && (d_lastDelay>d_samplesPerPeriod*0.05))
-              d_lastDelay = 0;//reset
+            d_lastDelay = d_lastDelay + d_mu*(float)currentDelay;
 
             // Make sure we do not shift past 360 Degrees and reset if we get close
             if ((d_lastDelay>d_samplesPerPeriod) || (d_lastDelay<(-d_samplesPerPeriod)) )
               d_lastDelay = 0;//reset
 
           }
+          // else
+          //   std::cout<<"Skipped\n";
 
           // Set out best integer of delay
           out[items] = (int) floor(d_lastDelay);
+
+          // Output error for diagnostics
+          error[items] = d_error;
 
           // Increase index
           marker += d_vlen;

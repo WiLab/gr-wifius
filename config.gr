@@ -8,12 +8,12 @@
 
 [system]
 sample_rate=1562500
-cal_tone_freq=1024#Hz
+cal_tone_freq=1024
 
 [rx]
 rx_gain = 0
 antenna_spacing=0.06
-samples_to_save=2**14
+samples_to_save=2**10
 gain_correct_input=0
 
 [tx]

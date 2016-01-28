@@ -24,6 +24,7 @@
 
 #include <wifius/api.h>
 #include <gnuradio/sync_block.h>
+// #include <string>
 
 namespace gr {
   namespace wifius {
@@ -46,7 +47,7 @@ namespace gr {
        * class. wifius::counter_signal::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int num_samples, pmt::pmt_t msg, bool printEvent);
+      static sptr make(int num_samples, pmt::pmt_t msg, bool printEvent, std::string Message_To_Print);
     };
 
   } // namespace wifius

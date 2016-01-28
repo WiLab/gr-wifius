@@ -34,9 +34,10 @@ namespace gr {
        int d_maxSamples;
        pmt::pmt_t d_msg;
        bool d_printEvent;
+       std::string d_Message_To_Print;
 
      public:
-      counter_signal_impl(int num_samples, pmt::pmt_t msg, bool printEvent);
+      counter_signal_impl(int num_samples, pmt::pmt_t msg, bool printEvent, std::string Message_To_Print);
       ~counter_signal_impl();
 
       // Where all the action really happens
