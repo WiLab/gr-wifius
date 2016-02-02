@@ -4,7 +4,7 @@
 # Title: Calibration Example
 # Author: Travis Collins
 # Description: WiFiUS Project
-# Generated: Mon Feb  1 14:52:27 2016
+# Generated: Mon Feb  1 16:42:32 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -72,7 +72,6 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         ##################################################
         self.speed_of_light = speed_of_light = 299792458
         self.antenna_spacing = antenna_spacing = 0.1
-        self.variable_qtgui_chooser_0_1_1 = variable_qtgui_chooser_0_1_1 = 1
         self.variable_qtgui_chooser_0_0 = variable_qtgui_chooser_0_0 = 0
         self.sync = sync = pmt.PMT_F
         self._samples_to_save_config = ConfigParser.ConfigParser()
@@ -179,27 +178,6 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
         self.top_layout.addWidget(self._distant_tx_group_box)
         self.wifius_blocker_0_0 = wifius.blocker(True)
         self.wifius_blocker_0 = wifius.blocker(False)
-        self._variable_qtgui_chooser_0_1_1_options = (1, 0, )
-        self._variable_qtgui_chooser_0_1_1_labels = ("Not Started", "Start Save", )
-        self._variable_qtgui_chooser_0_1_1_group_box = Qt.QGroupBox("Trigger Data Save")
-        self._variable_qtgui_chooser_0_1_1_box = Qt.QHBoxLayout()
-        class variable_chooser_button_group(Qt.QButtonGroup):
-            def __init__(self, parent=None):
-                Qt.QButtonGroup.__init__(self, parent)
-            @pyqtSlot(int)
-            def updateButtonChecked(self, button_id):
-                self.button(button_id).setChecked(True)
-        self._variable_qtgui_chooser_0_1_1_button_group = variable_chooser_button_group()
-        self._variable_qtgui_chooser_0_1_1_group_box.setLayout(self._variable_qtgui_chooser_0_1_1_box)
-        for i, label in enumerate(self._variable_qtgui_chooser_0_1_1_labels):
-        	radio_button = Qt.QRadioButton(label)
-        	self._variable_qtgui_chooser_0_1_1_box.addWidget(radio_button)
-        	self._variable_qtgui_chooser_0_1_1_button_group.addButton(radio_button, i)
-        self._variable_qtgui_chooser_0_1_1_callback = lambda i: Qt.QMetaObject.invokeMethod(self._variable_qtgui_chooser_0_1_1_button_group, "updateButtonChecked", Qt.Q_ARG("int", self._variable_qtgui_chooser_0_1_1_options.index(i)))
-        self._variable_qtgui_chooser_0_1_1_callback(self.variable_qtgui_chooser_0_1_1)
-        self._variable_qtgui_chooser_0_1_1_button_group.buttonClicked[int].connect(
-        	lambda i: self.set_variable_qtgui_chooser_0_1_1(self._variable_qtgui_chooser_0_1_1_options[i]))
-        self.top_layout.addWidget(self._variable_qtgui_chooser_0_1_1_group_box)
         self.uhd_usrp_source_0_0 = uhd.usrp_source(
         	",".join(("addr0=192.168.70.2,addr1=192.168.20.2,addr2=192.168.30.2,addr3=192.168.50.2", "")),
         	uhd.stream_args(
@@ -371,13 +349,6 @@ class calibration_example_gui(gr.top_block, Qt.QWidget):
     def set_antenna_spacing(self, antenna_spacing):
         self.antenna_spacing = antenna_spacing
         self.set_center_freq(self.speed_of_light/(2*self.antenna_spacing))
-
-    def get_variable_qtgui_chooser_0_1_1(self):
-        return self.variable_qtgui_chooser_0_1_1
-
-    def set_variable_qtgui_chooser_0_1_1(self, variable_qtgui_chooser_0_1_1):
-        self.variable_qtgui_chooser_0_1_1 = variable_qtgui_chooser_0_1_1
-        self._variable_qtgui_chooser_0_1_1_callback(self.variable_qtgui_chooser_0_1_1)
 
     def get_variable_qtgui_chooser_0_0(self):
         return self.variable_qtgui_chooser_0_0

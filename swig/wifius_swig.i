@@ -18,6 +18,7 @@
 #include "wifius/blocker.h"
 #include "wifius/counter_signal.h"
 #include "wifius/shift_and_measure.h"
+#include "wifius/phase_correct_vci.h"
 %}
 
 
@@ -45,3 +46,5 @@ GR_SWIG_BLOCK_MAGIC2(wifius, blocker);
 GR_SWIG_BLOCK_MAGIC2(wifius, counter_signal);
 %include "wifius/shift_and_measure.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, shift_and_measure);
+%include "wifius/phase_correct_vci.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, phase_correct_vci);

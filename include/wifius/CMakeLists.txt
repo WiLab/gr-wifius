@@ -31,5 +31,6 @@ install(FILES
     find_scale_factor.h
     blocker.h
     counter_signal.h
-    shift_and_measure.h DESTINATION include/wifius
+    shift_and_measure.h
+    phase_correct_vci.h DESTINATION include/wifius
 )

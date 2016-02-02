@@ -34,7 +34,8 @@ list(APPEND wifius_sources
     find_scale_factor_impl.cc
     blocker_impl.cc
     counter_signal_impl.cc
-    shift_and_measure_impl.cc )
+    shift_and_measure_impl.cc
+    phase_correct_vci_impl.cc )
 
 set(wifius_sources "${wifius_sources}" PARENT_SCOPE)
 if(NOT wifius_sources)

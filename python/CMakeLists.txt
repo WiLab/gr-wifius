@@ -51,3 +51,4 @@ GR_ADD_TEST(qa_find_scale_factor ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR
 GR_ADD_TEST(qa_blocker ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_blocker.py)
 GR_ADD_TEST(qa_counter_signal ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_counter_signal.py)
 GR_ADD_TEST(qa_shift_and_measure ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_shift_and_measure.py)
+GR_ADD_TEST(qa_phase_correct_vci ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_phase_correct_vci.py)

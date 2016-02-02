@@ -12,7 +12,7 @@ cal_tone_freq=1024
 
 [rx]
 rx_gain = 0
-antenna_spacing=0.06
+antenna_spacing=0.1
 samples_to_save=2**10
 gain_correct_input=0
 
