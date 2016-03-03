@@ -35,7 +35,12 @@ list(APPEND wifius_sources
     blocker_impl.cc
     counter_signal_impl.cc
     shift_and_measure_impl.cc
-    phase_correct_vci_impl.cc )
+    phase_correct_vci_impl.cc
+    #antenna_compensator_impl.cc
+    doa_music_vcvf_impl.cc
+    StreamsToRxx_impl.cc
+    gen_music_spectrum_vcvf_impl.cc
+    antenna_array_calibration_cf_impl.cc )
 
 set(wifius_sources "${wifius_sources}" PARENT_SCOPE)
 if(NOT wifius_sources)
@@ -43,8 +48,14 @@ if(NOT wifius_sources)
 	return()
 endif(NOT wifius_sources)
 
+if (ARMADILLO_FOUND)
+	LIST(APPEND wifius_sources doa_music_vcvf_impl.cc StreamsToRxx_impl.cc gen_music_spectrum_vcvf_impl.cc antenna_array_calibration_cf_impl.cc)
+else ()
+	set(ARMADILLO_LIBRARIES)
+endif ()
+
 add_library(gnuradio-wifius SHARED ${wifius_sources})
-target_link_libraries(gnuradio-wifius ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
+target_link_libraries(gnuradio-wifius ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} ${ARMADILLO_LIBRARIES})
 set_target_properties(gnuradio-wifius PROPERTIES DEFINE_SYMBOL "gnuradio_wifius_EXPORTS")
 
 if(APPLE)

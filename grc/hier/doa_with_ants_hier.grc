@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<?grc format='1' created='3.7.8'?>
+<?grc format='1' created='3.7.9'?>
 <flow_graph>
-  <timestamp>Mon Feb  1 12:15:39 2016</timestamp>
+  <timestamp>Tue Mar  1 09:24:00 2016</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -41,16 +41,28 @@
       <value>hb</value>
     </param>
     <param>
+      <key>hier_block_src_path</key>
+      <value>.:</value>
+    </param>
+    <param>
       <key>id</key>
-      <value>phase_corrector</value>
+      <value>doa_ants_hier</value>
     </param>
     <param>
       <key>max_nouts</key>
       <value>0</value>
     </param>
     <param>
+      <key>qt_qss_theme</key>
+      <value></value>
+    </param>
+    <param>
       <key>realtime_scheduling</key>
       <value></value>
+    </param>
+    <param>
+      <key>run_command</key>
+      <value>{python} -u {filename}</value>
     </param>
     <param>
       <key>run_options</key>
@@ -66,34 +78,7 @@
     </param>
     <param>
       <key>title</key>
-      <value>Phase Matcher</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(8, 160)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>32000</value>
+      <value>DoA Estimation With Calibration</value>
     </param>
   </block>
   <block>
@@ -116,7 +101,58 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(328, 146)</value>
+      <value>(360, 163)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_stream_to_vector_0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>complex</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>num_items</key>
+      <value>snapshots</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_stream_to_vector</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(360, 203)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -140,7 +176,7 @@
     </param>
     <param>
       <key>num_items</key>
-      <value>window</value>
+      <value>snapshots</value>
     </param>
     <param>
       <key>vlen</key>
@@ -167,7 +203,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(328, 186)</value>
+      <value>(360, 243)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -175,7 +211,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>blocks_stream_to_vector_0_0_0</value>
+      <value>blocks_stream_to_vector_0_1</value>
     </param>
     <param>
       <key>type</key>
@@ -191,7 +227,7 @@
     </param>
     <param>
       <key>num_items</key>
-      <value>window</value>
+      <value>snapshots</value>
     </param>
     <param>
       <key>vlen</key>
@@ -199,7 +235,7 @@
     </param>
   </block>
   <block>
-    <key>blocks_vector_to_stream</key>
+    <key>blocks_stream_to_vector</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -218,7 +254,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(864, 186)</value>
+      <value>(360, 283)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -226,7 +262,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>blocks_vector_to_stream_0</value>
+      <value>blocks_stream_to_vector_0_2</value>
     </param>
     <param>
       <key>type</key>
@@ -242,11 +278,54 @@
     </param>
     <param>
       <key>num_items</key>
-      <value>window</value>
+      <value>snapshots</value>
     </param>
     <param>
       <key>vlen</key>
       <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>matlab_doa_ants_cf</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(712, 177)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>matlab_doa_ants_cf_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>snapshots</key>
+      <value>snapshots</value>
     </param>
   </block>
   <block>
@@ -261,7 +340,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1072, 170)</value>
+      <value>(976, 259)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -273,11 +352,11 @@
     </param>
     <param>
       <key>type</key>
-      <value>complex</value>
+      <value>float</value>
     </param>
     <param>
       <key>label</key>
-      <value>out</value>
+      <value>angle</value>
     </param>
     <param>
       <key>num_streams</key>
@@ -304,7 +383,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(136, 161)</value>
+      <value>(152, 299)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -316,11 +395,11 @@
     </param>
     <param>
       <key>label</key>
-      <value>ref</value>
+      <value>in</value>
     </param>
     <param>
       <key>num_streams</key>
-      <value>1</value>
+      <value>4</value>
     </param>
     <param>
       <key>optional</key>
@@ -347,7 +426,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(136, 266)</value>
+      <value>(144, 491)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -355,11 +434,11 @@
     </param>
     <param>
       <key>id</key>
-      <value>pad_source_0_0</value>
+      <value>pad_source_1</value>
     </param>
     <param>
       <key>label</key>
-      <value>in</value>
+      <value>Trigger</value>
     </param>
     <param>
       <key>num_streams</key>
@@ -379,7 +458,11 @@
     </param>
   </block>
   <block>
-    <key>pad_source</key>
+    <key>parameter</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
     <param>
       <key>comment</key>
       <value></value>
@@ -390,7 +473,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(136, 210)</value>
+      <value>(440, 35)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -398,27 +481,23 @@
     </param>
     <param>
       <key>id</key>
-      <value>pad_source_0_1</value>
+      <value>snapshots</value>
     </param>
     <param>
       <key>label</key>
-      <value>to sync</value>
+      <value>Number of Snapshots</value>
     </param>
     <param>
-      <key>num_streams</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>optional</key>
-      <value>False</value>
+      <key>short_id</key>
+      <value></value>
     </param>
     <param>
       <key>type</key>
-      <value>complex</value>
+      <value>intx</value>
     </param>
     <param>
-      <key>vlen</key>
-      <value>1</value>
+      <key>value</key>
+      <value>4096</value>
     </param>
   </block>
   <block>
@@ -437,7 +516,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(504, 42)</value>
+      <value>(680, 35)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -445,11 +524,11 @@
     </param>
     <param>
       <key>id</key>
-      <value>update_period</value>
+      <value>true_angle</value>
     </param>
     <param>
       <key>label</key>
-      <value>Update Period</value>
+      <value>Angle of Reference</value>
     </param>
     <param>
       <key>short_id</key>
@@ -457,22 +536,22 @@
     </param>
     <param>
       <key>type</key>
-      <value>intx</value>
+      <value>eng_float</value>
     </param>
     <param>
       <key>value</key>
-      <value>128</value>
+      <value>0</value>
     </param>
   </block>
   <block>
-    <key>wifius_phase_correct_vci</key>
+    <key>wifius_antenna_array_calibration_cf</key>
+    <param>
+      <key>norm_antenna_spacing</key>
+      <value>0.5</value>
+    </param>
     <param>
       <key>alias</key>
       <value></value>
-    </param>
-    <param>
-      <key>cal_tone_freq</key>
-      <value>1024</value>
     </param>
     <param>
       <key>comment</key>
@@ -483,16 +562,12 @@
       <value></value>
     </param>
     <param>
-      <key>debug</key>
-      <value>False</value>
-    </param>
-    <param>
       <key>_enabled</key>
       <value>True</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(592, 144)</value>
+      <value>(368, 361)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -500,7 +575,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>wifius_phase_correct_vci_0</value>
+      <value>wifius_antenna_array_calibration_cf_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -511,105 +586,112 @@
       <value>0</value>
     </param>
     <param>
-      <key>samp_rate</key>
-      <value>samp_rate</value>
+      <key>num_antennas</key>
+      <value>4</value>
     </param>
     <param>
-      <key>mu</key>
-      <value>0.001</value>
+      <key>num_snapshots</key>
+      <value>snapshots</value>
     </param>
     <param>
-      <key>max_skip</key>
-      <value>update_period</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>window</value>
-    </param>
-  </block>
-  <block>
-    <key>parameter</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(392, 42)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>window</value>
-    </param>
-    <param>
-      <key>label</key>
-      <value>Window</value>
-    </param>
-    <param>
-      <key>short_id</key>
-      <value></value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>intx</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>1024</value>
+      <key>angle</key>
+      <value>true_angle</value>
     </param>
   </block>
   <connection>
-    <source_block_id>blocks_stream_to_vector_0_0</source_block_id>
-    <sink_block_id>wifius_phase_correct_vci_0</sink_block_id>
+    <source_block_id>blocks_stream_to_vector_0</source_block_id>
+    <sink_block_id>matlab_doa_ants_cf_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_stream_to_vector_0_0_0</source_block_id>
-    <sink_block_id>wifius_phase_correct_vci_0</sink_block_id>
+    <source_block_id>blocks_stream_to_vector_0_0</source_block_id>
+    <sink_block_id>matlab_doa_ants_cf_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_vector_to_stream_0</source_block_id>
+    <source_block_id>blocks_stream_to_vector_0_1</source_block_id>
+    <sink_block_id>matlab_doa_ants_cf_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>2</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_stream_to_vector_0_2</source_block_id>
+    <sink_block_id>matlab_doa_ants_cf_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>3</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>matlab_doa_ants_cf_0</source_block_id>
     <sink_block_id>pad_sink_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>blocks_stream_to_vector_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>wifius_antenna_array_calibration_cf_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
     <sink_block_id>blocks_stream_to_vector_0_0</sink_block_id>
-    <source_key>0</source_key>
+    <source_key>1</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>pad_source_0_0</source_block_id>
-    <sink_block_id>wifius_phase_correct_vci_0</sink_block_id>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>wifius_antenna_array_calibration_cf_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>blocks_stream_to_vector_0_1</sink_block_id>
+    <source_key>2</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>wifius_antenna_array_calibration_cf_0</sink_block_id>
+    <source_key>2</source_key>
+    <sink_key>2</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>blocks_stream_to_vector_0_2</sink_block_id>
+    <source_key>3</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_0</source_block_id>
+    <sink_block_id>wifius_antenna_array_calibration_cf_0</sink_block_id>
+    <source_key>3</source_key>
+    <sink_key>3</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>pad_source_1</source_block_id>
+    <sink_block_id>wifius_antenna_array_calibration_cf_0</sink_block_id>
     <source_key>out</source_key>
-    <sink_key>set_enable_sync</sink_key>
+    <sink_key>enable_hold</sink_key>
   </connection>
   <connection>
-    <source_block_id>pad_source_0_1</source_block_id>
-    <sink_block_id>blocks_stream_to_vector_0_0_0</sink_block_id>
+    <source_block_id>wifius_antenna_array_calibration_cf_0</source_block_id>
+    <sink_block_id>matlab_doa_ants_cf_0</sink_block_id>
     <source_key>0</source_key>
-    <sink_key>0</sink_key>
+    <sink_key>4</sink_key>
   </connection>
   <connection>
-    <source_block_id>wifius_phase_correct_vci_0</source_block_id>
-    <sink_block_id>blocks_vector_to_stream_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
+    <source_block_id>wifius_antenna_array_calibration_cf_0</source_block_id>
+    <sink_block_id>matlab_doa_ants_cf_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>5</sink_key>
   </connection>
 </flow_graph>

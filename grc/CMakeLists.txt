@@ -27,5 +27,10 @@ install(FILES
     wifius_blocker.xml
     wifius_counter_signal.xml
     wifius_shift_and_measure.xml
-    wifius_phase_correct_vci.xml DESTINATION share/gnuradio/grc/blocks
+    wifius_phase_correct_vci.xml
+    #wifius_antenna_compensator.xml
+    wifius_doa_music_vcvf.xml
+    wifius_StreamsToRxx.xml
+    wifius_gen_music_spectrum_vcvf.xml
+    wifius_antenna_array_calibration_cf.xml DESTINATION share/gnuradio/grc/blocks
 )

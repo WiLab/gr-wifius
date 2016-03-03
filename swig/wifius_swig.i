@@ -19,6 +19,11 @@
 #include "wifius/counter_signal.h"
 #include "wifius/shift_and_measure.h"
 #include "wifius/phase_correct_vci.h"
+#include "wifius/doa_music_vcvf.h"
+#include "wifius/StreamsToRxx.h"
+#include "wifius/gen_music_spectrum_vcvf.h"
+#include "wifius/antenna_array_calibration_cf.h"
+//#include "wifius/antenna_compensator.h"
 %}
 
 
@@ -48,3 +53,13 @@ GR_SWIG_BLOCK_MAGIC2(wifius, counter_signal);
 GR_SWIG_BLOCK_MAGIC2(wifius, shift_and_measure);
 %include "wifius/phase_correct_vci.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, phase_correct_vci);
+//%include "wifius/antenna_compensator.h"
+//GR_SWIG_BLOCK_MAGIC2(wifius, antenna_compensator);
+%include "wifius/doa_music_vcvf.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, doa_music_vcvf);
+%include "wifius/StreamsToRxx.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, StreamsToRxx);
+%include "wifius/gen_music_spectrum_vcvf.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, gen_music_spectrum_vcvf);
+%include "wifius/antenna_array_calibration_cf.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, antenna_array_calibration_cf);

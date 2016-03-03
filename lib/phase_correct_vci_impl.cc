@@ -28,6 +28,7 @@
 
 #define PI 3.14159265359
 #define dout(X,Y) {if(d_debug){std::cout<<X<<": "<<Y<<std::endl;}}
+#define MAX_SKIP 10
 
 // The purpose of this block is to measure the phase difference between two
 // input signals that are both sinusoids.  The output will be a complex value of
@@ -40,16 +41,16 @@ namespace gr {
   namespace wifius {
 
     phase_correct_vci::sptr
-    phase_correct_vci::make(float cal_tone_freq, float samp_rate, size_t vlen, float mu, bool debug)
+    phase_correct_vci::make(float cal_tone_freq, float samp_rate, size_t vlen, float mu, int max_skip, bool debug)
     {
       return gnuradio::get_initial_sptr
-        (new phase_correct_vci_impl(cal_tone_freq, samp_rate, vlen, mu, debug));
+        (new phase_correct_vci_impl(cal_tone_freq, samp_rate, vlen, mu, max_skip, debug));
     }
 
     /*
      * The private constructor
      */
-    phase_correct_vci_impl::phase_correct_vci_impl(float cal_tone_freq, float samp_rate, size_t vlen, float mu, bool debug)
+    phase_correct_vci_impl::phase_correct_vci_impl(float cal_tone_freq, float samp_rate, size_t vlen, float mu, int max_skip, bool debug)
       : gr::sync_block("phase_correct_vci",
               gr::io_signature::make(2, 2, sizeof(gr_complex)*vlen),
               gr::io_signature::make(1, 1, sizeof(gr_complex)*vlen)),
@@ -58,7 +59,9 @@ namespace gr {
         d_currentShift(gr_complex(0,0)),
         d_debug(debug),
         d_enable_sync(pmt::PMT_T), // Set true
-        d_currentIndex(180)//set in the middle
+        d_currentIndex(180), //set in the middle
+        d_skipped(0),
+        d_max_skip(max_skip)
     {
 
       set_output_multiple(3);
@@ -136,37 +139,43 @@ namespace gr {
         float *refReal = new float[nSamples];
         volk_32fc_deinterleave_real_32f(refReal, ref, nSamples);
 
+        // Loop over each input vector
         for(int vec=0; vec<noutput_items; vec++)
         {
-          for(int d=0; d<360; d++)
+          if (d_skipped<MAX_SKIP)// Used to reduce computational load
+            d_skipped++;
+          else
           {
-            // Shift signal by angle
-            volk_32fc_s32fc_multiply_32fc(d_Shifted, toSync+(vec*d_vlen), d_Shifts[d], d_vlen);
-            // Convert to Real
-            volk_32fc_deinterleave_real_32f(d_Shifted_Real, d_Shifted, d_vlen);
+            d_skipped = 0; //Reset
+            for(int d=0; d<360; d++)
+            {
+              // Shift signal by angle
+              volk_32fc_s32fc_multiply_32fc(d_Shifted, toSync+(vec*d_vlen), d_Shifts[d], d_vlen);
+              // Convert to Real
+              volk_32fc_deinterleave_real_32f(d_Shifted_Real, d_Shifted, d_vlen);
 
-            // Get error between signals
-            d_error[d] = measure_error(refReal+(vec*d_vlen), d_Shifted_Real);
+              // Get error between signals
+              d_error[d] = measure_error(refReal+(vec*d_vlen), d_Shifted_Real);
+            }
+
+            // Determine which shift gave the minimum error
+            minErrorIndex = min_error(d_error);
+
+            // How far are we from current answer?
+            indexError = minErrorIndex - d_currentIndex;
+            dout("indexError",indexError);
+
+            // Update best index
+            d_currentIndex = d_currentIndex + d_mu*indexError;
+            dout("d_currentIndex",d_currentIndex);
+
+            // Check validity
+            if ((d_currentIndex<0) || (d_currentIndex>359))
+            {
+              dout("Reset",0);
+              d_currentIndex = 0;
+            }
           }
-
-          // Determine which shift gave the minimum error
-          minErrorIndex = min_error(d_error);
-
-          // How far are we from current answer?
-          indexError = minErrorIndex - d_currentIndex;
-          dout("indexError",indexError);
-
-          // Update best index
-          d_currentIndex = d_currentIndex + d_mu*indexError;
-          dout("d_currentIndex",d_currentIndex);
-
-          // Check validity
-          if ((d_currentIndex<0) || (d_currentIndex>359))
-          {
-            dout("Reset",0);
-            d_currentIndex = 0;
-          }
-
           // // Send to output
           // out[vec] = d_Shifts[(int) floor(d_currentIndex)];
           //

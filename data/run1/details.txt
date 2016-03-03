@@ -1,0 +1,5 @@
+
+Num Sources = 1
+Offset = 3 Degrees
+Antenna spacing = 2.4 inches
+Sample Rate = 100e6/64

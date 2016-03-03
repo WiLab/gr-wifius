@@ -18,38 +18,39 @@
  * Boston, MA 02110-1301, USA.
  */
 
+#ifndef INCLUDED_WIFIUS_DOA_MUSIC_VCVF_IMPL_H
+#define INCLUDED_WIFIUS_DOA_MUSIC_VCVF_IMPL_H
 
-#ifndef INCLUDED_WIFIUS_PHASE_CORRECT_VCI_H
-#define INCLUDED_WIFIUS_PHASE_CORRECT_VCI_H
+#include <wifius/doa_music_vcvf.h>
 
-#include <wifius/api.h>
-#include <gnuradio/sync_block.h>
+// Need linear algebra libraries
+#include <armadillo>
+
+#include <vector>
 
 namespace gr {
   namespace wifius {
 
-    /*!
-     * \brief <+description of block+>
-     * \ingroup wifius
-     *
-     */
-    class WIFIUS_API phase_correct_vci : virtual public gr::sync_block
+    class doa_music_vcvf_impl : public doa_music_vcvf
     {
-     public:
-      typedef boost::shared_ptr<phase_correct_vci> sptr;
+     private:
+       arma::cx_mat d_X_mat;
+       std::vector< arma::cx_rowvec* > d_SS;
+       int d_num_antennas;
+       int d_source_signals;
+       int d_num_samples;
 
-      /*!
-       * \brief Return a shared_ptr to a new instance of wifius::phase_correct_vci.
-       *
-       * To avoid accidental use of raw pointers, wifius::phase_correct_vci's
-       * constructor is in a private implementation
-       * class. wifius::phase_correct_vci::make is the public interface for
-       * creating new instances.
-       */
-      static sptr make(float cal_tone_freq, float samp_rate, size_t vlen, float mu, int max_skip, bool debug);
+     public:
+      doa_music_vcvf_impl(int num_antennas, float norm_antenna_spacing, int source_signals, float frequency_resolution, int num_samples);
+      ~doa_music_vcvf_impl();
+
+      // Where all the action really happens
+      int work(int noutput_items,
+	       gr_vector_const_void_star &input_items,
+	       gr_vector_void_star &output_items);
     };
 
   } // namespace wifius
 } // namespace gr
 
-#endif /* INCLUDED_WIFIUS_PHASE_CORRECT_VCI_H */
+#endif /* INCLUDED_WIFIUS_DOA_MUSIC_VCVF_IMPL_H */

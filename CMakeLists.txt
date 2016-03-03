@@ -127,6 +127,18 @@ else(DOXYGEN_FOUND)
 endif(DOXYGEN_FOUND)
 
 ########################################################################
+# Find Armadillo
+########################################################################
+find_package(Armadillo)
+
+if (ARMADILLO_FOUND)
+	include_directories(${ARMADILLO_INCLUDE_DIRS})
+	message(STATUS "Armadillo found - compiling MUSIC DOA estimator block")
+else ()
+	message(STATUS "Armadillo NOT found! NOT compiling MUSIC DOA estimator blocks")
+endif ()
+
+########################################################################
 # Setup the include and linker paths
 ########################################################################
 include_directories(

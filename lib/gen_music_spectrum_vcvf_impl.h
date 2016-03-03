@@ -18,46 +18,41 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_WIFIUS_PHASE_CORRECT_VCI_IMPL_H
-#define INCLUDED_WIFIUS_PHASE_CORRECT_VCI_IMPL_H
+#ifndef INCLUDED_WIFIUS_GEN_MUSIC_SPECTRUM_VCVF_IMPL_H
+#define INCLUDED_WIFIUS_GEN_MUSIC_SPECTRUM_VCVF_IMPL_H
 
-#include <wifius/phase_correct_vci.h>
+#include <wifius/gen_music_spectrum_vcvf.h>
+
+// Need linear algebra libraries
+#include <armadillo>
 
 namespace gr {
   namespace wifius {
 
-    class phase_correct_vci_impl : public phase_correct_vci
+    class gen_music_spectrum_vcvf_impl : public gen_music_spectrum_vcvf
     {
      private:
-       size_t d_vlen;
-       float d_mu;
-       gr_complex d_currentShift;
-       gr_complex *d_Shifted;
-       float *d_Shifted_Real;
-       float *d_error;
-       float d_currentIndex;
-       gr_complex *d_Shifts;
-       bool d_debug;
-       pmt::pmt_t d_enable_sync;
-       int d_skipped;
-       int d_max_skip;
+       arma::cx_mat d_X_mat;
+       std::vector< arma::cx_rowvec* > d_SS;
+       int d_num_antennas;
+       int d_num_sources;
+       float d_min_degree;
+       float d_max_degree;
+       float d_step;
+       float d_norm_spacing;
+       int d_snapshots;
 
      public:
-      phase_correct_vci_impl(float cal_tone_freq, float samp_rate, size_t vlen, float mu, int max_skip, bool debug);
-      ~phase_correct_vci_impl();
-
-      void set_enable_sync(pmt::pmt_t msg){d_enable_sync = msg;}
-
-      float measure_error(float *ref, float *toSync);
-      int min_error(float *error);
+      gen_music_spectrum_vcvf_impl(int num_antennas, int num_sources, float min_degree, float max_degree, float step, float norm_spacing, int num_snapshots);
+      ~gen_music_spectrum_vcvf_impl();
 
       // Where all the action really happens
       int work(int noutput_items,
-	       gr_vector_const_void_star &input_items,
-	       gr_vector_void_star &output_items);
+         gr_vector_const_void_star &input_items,
+         gr_vector_void_star &output_items);
     };
 
   } // namespace wifius
 } // namespace gr
 
-#endif /* INCLUDED_WIFIUS_PHASE_CORRECT_VCI_IMPL_H */
+#endif /* INCLUDED_WIFIUS_GEN_MUSIC_SPECTRUM_VCVF_IMPL_H */

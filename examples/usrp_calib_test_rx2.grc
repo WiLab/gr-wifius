@@ -228,7 +228,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>100000000/64</value>
+      <value>100000000/256</value>
     </param>
   </block>
   <block>

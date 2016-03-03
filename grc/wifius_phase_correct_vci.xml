@@ -5,7 +5,7 @@
   <category>wifius</category>
   <import>import wifius</import>
   <import>import pmt</import>
-  <make>wifius.phase_correct_vci($cal_tone_freq, $samp_rate, $vlen, $mu, $debug)</make>
+  <make>wifius.phase_correct_vci($cal_tone_freq, $samp_rate, $vlen, $mu, $max_skip, $debug)</make>
 
   <callback>set_enable_sync($msg)</callback>
 
@@ -28,6 +28,11 @@
     <name>Step Size</name>
     <key>mu</key>
     <type>float</type>
+  </param>
+  <param>
+    <name>Update Period</name>
+    <key>max_skip</key>
+    <type>int</type>
   </param>
   <param>
     <name>Debug</name>

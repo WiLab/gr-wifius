@@ -19,8 +19,8 @@
  */
 
 
-#ifndef INCLUDED_WIFIUS_PHASE_CORRECT_VCI_H
-#define INCLUDED_WIFIUS_PHASE_CORRECT_VCI_H
+#ifndef INCLUDED_WIFIUS_GEN_MUSIC_SPECTRUM_VCVF_H
+#define INCLUDED_WIFIUS_GEN_MUSIC_SPECTRUM_VCVF_H
 
 #include <wifius/api.h>
 #include <gnuradio/sync_block.h>
@@ -33,23 +33,23 @@ namespace gr {
      * \ingroup wifius
      *
      */
-    class WIFIUS_API phase_correct_vci : virtual public gr::sync_block
+    class WIFIUS_API gen_music_spectrum_vcvf : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<phase_correct_vci> sptr;
+      typedef boost::shared_ptr<gen_music_spectrum_vcvf> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of wifius::phase_correct_vci.
+       * \brief Return a shared_ptr to a new instance of wifius::gen-music-spectrum_vcvf.
        *
-       * To avoid accidental use of raw pointers, wifius::phase_correct_vci's
+       * To avoid accidental use of raw pointers, wifius::gen-music-spectrum_vcvf's
        * constructor is in a private implementation
-       * class. wifius::phase_correct_vci::make is the public interface for
+       * class. wifius::gen-music-spectrum_vcvf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(float cal_tone_freq, float samp_rate, size_t vlen, float mu, int max_skip, bool debug);
+      static sptr make(int num_antennas, int num_sources, float min_degree, float max_degree, float step, float norm_spacing, int snapshots);
     };
 
   } // namespace wifius
 } // namespace gr
 
-#endif /* INCLUDED_WIFIUS_PHASE_CORRECT_VCI_H */
+#endif /* INCLUDED_WIFIUS_GEN-MUSIC-SPECTRUM_VCVF_H */

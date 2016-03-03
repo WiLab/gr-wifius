@@ -32,5 +32,10 @@ install(FILES
     blocker.h
     counter_signal.h
     shift_and_measure.h
-    phase_correct_vci.h DESTINATION include/wifius
+    phase_correct_vci.h
+    #antenna_compensator.h
+    doa_music_vcvf.h
+    StreamsToRxx.h
+    gen_music_spectrum_vcvf.h
+    antenna_array_calibration_cf.h DESTINATION include/wifius
 )

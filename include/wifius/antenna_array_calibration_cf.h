@@ -19,11 +19,11 @@
  */
 
 
-#ifndef INCLUDED_WIFIUS_PHASE_CORRECT_VCI_H
-#define INCLUDED_WIFIUS_PHASE_CORRECT_VCI_H
+#ifndef INCLUDED_WIFIUS_ANTENNA_ARRAY_CALIBRATION_CF_H
+#define INCLUDED_WIFIUS_ANTENNA_ARRAY_CALIBRATION_CF_H
 
 #include <wifius/api.h>
-#include <gnuradio/sync_block.h>
+#include <gnuradio/sync_decimator.h>
 
 namespace gr {
   namespace wifius {
@@ -33,23 +33,23 @@ namespace gr {
      * \ingroup wifius
      *
      */
-    class WIFIUS_API phase_correct_vci : virtual public gr::sync_block
+    class WIFIUS_API antenna_array_calibration_cf : virtual public gr::sync_decimator
     {
      public:
-      typedef boost::shared_ptr<phase_correct_vci> sptr;
+      typedef boost::shared_ptr<antenna_array_calibration_cf> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of wifius::phase_correct_vci.
+       * \brief Return a shared_ptr to a new instance of wifius::antenna_array_calibration_cf.
        *
-       * To avoid accidental use of raw pointers, wifius::phase_correct_vci's
+       * To avoid accidental use of raw pointers, wifius::antenna_array_calibration_cf's
        * constructor is in a private implementation
-       * class. wifius::phase_correct_vci::make is the public interface for
+       * class. wifius::antenna_array_calibration_cf::make is the public interface for
        * creating new instances.
        */
-      static sptr make(float cal_tone_freq, float samp_rate, size_t vlen, float mu, int max_skip, bool debug);
+      static sptr make(float angle, float norm_antenna_spacing, int num_antennas, int num_snapshots);
     };
 
   } // namespace wifius
 } // namespace gr
 
-#endif /* INCLUDED_WIFIUS_PHASE_CORRECT_VCI_H */
+#endif /* INCLUDED_WIFIUS_ANTENNA_ARRAY_CALIBRATION_CF_H */

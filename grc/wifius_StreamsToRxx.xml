@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<block>
+  <name>StreamsToRxx</name>
+  <key>wifius_StreamsToRxx</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <make>wifius.StreamsToRxx($num_antennas, $num_snapshots)</make>
+
+  <param>
+    <name>Number of Antennas</name>
+    <key>num_antennas</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Number of Source Signals</name>
+    <key>num_sources</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Number of SnapShots</name>
+    <key>num_snapshots</key>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+    <nports>$num_antennas</nports>
+  </sink>
+
+  <source>
+    <name>Rxx</name>
+    <type>complex</type>
+    <vlen>($num_antennas-$num_sources)*$num_antennas</vlen>
+  </source>
+</block>

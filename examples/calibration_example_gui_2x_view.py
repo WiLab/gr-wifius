@@ -4,7 +4,7 @@
 # Title: Calibration Example
 # Author: Travis Collins
 # Description: WiFiUS Project
-# Generated: Mon Feb  1 12:44:14 2016
+# Generated: Fri Feb  5 15:29:58 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -69,7 +69,7 @@ class calibration_example_gui_2x_view(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.speed_of_light = speed_of_light = 299792458
-        self.antenna_spacing = antenna_spacing = 0.1
+        self.antenna_spacing = antenna_spacing = 0.061
         self.sync = sync = pmt.PMT_F
         self.samp_rate = samp_rate = 100000000/64
         self.gain_rx = gain_rx = 0
