@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Thu Mar  3 11:49:06 2016
+# Generated: Thu Mar 10 08:46:51 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -72,9 +72,9 @@ class top_block(gr.top_block, Qt.QWidget):
         self._variable_qtgui_range_0_win = RangeWidget(self._variable_qtgui_range_0_range, self.set_variable_qtgui_range_0, "Angle", "counter_slider", float)
         self.top_layout.addWidget(self._variable_qtgui_range_0_win)
         self.music_spectrum_hier_gui_0 = music_spectrum_hier_gui(
+            d=0.5,
             snapshots=32,
             source_signals=1,
-            d=0.5,
         )
         self.top_layout.addWidget(self.music_spectrum_hier_gui_0)
         self.matlab_shift_aoa_cc_0 = matlab.shift_aoa_cc(variable_qtgui_range_0, samp_rate, 0.5, 4)

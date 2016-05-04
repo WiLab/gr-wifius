@@ -372,6 +372,92 @@
     </param>
   </block>
   <block>
+    <key>pad_sink</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(744, 467)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>pad_sink_1</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>float</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>PhaseEst</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>4</value>
+    </param>
+  </block>
+  <block>
+    <key>pad_sink</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(744, 395)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>pad_sink_1_1</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>float</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value>GainEst</value>
+    </param>
+    <param>
+      <key>num_streams</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>optional</key>
+      <value>False</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>4</value>
+    </param>
+  </block>
+  <block>
     <key>pad_source</key>
     <param>
       <key>comment</key>
@@ -690,8 +776,20 @@
   </connection>
   <connection>
     <source_block_id>wifius_antenna_array_calibration_cf_0</source_block_id>
+    <sink_block_id>pad_sink_1_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>wifius_antenna_array_calibration_cf_0</source_block_id>
     <sink_block_id>matlab_doa_ants_cf_0</sink_block_id>
     <source_key>1</source_key>
     <sink_key>5</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>wifius_antenna_array_calibration_cf_0</source_block_id>
+    <sink_block_id>pad_sink_1</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>0</sink_key>
   </connection>
 </flow_graph>

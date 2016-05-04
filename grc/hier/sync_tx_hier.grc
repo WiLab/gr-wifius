@@ -46,7 +46,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>sync_tx_hier</value>
+      <value>sync_tx_hier2</value>
     </param>
     <param>
       <key>max_nouts</key>
@@ -78,34 +78,7 @@
     </param>
     <param>
       <key>title</key>
-      <value>Synchronizing TX</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(896, 187)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>32000</value>
+      <value>Synchronizing TX2</value>
     </param>
   </block>
   <block>
@@ -175,7 +148,7 @@
     </param>
     <param>
       <key>freq</key>
-      <value>cal_freq/10</value>
+      <value>cal_freq</value>
     </param>
     <param>
       <key>_coordinate</key>
