@@ -37,5 +37,6 @@ install(FILES
     doa_music_vcvf.h
     StreamsToRxx.h
     gen_music_spectrum_vcvf.h
-    antenna_array_calibration_cf.h DESTINATION include/wifius
+    antenna_array_calibration_cf.h
+    mux_gate.h DESTINATION include/wifius
 )

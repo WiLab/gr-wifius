@@ -40,7 +40,8 @@ list(APPEND wifius_sources
     doa_music_vcvf_impl.cc
     StreamsToRxx_impl.cc
     gen_music_spectrum_vcvf_impl.cc
-    antenna_array_calibration_cf_impl.cc )
+    antenna_array_calibration_cf_impl.cc
+    mux_gate_impl.cc )
 
 set(wifius_sources "${wifius_sources}" PARENT_SCOPE)
 if(NOT wifius_sources)

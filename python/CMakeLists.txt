@@ -31,8 +31,12 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
-    DESTINATION ${GR_PYTHON_DIR}/wifius
+    phase_align_hier.py
+    music_spectrum_hier_gui.py
+    doa_txs.py
+    selector_control.py DESTINATION ${GR_PYTHON_DIR}/wifius
 )
+
 
 ########################################################################
 # Handle the unit tests
@@ -56,3 +60,5 @@ GR_ADD_TEST(qa_phase_correct_vci ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR
 GR_ADD_TEST(qa_StreamsToRxx ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_StreamsToRxx.py)
 GR_ADD_TEST(qa_gen_music_spectrum_vcvf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_gen_music_spectrum_vcvf.py)
 GR_ADD_TEST(qa_antenna_array_calibration_cf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_antenna_array_calibration_cf.py)
+GR_ADD_TEST(qa_selector_control ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_selector_control.py)
+GR_ADD_TEST(qa_mux_gate ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_mux_gate.py)

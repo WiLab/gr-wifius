@@ -1,0 +1,75 @@
+<block>
+  <name>QT GUI MuSIC Spectrum GUI</name>
+  <key>music_spectrum_hier_gui</key>
+  <category>WiFiUS</category>
+  <flags>need_qt_gui</flags>
+  <import>from music_spectrum_hier_gui import music_spectrum_hier_gui  # grc-generated hier_block</import>
+  <make>music_spectrum_hier_gui(
+    d=$d,
+    snapshots=$snapshots,
+    source_signals=$source_signals,
+)
+#set $win = 'self.%s' % $id
+${gui_hint()($win)}</make>
+  <callback>set_d($d)</callback>
+  <callback>set_snapshots($snapshots)</callback>
+  <callback>set_source_signals($source_signals)</callback>
+  <param>
+    <name>Normalized Antenna Spacing</name>
+    <key>d</key>
+    <value>0.5</value>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Num Snapshots</name>
+    <key>snapshots</key>
+    <value>4096</value>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Source Signals</name>
+    <key>source_signals</key>
+    <value>1</value>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>GUI Hint</name>
+    <key>gui_hint</key>
+    <value></value>
+    <type>gui_hint</type>
+    <hide>part</hide>
+  </param>
+  <sink>
+    <name>GainEst</name>
+    <type>float</type>
+    <vlen>4</vlen>
+  </sink>
+  <sink>
+    <name>in0</name>
+    <type>complex</type>
+    <vlen>1</vlen>
+  </sink>
+  <sink>
+    <name>in1</name>
+    <type>complex</type>
+    <vlen>1</vlen>
+  </sink>
+  <sink>
+    <name>in2</name>
+    <type>complex</type>
+    <vlen>1</vlen>
+  </sink>
+  <sink>
+    <name>in3</name>
+    <type>complex</type>
+    <vlen>1</vlen>
+  </sink>
+  <sink>
+    <name>PhaseEst</name>
+    <type>float</type>
+    <vlen>4</vlen>
+  </sink>
+  <doc>Travis Collins
+/home/travis/.grc_gnuradio/music_spectrum_hier_gui.py</doc>
+  <grc_source>/home/travis/Dropbox/PHD/WiFiUS/doa/gnuradio/gr-wifius/grc/hier/music_gui_hier.grc</grc_source>
+</block>

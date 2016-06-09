@@ -1,0 +1,58 @@
+<block>
+  <name>Phase Align</name>
+  <key>phase_align_hier</key>
+  <category>WiFiUS</category>
+  <import>import wifius</import>
+  <!-- <import>from phase_align_hier import phase_align_hier  # grc-generated hier_block</import> -->
+  <make>wifius.phase_align_hier(
+    update_period=$update_period,
+    window=$window,
+    step_size=$step_size,
+    num_ports=$num_ports,
+)</make>
+  <callback>set_update_period($update_period)</callback>
+  <callback>set_window($window)</callback>
+  <callback>set_step_size($step_size)</callback>
+  <param>
+    <name>Num Ports</name>
+    <key>num_ports</key>
+    <value>2</value>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Update Period</name>
+    <key>update_period</key>
+    <value>32</value>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Window Length</name>
+    <key>window</key>
+    <value>1024</value>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Step Size</name>
+    <key>step_size</key>
+    <value>0.001</value>
+    <type>raw</type>
+  </param>
+  <sink>
+    <name>Signal</name>
+    <type>complex</type>
+    <nports>$num_ports</nports>
+  </sink>
+  <sink>
+    <name>Trigger</name>
+    <type>message</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <nports>$num_ports</nports>
+  </source>
+  <doc>Travis Collins
+Align Phases of 4 Input Signals
+/home/travis/.grc_gnuradio/phase_align_hier.py</doc>
+  <!-- <grc_source>/home/travis/Dropbox/PHD/WiFiUS/doa/gnuradio/gr-wifius/grc/hier/phase_align_hier.grc</grc_source> -->
+</block>

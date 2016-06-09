@@ -23,6 +23,8 @@
 #include "wifius/StreamsToRxx.h"
 #include "wifius/gen_music_spectrum_vcvf.h"
 #include "wifius/antenna_array_calibration_cf.h"
+#include "wifius/mux_gate.h"
+//#include "wifius/selector_control.h"
 //#include "wifius/antenna_compensator.h"
 %}
 
@@ -63,3 +65,7 @@ GR_SWIG_BLOCK_MAGIC2(wifius, StreamsToRxx);
 GR_SWIG_BLOCK_MAGIC2(wifius, gen_music_spectrum_vcvf);
 %include "wifius/antenna_array_calibration_cf.h"
 GR_SWIG_BLOCK_MAGIC2(wifius, antenna_array_calibration_cf);
+//%include "wifius/selector_control.h"
+//GR_SWIG_BLOCK_MAGIC2(wifius, selector_control);
+%include "wifius/mux_gate.h"
+GR_SWIG_BLOCK_MAGIC2(wifius, mux_gate);

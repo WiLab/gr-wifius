@@ -1,0 +1,40 @@
+<block>
+  <name>DoA Transmitters</name>
+  <key>doa_txs</key>
+  <category>WiFiUS</category>
+  <import>import wifius</import>
+  <!-- <import>from doa_txs import doa_txs  # grc-generated hier_block</import> -->
+  <make>doa_txs(
+    samp_rate=$samp_rate,
+    center_freq=$center_freq,
+    usrp_address=$usrp_address,
+)</make>
+  <callback>set_samp_rate($samp_rate)</callback>
+  <callback>set_center_freq($center_freq)</callback>
+  <callback>set_usrp_address($usrp_address)</callback>
+  <param>
+    <name>samp_rate</name>
+    <key>samp_rate</key>
+    <value>0</value>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>Center Frequency</name>
+    <key>center_freq</key>
+    <value>2.4e9</value>
+    <type>raw</type>
+  </param>
+  <param>
+    <name>USRP IP(s)</name>
+    <key>usrp_address</key>
+    <value>"addr0=192.168.10.1"</value>
+    <type>raw</type>
+  </param>
+  <sink>
+    <name>Transmitter</name>
+    <type>message</type>
+  </sink>
+  <doc>Travis Collins
+/home/travis/.grc_gnuradio/doa_txs.py</doc>
+  <!-- <grc_source>/home/travis/Dropbox/PHD/WiFiUS/doa/gnuradio/gr-wifius/grc/hier/doa_transmitters.grc</grc_source> -->
+</block>

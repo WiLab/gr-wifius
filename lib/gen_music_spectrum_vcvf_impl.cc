@@ -32,17 +32,17 @@ namespace gr {
 
 
     std::vector<int>
-    get_in_sizeofs(size_t item_size, int vec_size, int num_antennas)
+    get_in_sizeofs(size_t item_size, int snapshots, int num_antennas)
       {
         std::vector<int> out_sizeofs;
         // Add for first 2 inputs
         out_sizeofs.push_back(sizeof(float)*num_antennas);
         out_sizeofs.push_back(sizeof(float)*num_antennas);
         // Add rest for antennas
-        for(unsigned int i = 0; i < num_antennas; i++) {
-          out_sizeofs.push_back(item_size*vec_size);
+        for(unsigned int i = 0; i < num_antennas; i++)
+        {
+          out_sizeofs.push_back(item_size*snapshots);
         }
-        std::cout<<"Size of vec: "<<out_sizeofs.size()<<std::endl;
         return out_sizeofs;
       }
 

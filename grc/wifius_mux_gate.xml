@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<block>
+  <name>mux_gate</name>
+  <key>wifius_mux_gate</key>
+  <category>wifius</category>
+  <import>import wifius</import>
+  <import>import pmt</import>
+  <make>wifius.mux_gate($num_outputs, $default_output)</make>
+
+  <callback>select_output($msg)</callback>
+
+  <param>
+    <name>Default State</name>
+    <key>default_output</key>
+    <type>int</type>
+  </param>
+  <param>
+		<name>Num Ports</name>
+		<key>num_outputs</key>
+		<value>2</value>
+		<type>int</type>
+	</param>
+  <check>$num_outputs &gt; 1</check>
+
+  <sink>
+    <name>select_output</name>
+    <type>message</type>
+  </sink>
+
+  <sink>
+    <name>Signal</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <nports>$num_outputs</nports>
+  </source>
+
+</block>

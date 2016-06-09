@@ -32,5 +32,10 @@ install(FILES
     wifius_doa_music_vcvf.xml
     wifius_StreamsToRxx.xml
     wifius_gen_music_spectrum_vcvf.xml
-    wifius_antenna_array_calibration_cf.xml DESTINATION share/gnuradio/grc/blocks
+    phase_align_hier.py.xml
+    doa_txs.py.xml
+    music_spectrum_hier_gui.py.xml
+    wifius_antenna_array_calibration_cf.xml
+    wifius_selector_control.xml
+    wifius_mux_gate.xml DESTINATION share/gnuradio/grc/blocks
 )

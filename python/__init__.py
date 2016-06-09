@@ -31,4 +31,6 @@ except ImportError:
 	pass
 
 # import any pure python here
-#
+from phase_align_hier import *
+from music_spectrum_hier_gui import *
+from selector_control import selector_control
